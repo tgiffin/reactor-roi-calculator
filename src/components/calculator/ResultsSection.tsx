@@ -47,18 +47,18 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
               </div>
             </div>
             
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4 rounded-lg">
+            <div className="bg-reactor-soundcommerce-yellow/20 dark:bg-reactor-soundcommerce-yellow/10 border border-reactor-soundcommerce-yellow/30 dark:border-reactor-soundcommerce-yellow/20 p-4 rounded-lg">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-sm font-medium text-green-800 dark:text-green-400">Monthly Savings</p>
-                  <p className="text-2xl font-bold text-green-800 dark:text-green-400">
+                  <p className="text-sm font-medium text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">Monthly Savings</p>
+                  <p className="text-2xl font-bold text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">
                     {formatCurrency(results.monthlySavings)}
                   </p>
                 </div>
-                <ArrowRight className="h-8 w-8 text-green-500" />
+                <ArrowRight className="h-8 w-8 text-reactor-soundcommerce-yellow" />
                 <div>
-                  <p className="text-sm font-medium text-green-800 dark:text-green-400">Annual Savings</p>
-                  <p className="text-2xl font-bold text-green-800 dark:text-green-400">
+                  <p className="text-sm font-medium text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">Annual Savings</p>
+                  <p className="text-2xl font-bold text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">
                     {formatCurrency(results.annualSavings)}
                   </p>
                 </div>
