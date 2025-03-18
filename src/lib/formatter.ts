@@ -4,9 +4,13 @@ export const formatNumber = (value: number): string => {
 };
 
 export const formatCurrency = (value: number, maximumFractionDigits = 2): string => {
+  // For larger numbers (over $1000), we'll show without cents to save space
+  const fractionDigits = value > 1000 ? 0 : maximumFractionDigits;
+  
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    maximumFractionDigits,
+    maximumFractionDigits: fractionDigits,
+    minimumFractionDigits: fractionDigits,
   }).format(value);
 };
