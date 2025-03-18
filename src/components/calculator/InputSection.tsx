@@ -48,6 +48,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Fivetran MAR Section */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="monthlyActiveRows" className="text-base flex items-center">
@@ -91,54 +92,11 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="totalRecords" className="text-base flex items-center">
-              Total Records Per Month - Reactor
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <InfoIcon className="ml-2 h-4 w-4 text-muted-foreground" />
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-xs">
-                    <p>This represents the total number of records ingested per month in Reactor.</p>
-                    <p className="mt-1">Unlike Fivetran's MAR pricing, Reactor uses a flat fee structure based on total data volume, not per-row processing.</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </Label>
-            <Input
-              id="totalRecords"
-              value={formatNumber(inputs.totalRecords)}
-              onChange={(e) => handleInputChange('totalRecords', e.target.value)}
-              className="w-32 text-right"
-            />
-          </div>
-          <Slider
-            id="totalRecordsSlider"
-            value={[inputs.totalRecords]}
-            max={10000000}
-            step={10000}
-            onValueChange={(value) => handleSliderChange('totalRecords', value)}
-            className="py-2"
-          />
-          <div className="text-xs text-muted-foreground">
-            <div className="font-semibold flex items-center mb-1">
-              <ListIcon className="h-3 w-3 mr-1" /> Reactor Pricing Tiers (Simplified):
-            </div>
-            <ul className="list-disc pl-5 space-y-0.5">
-              <li>Up to 1M records: {formatCurrency(950)}/month</li>
-              <li>1M-5M records: {formatCurrency(1900)}/month</li>
-              <li>5M-10M records: {formatCurrency(3800)}/month</li>
-              <li>10M+ records: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="space-y-4">
+        {/* Fivetran Model Runs Section - moved up as a subsection under MARs */}
+        <div className="space-y-4 ml-4 border-l-2 pl-4 border-gray-200">
           <div className="flex items-center justify-between">
             <Label htmlFor="modelRuns" className="text-base flex items-center">
-              Monthly Model Runs - Fivetran
+              Monthly Model Runs - Fivetran Add-on
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -179,6 +137,54 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           </div>
         </div>
 
+        {/* Reactor Section - moved below Fivetran sections */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="totalRecords" className="text-base flex items-center">
+              Total Records Per Month - Reactor
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <InfoIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p>This represents the total number of records ingested per month in Reactor.</p>
+                    <p className="mt-1">Unlike Fivetran's MAR pricing, Reactor uses a flat fee structure based on total data volume, not per-row processing.</p>
+                    <p className="mt-1">Reactor includes unlimited model runs for transformations and entity output materializations at no additional cost.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </Label>
+            <Input
+              id="totalRecords"
+              value={formatNumber(inputs.totalRecords)}
+              onChange={(e) => handleInputChange('totalRecords', e.target.value)}
+              className="w-32 text-right"
+            />
+          </div>
+          <Slider
+            id="totalRecordsSlider"
+            value={[inputs.totalRecords]}
+            max={10000000}
+            step={10000}
+            onValueChange={(value) => handleSliderChange('totalRecords', value)}
+            className="py-2"
+          />
+          <div className="text-xs text-muted-foreground">
+            <div className="font-semibold flex items-center mb-1">
+              <ListIcon className="h-3 w-3 mr-1" /> Reactor Pricing Tiers (Simplified):
+            </div>
+            <ul className="list-disc pl-5 space-y-0.5">
+              <li>Up to 1M records: {formatCurrency(950)}/month</li>
+              <li>1M-5M records: {formatCurrency(1900)}/month</li>
+              <li>5M-10M records: {formatCurrency(3800)}/month</li>
+              <li>10M+ records: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
+              <li>All tiers include unlimited model runs for transformations</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Connectors Section */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="connectors" className="text-base flex items-center">
@@ -221,6 +227,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           </div>
         </div>
 
+        {/* Growth Rate Section */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="growthRate" className="text-base flex items-center">
