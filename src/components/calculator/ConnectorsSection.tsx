@@ -23,7 +23,7 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
         label="Number of Connectors"
         tooltip="The number of data source connectors used in your data pipeline. Fivetran charges a base fee per connector, while Reactor includes all standard connectors in the flat fee (custom connectors may have additional costs)."
         value={inputs.connectors}
-        onChange={handleSliderChange}
+        onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
         max={50}
         step={1}

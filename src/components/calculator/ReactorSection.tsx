@@ -23,7 +23,7 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
         label="Total Records Per Month - Reactor"
         tooltip="This represents the total number of records ingested per month in Reactor. Unlike Fivetran's MAR pricing, Reactor uses a flat fee structure based on total data volume, not per-row processing. Reactor includes unlimited model runs for transformations and entity output materializations at no additional cost."
         value={inputs.totalRecords}
-        onChange={handleSliderChange}
+        onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
         max={10000000}
         step={10000}

@@ -23,7 +23,7 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
         label="Monthly Active Rows (MARs) - Fivetran"
         tooltip="Monthly Active Rows (MARs) are the primary pricing metric for Fivetran. Each unique row processed in your source that is added, updated, or deleted counts as a MAR and affects your billing."
         value={inputs.monthlyActiveRows}
-        onChange={handleSliderChange}
+        onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
         max={10000000}
         step={10000}

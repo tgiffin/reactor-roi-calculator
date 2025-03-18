@@ -23,7 +23,7 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
         label="Monthly Model Runs - Fivetran Add-on"
         tooltip="This counts the number of transformation model executions in Fivetran each month. Fivetran charges per model run after the free tier (5,000 runs), with decreasing costs at higher volumes."
         value={inputs.modelRuns}
-        onChange={handleSliderChange}
+        onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
         max={200000}
         step={1000}

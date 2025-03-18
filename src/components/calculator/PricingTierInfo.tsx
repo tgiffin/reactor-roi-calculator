@@ -19,25 +19,25 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
       <ul className="list-disc pl-5 space-y-0.5">
         {type === 'fivetran-mar' && (
           <>
-            <li>Up to 1M rows: $1,250 per million MAR</li>
-            <li>1M-10M rows: $1,000 per million MAR</li>
-            <li>10M+ rows: $750 per million MAR</li>
+            <li>Up to 1M rows/mo: $1,250 per million MAR</li>
+            <li>1M-10M rows/mo: $1,000 per million MAR</li>
+            <li>10M+ rows/mo: $750 per million MAR</li>
           </>
         )}
         {type === 'fivetran-transformation' && (
           <>
-            <li>0-5,000 model runs: Free</li>
-            <li>5,000-30,000 runs: $0.01 per run</li>
-            <li>30,000-100,000 runs: $0.007 per run</li>
-            <li>100,000+ runs: $0.002 per run</li>
+            <li>0-5,000 model runs/mo: Free</li>
+            <li>5,000-30,000 runs/mo: $0.01 per run</li>
+            <li>30,000-100,000 runs/mo: $0.007 per run</li>
+            <li>100,000+ runs/mo: $0.002 per run</li>
           </>
         )}
         {type === 'reactor' && (
           <>
-            <li>Up to 1M records: {formatCurrency(950)}/month</li>
-            <li>1M-5M records: {formatCurrency(1900)}/month</li>
-            <li>5M-10M records: {formatCurrency(3800)}/month</li>
-            <li>10M+ records: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
+            <li>Up to 1M records/mo: {formatCurrency(950)}/month</li>
+            <li>1M-5M records/mo: {formatCurrency(1900)}/month</li>
+            <li>5M-10M records/mo: {formatCurrency(3800)}/month</li>
+            <li>10M+ records/mo: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
             <li>All tiers include unlimited model runs for transformations</li>
           </>
         )}

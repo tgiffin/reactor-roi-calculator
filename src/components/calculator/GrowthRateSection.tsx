@@ -22,7 +22,7 @@ const GrowthRateSection: React.FC<GrowthRateSectionProps> = ({
         label="Annual Growth Rate (%)"
         tooltip="Your projected annual growth rate in data volume. This affects long-term costs significantly, as Fivetran's per-row pricing scales linearly with growth, while Reactor's tiered pricing provides better cost predictability."
         value={inputs.growthRate}
-        onChange={handleSliderChange}
+        onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
         max={100}
         step={1}
