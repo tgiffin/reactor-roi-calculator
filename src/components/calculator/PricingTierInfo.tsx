@@ -1,0 +1,49 @@
+
+import React from 'react';
+import { ListIcon } from "lucide-react";
+import { formatCurrency } from "@/lib/formatter";
+
+interface PricingTierInfoProps {
+  type: 'fivetran-mar' | 'fivetran-transformation' | 'reactor';
+}
+
+const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
+  return (
+    <div className="text-xs text-muted-foreground">
+      <div className="font-semibold flex items-center mb-1">
+        <ListIcon className="h-3 w-3 mr-1" /> 
+        {type === 'fivetran-mar' && 'Fivetran MAR Pricing Tiers (Simplified):'}
+        {type === 'fivetran-transformation' && 'Fivetran Transformation Pricing (Simplified):'}
+        {type === 'reactor' && 'Reactor Pricing Tiers (Simplified):'}
+      </div>
+      <ul className="list-disc pl-5 space-y-0.5">
+        {type === 'fivetran-mar' && (
+          <>
+            <li>Up to 1M rows: $1,250 per million MAR</li>
+            <li>1M-10M rows: $1,000 per million MAR</li>
+            <li>10M+ rows: $750 per million MAR</li>
+          </>
+        )}
+        {type === 'fivetran-transformation' && (
+          <>
+            <li>0-5,000 model runs: Free</li>
+            <li>5,000-30,000 runs: $0.01 per run</li>
+            <li>30,000-100,000 runs: $0.007 per run</li>
+            <li>100,000+ runs: $0.002 per run</li>
+          </>
+        )}
+        {type === 'reactor' && (
+          <>
+            <li>Up to 1M records: {formatCurrency(950)}/month</li>
+            <li>1M-5M records: {formatCurrency(1900)}/month</li>
+            <li>5M-10M records: {formatCurrency(3800)}/month</li>
+            <li>10M+ records: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
+            <li>All tiers include unlimited model runs for transformations</li>
+          </>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default PricingTierInfo;
