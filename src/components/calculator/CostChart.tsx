@@ -57,7 +57,7 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
             <Bar 
               dataKey="Reactor" 
               name="Reactor" 
-              fill="#0B5FFF" 
+              fill="#33C3F0" 
               radius={[4, 4, 0, 0]}
             />
           </BarChart>
@@ -65,7 +65,7 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
       </div>
 
       {savings > 0 && (
-        <div className="text-center text-reactor-soundcommerce-yellow dark:text-reactor-soundcommerce-yellow font-medium">
+        <div className="text-center bg-reactor-soundcommerce-yellow/20 dark:bg-reactor-soundcommerce-yellow/30 p-2 rounded-md font-semibold text-reactor-brand-black dark:text-white border border-reactor-soundcommerce-yellow">
           Save {formatCurrency(savings)} per month ({savingsPercentage.toFixed(0)}%) with Reactor
         </div>
       )}
