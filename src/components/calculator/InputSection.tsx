@@ -81,7 +81,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           />
           <div className="text-xs text-muted-foreground">
             <div className="font-semibold flex items-center mb-1">
-              <ListIcon className="h-3 w-3 mr-1" /> Fivetran MAR Pricing Tiers:
+              <ListIcon className="h-3 w-3 mr-1" /> Fivetran MAR Pricing Tiers (Simplified):
             </div>
             <ul className="list-disc pl-5 space-y-0.5">
               <li>Up to 1M rows: $1,250 per million MAR</li>
@@ -124,7 +124,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           />
           <div className="text-xs text-muted-foreground">
             <div className="font-semibold flex items-center mb-1">
-              <ListIcon className="h-3 w-3 mr-1" /> Reactor Pricing Tiers:
+              <ListIcon className="h-3 w-3 mr-1" /> Reactor Pricing Tiers (Simplified):
             </div>
             <ul className="list-disc pl-5 space-y-0.5">
               <li>Up to 1M records: {formatCurrency(950)}/month</li>
@@ -168,7 +168,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           />
           <div className="text-xs text-muted-foreground">
             <div className="font-semibold flex items-center mb-1">
-              <ListIcon className="h-3 w-3 mr-1" /> Fivetran Transformation Pricing:
+              <ListIcon className="h-3 w-3 mr-1" /> Fivetran Transformation Pricing (Simplified):
             </div>
             <ul className="list-disc pl-5 space-y-0.5">
               <li>0-5,000 model runs: Free</li>
@@ -212,7 +212,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           />
           <div className="text-xs text-muted-foreground">
             <div className="font-semibold flex items-center mb-1">
-              <ListIcon className="h-3 w-3 mr-1" /> Connector Pricing:
+              <ListIcon className="h-3 w-3 mr-1" /> Connector Pricing (Simplified):
             </div>
             <ul className="list-disc pl-5 space-y-0.5">
               <li>Fivetran: ~$100 per connector per month (simplified)</li>
