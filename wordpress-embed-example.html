@@ -1,0 +1,34 @@
+
+<!-- This is an example of how to embed the calculator in WordPress -->
+<!-- Copy this to a Custom HTML block in WordPress -->
+
+<!-- Step 1: Add container for the calculator -->
+<div id="reactor-calculator-container"></div>
+
+<!-- Step 2: Load the script and initialize -->
+<script src="https://your-hosting-domain.com/path/to/reactor-calculator.js"></script>
+<script>
+  // Initialize the calculator once the script is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.ReactorCalculator) {
+      new ReactorCalculator('#reactor-calculator-container');
+    }
+  });
+</script>
+
+<!-- 
+Step 3: Optional CSS adjustments for WordPress themes 
+You may need to add this if there are conflicts with the WordPress theme
+-->
+<style>
+  #reactor-calculator-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Ensure our styles take precedence over WordPress theme */
+  #reactor-calculator-container * {
+    box-sizing: border-box;
+  }
+</style>
