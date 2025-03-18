@@ -8,6 +8,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import './index.css';
 
+// Declare the ReactorCalculator type on the Window interface
+declare global {
+  interface Window {
+    ReactorCalculator: typeof ReactorCalculator;
+  }
+}
+
 // Create a container element where our app will be mounted
 class ReactorCalculator {
   constructor(targetSelector: string) {
