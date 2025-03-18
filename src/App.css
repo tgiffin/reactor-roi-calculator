@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,6 +6,70 @@
   text-align: center;
 }
 
+/* Brand colors for the app */
+.reactor-primary {
+  color: #2462AA; /* Reactor Blue */
+}
+
+.reactor-secondary {
+  color: #FFCC00; /* SoundCommerce Yellow */
+}
+
+.fivetran-brand {
+  color: #7A49FF; /* Fivetran Purple */
+}
+
+.bg-reactor {
+  background-color: #2462AA; /* Reactor Blue */
+}
+
+.bg-fivetran {
+  background-color: #7A49FF; /* Fivetran Purple */
+}
+
+.bg-soundcommerce {
+  background-color: #FFCC00; /* SoundCommerce Yellow */
+}
+
+.bg-light-gray {
+  background-color: #F3F3F3; /* Background Grey */
+}
+
+/* Typography classes */
+.title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.header {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.subheader {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.emphasized {
+  font-weight: 700;
+}
+
+.hyperlink {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+/* Original CSS kept for compatibility */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -12,10 +77,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #FFCC00aa); /* SoundCommerce Yellow for hover effect */
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #2462AAaa); /* Reactor Blue for react logo hover */
 }
 
 @keyframes logo-spin {
@@ -38,5 +103,5 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: #5B5B5B; /* Text Grey */
 }
