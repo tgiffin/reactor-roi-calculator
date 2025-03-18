@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Reactor brand colors
+				reactor: {
+					blue: '#0B5FFF',
+					indigo: '#6610f2',
+					purple: '#8A3FFC',
+					pink: '#FF0066',
+					red: '#da1e28',
+					orange: '#ff832b',
+					yellow: '#f1c21b',
+					green: '#24a148',
+					teal: '#009d9a',
+					cyan: '#0072c3',
+					// Fivetran brand color (for comparison)
+					fivetran: '#7A49FF'
 				}
 			},
 			borderRadius: {
