@@ -9,14 +9,20 @@ interface PricingTierInfoProps {
 
 const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
   return (
-    <div className="text-xs text-muted-foreground">
-      <div className="font-semibold flex items-center mb-1">
+    <div className="text-xs bg-white/80 p-3 rounded-md border border-reactor-light-grey/50 shadow-sm">
+      <div className="font-semibold flex items-center mb-2">
         <ListIcon className="h-3 w-3 mr-1" /> 
-        {type === 'fivetran-mar' && 'Fivetran MAR Pricing Tiers (Simplified):'}
-        {type === 'fivetran-transformation' && 'Fivetran Transformation Pricing (Simplified):'}
-        {type === 'reactor' && 'Reactor Pricing Tiers (Simplified):'}
+        {type === 'fivetran-mar' && (
+          <span className="text-reactor-fivetran">Fivetran MAR Pricing Tiers (Simplified):</span>
+        )}
+        {type === 'fivetran-transformation' && (
+          <span className="text-reactor-fivetran">Fivetran Transformation Pricing (Simplified):</span>
+        )}
+        {type === 'reactor' && (
+          <span className="text-reactor-reactor-blue">Reactor Pricing Tiers (Simplified):</span>
+        )}
       </div>
-      <ul className="list-disc pl-5 space-y-0.5">
+      <ul className="list-disc pl-5 space-y-1">
         {type === 'fivetran-mar' && (
           <>
             <li>Up to 1M rows/mo: $1,250 per million MAR</li>
@@ -38,7 +44,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
             <li>1M-5M records/mo: {formatCurrency(1900)}/month</li>
             <li>5M-10M records/mo: {formatCurrency(3800)}/month</li>
             <li>10M+ records/mo: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
-            <li>All tiers include unlimited model runs for transformations</li>
+            <li className="font-medium text-reactor-reactor-blue/80">All tiers include unlimited model runs for transformations</li>
           </>
         )}
       </ul>
