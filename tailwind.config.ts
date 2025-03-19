@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -65,7 +66,7 @@ export default {
 				reactor: {
 					blue: '#0B5FFF',
 					indigo: '#6610f2',
-					purple: '#8A3FFC',
+					purple: '#FFCC00', /* Changed from purple to yellow */
 					pink: '#FF0066',
 					red: '#da1e28',
 					orange: '#ff832b',
@@ -73,7 +74,7 @@ export default {
 					green: '#24a148',
 					teal: '#009d9a',
 					cyan: '#0072c3',
-					fivetran: '#7A49FF',
+					fivetran: '#FFCC00', /* Changed from purple to yellow */
 					'soundcommerce-yellow': '#FFCC00',
 					'reactor-blue': '#2462AA',
 					'light-yellow': '#FFE378',

@@ -51,7 +51,7 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
             <Bar 
               dataKey="Fivetran" 
               name="Fivetran" 
-              fill="#7A49FF" 
+              fill="#FFCC00" 
               radius={[4, 4, 0, 0]}
             />
             <Bar 
