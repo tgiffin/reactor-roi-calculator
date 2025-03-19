@@ -13,7 +13,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
       <div className="font-semibold flex items-center mb-2">
         <ListIcon className="h-3 w-3 mr-1" /> 
         {type === 'fivetran-mar' && (
-          <span className="text-reactor-fivetran">Fivetran MAR Pricing Tiers (Client-Specific):</span>
+          <span className="text-reactor-fivetran">Fivetran MAR Pricing Tiers:</span>
         )}
         {type === 'fivetran-transformation' && (
           <span className="text-reactor-fivetran">Fivetran Transformation Pricing (Simplified):</span>
@@ -28,7 +28,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
             <li>Up to 5M rows/mo: ~$550 per million MAR</li>
             <li>5M-15M rows/mo: ~$450 per million MAR</li>
             <li>15M-20M rows/mo: ~$350 per million MAR</li>
-            <li>20M-30M rows/mo: $7,500-$8,500 total (client's actual pricing)</li>
+            <li>20M-30M rows/mo: ~$300-$350 per million MAR</li>
             <li>30M+ rows/mo: Custom pricing</li>
           </>
         )}
