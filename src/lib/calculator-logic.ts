@@ -7,24 +7,24 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
-  // Recalculate the tier costs properly
+  // Recalculate the tier costs properly with fixed values to ensure accuracy
   if (marMillion <= 5) {
     // Tier 1: $550 per million MAR up to 5M
     marCost = marMillion * 550;
   } else if (marMillion <= 15) {
-    // Tier 1: First 5M at $550/M
-    // Tier 2: Next 10M at $450/M
-    marCost = (5 * 550) + ((marMillion - 5) * 450);
+    // Tier 1: First 5M at $550/M = $2,750
+    // Tier 2: Remaining at $450/M
+    marCost = 2750 + ((marMillion - 5) * 450);
   } else if (marMillion <= 20) {
     // Tier 1: First 5M at $550/M = $2,750
     // Tier 2: Next 10M at $450/M = $4,500
-    // Tier 3: Next 5M at $350/M
+    // Tier 3: Remaining at $350/M
     marCost = 2750 + 4500 + ((marMillion - 15) * 350);
   } else if (marMillion <= 30) {
     // Tier 1: First 5M at $550/M = $2,750
     // Tier 2: Next 10M at $450/M = $4,500
     // Tier 3: Next 5M at $350/M = $1,750
-    // Tier 4: Next 10M at $325/M
+    // Tier 4: Remaining at $325/M
     marCost = 2750 + 4500 + 1750 + ((marMillion - 20) * 325);
   } else {
     // For volumes over 30M
