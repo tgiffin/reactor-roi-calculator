@@ -1,4 +1,3 @@
-
 import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -10,13 +9,8 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   // Apply different pricing based on the selected tier
   switch(inputs.fivetranTier) {
     case 'free':
-      // Free tier: 500k MARs/month
-      if (inputs.monthlyActiveRows <= 500000) {
-        marCost = 0;
-      } else {
-        // Exceeding free tier, defaulting to standard pricing
-        marCost = (marMillion - 0.5) * 500;
-      }
+      // Free tier: Always $0 regardless of MAR value (limited to 500k in UI)
+      marCost = 0;
       break;
     
     case 'standard':

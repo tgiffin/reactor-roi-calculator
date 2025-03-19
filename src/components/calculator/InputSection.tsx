@@ -37,7 +37,16 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   };
 
   const setFivetranTier = (tier: FivetranTier) => {
-    setInputs((prev) => ({ ...prev, fivetranTier: tier }));
+    // If switching to free tier but MAR is over 500k, cap at 500k
+    if (tier === 'free' && inputs.monthlyActiveRows > 500000) {
+      setInputs((prev) => ({ 
+        ...prev, 
+        fivetranTier: tier,
+        monthlyActiveRows: 500000
+      }));
+    } else {
+      setInputs((prev) => ({ ...prev, fivetranTier: tier }));
+    }
   };
 
   return (
@@ -57,6 +66,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           inputs={inputs} 
           handleSliderChange={handleSliderChange} 
           handleInputChange={handleInputChange} 
+          setFivetranTier={setFivetranTier}
         />
 
         {/* Fivetran Model Runs Section - as a subsection under MARs */}
