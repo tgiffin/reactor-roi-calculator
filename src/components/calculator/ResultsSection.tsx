@@ -25,8 +25,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
 
   return (
     <div className="space-y-4 h-full flex flex-col">
-      <Card className="flex-1 shadow-md border-reactor-light-grey">
-        <CardHeader className="bg-gradient-to-r from-reactor-navy/5 to-reactor-reactor-blue/5 rounded-t-lg">
+      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
+        <CardHeader className="rounded-t-lg">
           <CardTitle className="text-xl font-bold text-reactor-navy">Cost Comparison</CardTitle>
         </CardHeader>
         <CardContent>
@@ -37,17 +37,17 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           
           <div className="mt-6 space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-reactor-fivetran/5 p-4 rounded-lg border border-reactor-fivetran/20">
+              <div className="bg-[#DDDDDD] p-4 rounded-lg">
                 <p className="text-sm font-medium text-reactor-fivetran">Fivetran Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.fivetranMonthlyCost)}</p>
               </div>
-              <div className="bg-reactor-reactor-blue/5 p-4 rounded-lg border border-reactor-reactor-blue/20">
+              <div className="bg-[#DDDDDD] p-4 rounded-lg">
                 <p className="text-sm font-medium text-reactor-reactor-blue">Reactor Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.reactorMonthlyCost)}</p>
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-reactor-soundcommerce-yellow/20 to-reactor-soundcommerce-yellow/10 border border-reactor-soundcommerce-yellow/30 p-4 rounded-lg shadow-sm">
+            <div className="bg-[#DDDDDD] p-4 rounded-lg shadow-sm">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm font-medium text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">Monthly Savings</p>
@@ -68,8 +68,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1 shadow-md border-reactor-light-grey">
-        <CardHeader className="bg-gradient-to-r from-reactor-navy/5 to-reactor-reactor-blue/5 rounded-t-lg">
+      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
+        <CardHeader className="rounded-t-lg">
           <CardTitle className="text-xl font-bold text-reactor-navy">Break-Even Analysis</CardTitle>
         </CardHeader>
         <CardContent>
@@ -80,13 +80,13 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         </CardContent>
       </Card>
 
-      <Card className="shadow-md border-reactor-light-grey">
+      <Card className="shadow-md border-reactor-light-grey bg-[#F3F3F3]">
         <CardContent className="pt-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               onClick={handleDownloadReport} 
               variant="outline" 
-              className="flex-1 border-reactor-light-grey hover:bg-reactor-background-grey/50"
+              className="flex-1 border-reactor-light-grey bg-[#DDDDDD] hover:bg-reactor-light-grey"
             >
               <Download className="mr-2 h-4 w-4" />
               Download Report

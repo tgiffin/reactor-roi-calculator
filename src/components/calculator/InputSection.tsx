@@ -52,7 +52,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   };
 
   return (
-    <Card className="h-full">
+    <Card className="h-full bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>

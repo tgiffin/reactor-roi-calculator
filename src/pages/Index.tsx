@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
@@ -39,23 +40,23 @@ const Index = () => {
           <ResultsSection results={results} />
         </div>
 
-        <div className="mt-16 px-4 py-6 bg-white rounded-lg shadow-md border border-reactor-light-grey/50">
+        <div className="mt-16 px-4 py-6 bg-[#F3F3F3] rounded-lg shadow-md border border-reactor-light-grey/50">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-medium mb-6 text-reactor-navy font-inter">Why Choose Reactor?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="p-6 bg-gradient-to-br from-white to-reactor-background-grey rounded-lg shadow-sm border border-reactor-light-grey/50">
+              <div className="p-6 bg-[#DDDDDD] rounded-lg shadow-sm">
                 <h3 className="text-lg font-bold mb-3 text-reactor-reactor-blue font-inter">Predictable Pricing</h3>
                 <p className="text-reactor-text-grey font-inter">
                   Flat monthly fee regardless of how many records you process, making budgeting simple.
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-br from-white to-reactor-background-grey rounded-lg shadow-sm border border-reactor-light-grey/50">
+              <div className="p-6 bg-[#DDDDDD] rounded-lg shadow-sm">
                 <h3 className="text-lg font-bold mb-3 text-reactor-reactor-blue font-inter">Unlimited Transformations</h3>
                 <p className="text-reactor-text-grey font-inter">
                   Run as many transformations as you need without paying extra, unlike Fivetran's per-model pricing.
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-br from-white to-reactor-background-grey rounded-lg shadow-sm border border-reactor-light-grey/50">
+              <div className="p-6 bg-[#DDDDDD] rounded-lg shadow-sm">
                 <h3 className="text-lg font-bold mb-3 text-reactor-reactor-blue font-inter">All Connectors Included</h3>
                 <p className="text-reactor-text-grey font-inter">
                   Access to all standard data connectors with your subscription at no additional cost.
