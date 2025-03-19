@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
-import { InfoCircle } from "lucide-react";
+import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface FivetranTierSectionProps {
@@ -24,7 +24,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <InfoCircle className="h-4 w-4 ml-1 text-gray-400" />
+                <Info className="h-4 w-4 ml-1 text-gray-400" />
               </TooltipTrigger>
               <TooltipContent className="max-w-sm">
                 <p>Select the Fivetran pricing tier that applies to your organization.</p>
