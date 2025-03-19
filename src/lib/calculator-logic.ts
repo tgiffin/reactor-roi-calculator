@@ -1,3 +1,4 @@
+
 import { CalculatorInputs, CalculatorResults } from './calculator-types';
 
 // Calculate Fivetran costs based on their MAR model and transformation pricing
@@ -15,26 +16,25 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   } else if (marMillion <= 30) {
     marCost = 5 * 550 + 10 * 450 + 5 * 350 + (marMillion - 20) * 325; // $325 per million MAR after 20 million
   } else {
-    // For volumes over 30M, continue the same effective rate
+    // For volumes over 30M, use the same rate as the previous tier
     marCost = 5 * 550 + 10 * 450 + 5 * 350 + 10 * 325 + (marMillion - 30) * 325;
   }
 
   // Calculate transformation cost
   let transformationCost = 0;
   if (inputs.modelRuns > 5000) {
-    // Free tier: 0-5,000 runs
     if (inputs.modelRuns <= 30000) {
       // $0.01 per run for 5,000-30,000
       transformationCost = (inputs.modelRuns - 5000) * 0.01;
     } else if (inputs.modelRuns <= 100000) {
       // $0.01 per run for 5,000-30,000
       // $0.007 per run for 30,000-100,000
-      transformationCost = (30000 - 5000) * 0.01 + (inputs.modelRuns - 30000) * 0.007;
+      transformationCost = 25000 * 0.01 + (inputs.modelRuns - 30000) * 0.007;
     } else {
       // $0.01 per run for 5,000-30,000
       // $0.007 per run for 30,000-100,000
       // $0.002 per run for 100,000+
-      transformationCost = (30000 - 5000) * 0.01 + (100000 - 30000) * 0.007 + (inputs.modelRuns - 100000) * 0.002;
+      transformationCost = 25000 * 0.01 + 70000 * 0.007 + (inputs.modelRuns - 100000) * 0.002;
     }
   }
 
