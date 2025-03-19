@@ -25,14 +25,14 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
         value={inputs.monthlyActiveRows}
         onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
-        max={10000000}
-        step={10000}
+        max={30000000}
+        step={500000}
       />
       <Slider
         id="monthlyActiveRowsSlider"
         value={[inputs.monthlyActiveRows]}
-        max={10000000}
-        step={10000}
+        max={30000000}
+        step={500000}
         onValueChange={(value) => handleSliderChange('monthlyActiveRows', value)}
         className="py-2"
       />

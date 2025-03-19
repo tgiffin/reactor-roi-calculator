@@ -3,17 +3,19 @@ import { CalculatorInputs, CalculatorResults } from './calculator-types';
 
 // Calculate Fivetran costs based on their MAR model and transformation pricing
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
-  // Calculate MAR cost - simplified model
-  // These are simplified pricing tiers, real pricing would require more details
+  // Calculate MAR cost - updated based on real-world pricing
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
-  if (marMillion <= 1) {
-    marCost = marMillion * 1250; // $1,250 per million MAR
-  } else if (marMillion <= 10) {
-    marCost = 1250 + (marMillion - 1) * 1000; // $1,000 per million MAR after first million
+  if (marMillion <= 5) {
+    marCost = marMillion * 1500; // ~$1,500 per million MAR
+  } else if (marMillion <= 15) {
+    marCost = 5 * 1500 + (marMillion - 5) * 1200; // ~$1,200 per million MAR after first 5 million
+  } else if (marMillion <= 30) {
+    marCost = 5 * 1500 + 10 * 1200 + (marMillion - 15) * 900; // ~$900 per million MAR after 15 million
   } else {
-    marCost = 1250 + 9000 + (marMillion - 10) * 750; // $750 per million MAR after 10 million
+    // For very large volumes, we'll use the 30M tier pricing as an estimate
+    marCost = 5 * 1500 + 10 * 1200 + 15 * 900 + (marMillion - 30) * 900;
   }
 
   // Calculate transformation cost
@@ -36,7 +38,7 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   }
 
   // Add base connector costs (simplified)
-  const connectorCost = inputs.connectors * 100; // Simplified: $100 per connector
+  const connectorCost = inputs.connectors * 150; // Updated: $150 per connector
 
   return marCost + transformationCost + connectorCost;
 };

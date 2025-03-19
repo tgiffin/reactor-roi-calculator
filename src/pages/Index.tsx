@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
@@ -6,13 +5,13 @@ import { CalculatorInputs } from '@/lib/calculator-types';
 import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
-  // Default initial values
+  // Updated default initial values to match real customer scenarios
   const [inputs, setInputs] = useState<CalculatorInputs>({
-    monthlyActiveRows: 1000000, // 1 million rows
-    totalRecords: 1000000, // 1 million records
-    modelRuns: 10000, // 10,000 model runs
-    connectors: 5, // 5 connectors
-    growthRate: 10, // 10% annual growth
+    monthlyActiveRows: 18000000, // 18 million rows - based on client data
+    totalRecords: 18000000, // 18 million records
+    modelRuns: 15000, // 15,000 model runs
+    connectors: 8, // 8 connectors
+    growthRate: 15, // 15% annual growth
   });
 
   // Calculate results whenever inputs change
