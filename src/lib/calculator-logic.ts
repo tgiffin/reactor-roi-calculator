@@ -3,19 +3,27 @@ import { CalculatorInputs, CalculatorResults } from './calculator-types';
 
 // Calculate Fivetran costs based on their MAR model and transformation pricing
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
-  // Calculate MAR cost - updated based on real-world pricing
+  // Calculate MAR cost based on client's actual pricing ($7500-8500 for 20M-30M MARs)
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
+  // Client is paying between $7500-8500 for 20M-30M MARs
+  // This equates to roughly $300-$425 per million MARs at that volume
   if (marMillion <= 5) {
-    marCost = marMillion * 1500; // ~$1,500 per million MAR
+    marCost = marMillion * 550; // $550 per million MAR
   } else if (marMillion <= 15) {
-    marCost = 5 * 1500 + (marMillion - 5) * 1200; // ~$1,200 per million MAR after first 5 million
+    marCost = 5 * 550 + (marMillion - 5) * 450; // $450 per million MAR after first 5 million
   } else if (marMillion <= 30) {
-    marCost = 5 * 1500 + 10 * 1200 + (marMillion - 15) * 900; // ~$900 per million MAR after 15 million
+    marCost = 5 * 550 + 10 * 450 + (marMillion - 15) * 350; // $350 per million MAR after 15 million
+    
+    // Ensure we hit the $7500-8500 range for 20M-30M MARs
+    if (marMillion >= 20 && marMillion <= 30) {
+      // Scale from $7500 at 20M to $8500 at 30M
+      marCost = 7500 + (marMillion - 20) * 100;
+    }
   } else {
-    // For very large volumes, we'll use the 30M tier pricing as an estimate
-    marCost = 5 * 1500 + 10 * 1200 + 15 * 900 + (marMillion - 30) * 900;
+    // For volumes over 30M, continue the same effective rate
+    marCost = 8500 + (marMillion - 30) * 100;
   }
 
   // Calculate transformation cost
@@ -37,8 +45,8 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
     }
   }
 
-  // Add base connector costs (simplified)
-  const connectorCost = inputs.connectors * 150; // Updated: $150 per connector
+  // Add base connector costs
+  const connectorCost = inputs.connectors * 150; // $150 per connector
 
   return marCost + transformationCost + connectorCost;
 };
