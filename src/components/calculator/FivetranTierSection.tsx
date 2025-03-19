@@ -39,7 +39,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
         onValueChange={(value) => setFivetranTier(value as FivetranTier)}
         className="grid grid-cols-1 gap-2"
       >
-        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50">
+        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
           <RadioGroupItem value="free" id="free" />
           <Label htmlFor="free" className="cursor-pointer flex-1">
             <div className="font-medium text-reactor-fivetran">Free</div>
@@ -48,7 +48,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           </Label>
         </div>
 
-        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50">
+        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
           <RadioGroupItem value="standard" id="standard" />
           <Label htmlFor="standard" className="cursor-pointer flex-1">
             <div className="font-medium text-reactor-fivetran">Standard - $500/mo per million rows</div>
@@ -57,7 +57,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           </Label>
         </div>
 
-        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50">
+        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
           <RadioGroupItem value="enterprise" id="enterprise" />
           <Label htmlFor="enterprise" className="cursor-pointer flex-1">
             <div className="font-medium text-reactor-fivetran">Enterprise - $667/mo per million rows</div>
@@ -66,7 +66,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           </Label>
         </div>
         
-        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50">
+        <div className="flex items-center space-x-2 rounded-md border p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
           <RadioGroupItem value="businessCritical" id="businessCritical" />
           <Label htmlFor="businessCritical" className="cursor-pointer flex-1">
             <div className="font-medium text-reactor-fivetran">Business Critical - $1,067/mo per million rows</div>
