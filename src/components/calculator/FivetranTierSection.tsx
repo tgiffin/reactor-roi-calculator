@@ -20,7 +20,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <h3 className="text-sm font-medium text-gray-900">Fivetran Pricing Tier</h3>
+          <h3 className="text-sm font-bold text-gray-900">What is your Fivetran Pricing Tier?</h3>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
