@@ -2,7 +2,6 @@
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
-import PricingTierInfo from './PricingTierInfo';
 import { CalculatorInputs } from "@/lib/calculator-types";
 
 interface FivetranMarSectionProps {
@@ -36,7 +35,6 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
         onValueChange={(value) => handleSliderChange('monthlyActiveRows', value)}
         className="py-2"
       />
-      <PricingTierInfo type="fivetran-mar" />
     </div>
   );
 };

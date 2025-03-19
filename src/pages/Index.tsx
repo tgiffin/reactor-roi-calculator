@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
@@ -12,6 +11,7 @@ const Index = () => {
     totalRecords: 18000000, // 18 million records
     modelRuns: 15000, // 15,000 model runs
     growthRate: 15, // 15% annual growth
+    fivetranTier: 'standard', // Default to standard tier
   });
 
   // Calculate results whenever inputs change
@@ -21,7 +21,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-reactor-background-grey py-8 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <div className="mb-2 inline-block bg-gradient-to-r from-reactor-reactor-blue to-reactor-fivetran bg-clip-text text-transparent">
+          <div className="mb-2 inline-block bg-gradient-to-r from-reactor-navy to-reactor-fivetran bg-clip-text text-transparent">
             <h1 className="text-4xl font-bold tracking-tight mb-2 font-inter">
               ROI Calculator
             </h1>

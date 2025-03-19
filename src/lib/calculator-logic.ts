@@ -1,42 +1,45 @@
 
-import { CalculatorInputs, CalculatorResults } from './calculator-types';
+import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
 
-// Calculate Fivetran costs based on their MAR model and transformation pricing
+// Calculate Fivetran costs based on their tiered model and transformation pricing
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
-  // Calculate MAR cost based on pricing tiers
+  // Calculate MAR cost based on selected pricing tier
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
-  // Recalculate the tier costs properly with fixed values to ensure accuracy
-  if (marMillion <= 5) {
-    // Tier 1: $550 per million MAR up to 5M
-    marCost = marMillion * 550;
-  } else if (marMillion <= 15) {
-    // Tier 1: First 5M at $550/M = $2,750
-    // Tier 2: Remaining at $450/M
-    marCost = 2750 + ((marMillion - 5) * 450);
-  } else if (marMillion <= 20) {
-    // Tier 1: First 5M at $550/M = $2,750
-    // Tier 2: Next 10M at $450/M = $4,500
-    // Tier 3: Remaining at $350/M
-    marCost = 2750 + 4500 + ((marMillion - 15) * 350);
-  } else if (marMillion <= 30) {
-    // Tier 1: First 5M at $550/M = $2,750
-    // Tier 2: Next 10M at $450/M = $4,500
-    // Tier 3: Next 5M at $350/M = $1,750
-    // Tier 4: Remaining at $325/M
-    marCost = 2750 + 4500 + 1750 + ((marMillion - 20) * 325);
-  } else {
-    // For volumes over 30M
-    // Tier 1: First 5M at $550/M = $2,750
-    // Tier 2: Next 10M at $450/M = $4,500
-    // Tier 3: Next 5M at $350/M = $1,750
-    // Tier 4: Next 10M at $325/M = $3,250
-    // Beyond 30M: $325/M
-    marCost = 2750 + 4500 + 1750 + 3250 + ((marMillion - 30) * 325);
+  // Apply different pricing based on the selected tier
+  switch(inputs.fivetranTier) {
+    case 'free':
+      // Free tier: 500k MARs/month
+      if (inputs.monthlyActiveRows <= 500000) {
+        marCost = 0;
+      } else {
+        // Exceeding free tier, defaulting to standard pricing
+        marCost = (marMillion - 0.5) * 500;
+      }
+      break;
+    
+    case 'standard':
+      // Standard tier: $500 per million rows
+      marCost = marMillion * 500;
+      break;
+    
+    case 'enterprise':
+      // Enterprise tier: $667 per million rows
+      marCost = marMillion * 667;
+      break;
+    
+    case 'businessCritical':
+      // Business Critical tier: $1067 per million rows
+      marCost = marMillion * 1067;
+      break;
+    
+    default:
+      // Default to standard tier
+      marCost = marMillion * 500;
   }
 
-  // Calculate transformation cost
+  // Calculate transformation cost (MMR pricing)
   let transformationCost = 0;
   if (inputs.modelRuns > 5000) {
     if (inputs.modelRuns <= 30000) {

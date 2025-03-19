@@ -2,9 +2,10 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { CalculatorInputs } from "@/lib/calculator-types";
+import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
 import FivetranMarSection from './FivetranMarSection';
 import FivetranModelRunsSection from './FivetranModelRunsSection';
+import FivetranTierSection from './FivetranTierSection';
 import ReactorSection from './ReactorSection';
 import GrowthRateSection from './GrowthRateSection';
 
@@ -35,12 +36,22 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
     setInputs((prev) => ({ ...prev, [name]: numValue }));
   };
 
+  const setFivetranTier = (tier: FivetranTier) => {
+    setInputs((prev) => ({ ...prev, fivetranTier: tier }));
+  };
+
   return (
     <Card className="h-full">
       <CardHeader>
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Fivetran Tier Selection */}
+        <FivetranTierSection 
+          inputs={inputs} 
+          setFivetranTier={setFivetranTier} 
+        />
+
         {/* Fivetran MAR Section */}
         <FivetranMarSection 
           inputs={inputs} 
