@@ -38,6 +38,7 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
         onInputChange={handleInputChange}
         max={maxValue}
         step={inputs.fivetranTier === 'free' ? 10000 : 500000}
+        labelClassName="text-sm font-bold text-gray-900"
       />
       <Slider
         id="monthlyActiveRowsSlider"

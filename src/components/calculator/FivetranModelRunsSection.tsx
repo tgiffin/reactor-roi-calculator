@@ -39,6 +39,7 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
         onInputChange={handleInputChange}
         max={maxValue}
         step={stepValue}
+        labelClassName="text-sm font-bold text-gray-900"
       />
       <Slider
         id="modelRunsSlider"
