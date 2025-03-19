@@ -28,7 +28,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
             <li>Up to 5M rows/mo: ~$550 per million MAR</li>
             <li>5M-15M rows/mo: ~$450 per million MAR</li>
             <li>15M-20M rows/mo: ~$350 per million MAR</li>
-            <li>20M-30M rows/mo: $7,500-$8,500 monthly total</li>
+            <li>20M-30M rows/mo: ~$325 per million MAR</li>
             <li>30M+ rows/mo: Custom pricing</li>
           </>
         )}

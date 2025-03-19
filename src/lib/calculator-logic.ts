@@ -1,29 +1,22 @@
-
 import { CalculatorInputs, CalculatorResults } from './calculator-types';
 
 // Calculate Fivetran costs based on their MAR model and transformation pricing
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
-  // Calculate MAR cost based on client's actual pricing ($7500-8500 for 20M-30M MARs)
+  // Calculate MAR cost based on pricing tiers
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
-  // Client is paying between $7500-8500 for 20M-30M MARs
-  // This equates to roughly $300-$425 per million MARs at that volume
   if (marMillion <= 5) {
     marCost = marMillion * 550; // $550 per million MAR
   } else if (marMillion <= 15) {
     marCost = 5 * 550 + (marMillion - 5) * 450; // $450 per million MAR after first 5 million
-  } else if (marMillion <= 30) {
+  } else if (marMillion <= 20) {
     marCost = 5 * 550 + 10 * 450 + (marMillion - 15) * 350; // $350 per million MAR after 15 million
-    
-    // Ensure we hit the $7500-8500 range for 20M-30M MARs
-    if (marMillion >= 20 && marMillion <= 30) {
-      // Scale from $7500 at 20M to $8500 at 30M
-      marCost = 7500 + (marMillion - 20) * 100;
-    }
+  } else if (marMillion <= 30) {
+    marCost = 5 * 550 + 10 * 450 + 5 * 350 + (marMillion - 20) * 325; // $325 per million MAR after 20 million
   } else {
     // For volumes over 30M, continue the same effective rate
-    marCost = 8500 + (marMillion - 30) * 100;
+    marCost = 5 * 550 + 10 * 450 + 5 * 350 + 10 * 325 + (marMillion - 30) * 325;
   }
 
   // Calculate transformation cost
