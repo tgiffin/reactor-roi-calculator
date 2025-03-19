@@ -3,7 +3,6 @@ export interface CalculatorInputs {
   monthlyActiveRows: number;
   totalRecords: number;
   modelRuns: number;
-  connectors: number;
   growthRate: number;
 }
 

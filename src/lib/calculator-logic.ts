@@ -54,10 +54,7 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
     }
   }
 
-  // Fix connector cost - $150 per connector (based on PricingTierInfo.tsx)
-  const connectorCost = inputs.connectors * 150;
-
-  return marCost + transformationCost + connectorCost;
+  return marCost + transformationCost;
 };
 
 // Calculate Reactor costs based on flat fee model
@@ -75,8 +72,6 @@ export const calculateReactorCost = (inputs: CalculatorInputs): number => {
   } else {
     reactorCost = 3800 + Math.ceil((recordsMillions - 10) / 5) * 1000; // $1,000 for each additional 5M records
   }
-  
-  // No additional costs for transformations or connectors in Reactor's model
   
   return reactorCost;
 };

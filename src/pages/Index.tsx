@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
@@ -10,7 +11,6 @@ const Index = () => {
     monthlyActiveRows: 18000000, // 18 million rows - based on client data
     totalRecords: 18000000, // 18 million records
     modelRuns: 15000, // 15,000 model runs
-    connectors: 8, // 8 connectors
     growthRate: 15, // 15% annual growth
   });
 

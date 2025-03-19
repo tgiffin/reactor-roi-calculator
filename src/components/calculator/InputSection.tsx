@@ -6,7 +6,6 @@ import { CalculatorInputs } from "@/lib/calculator-types";
 import FivetranMarSection from './FivetranMarSection';
 import FivetranModelRunsSection from './FivetranModelRunsSection';
 import ReactorSection from './ReactorSection';
-import ConnectorsSection from './ConnectorsSection';
 import GrowthRateSection from './GrowthRateSection';
 
 interface InputSectionProps {
@@ -58,13 +57,6 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
 
         {/* Reactor Section */}
         <ReactorSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
-        />
-
-        {/* Connectors Section */}
-        <ConnectorsSection 
           inputs={inputs} 
           handleSliderChange={handleSliderChange} 
           handleInputChange={handleInputChange} 
