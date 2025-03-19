@@ -50,7 +50,7 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
       />
       
       <div className="text-xs bg-[#DDDDDD] p-3 rounded-md border border-reactor-light-grey/50 shadow-sm mt-2">
-        <div className="font-semibold text-reactor-fivetran mb-2">MMR Pricing Tiers:</div>
+        <div className="font-semibold text-[#2462AA] mb-2">MMR Pricing Tiers:</div>
         <ul className="list-disc pl-5 space-y-1">
           <li>0-5,000 model runs/mo: Free</li>
           <li>5,000-30,000 runs/mo: $0.01 per run</li>

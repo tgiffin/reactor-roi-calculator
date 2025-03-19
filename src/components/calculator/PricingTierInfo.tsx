@@ -13,13 +13,13 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
       <div className="font-semibold flex items-center mb-2">
         <ListIcon className="h-3 w-3 mr-1" /> 
         {type === 'fivetran-mar' && (
-          <span className="text-reactor-fivetran">Fivetran MAR Pricing Tiers:</span>
+          <span className="text-[#2462AA]">Fivetran MAR Pricing Tiers:</span>
         )}
         {type === 'fivetran-transformation' && (
-          <span className="text-reactor-fivetran">Fivetran Transformation Pricing (Simplified):</span>
+          <span className="text-[#2462AA]">Fivetran Transformation Pricing (Simplified):</span>
         )}
         {type === 'reactor' && (
-          <span className="text-reactor-reactor-blue">Reactor Pricing Tiers (Simplified):</span>
+          <span className="text-[#2462AA]">Reactor Pricing Tiers (Simplified):</span>
         )}
       </div>
       <ul className="list-disc pl-5 space-y-1">
@@ -46,7 +46,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
             <li>1M-5M records/mo: {formatCurrency(1900)}/month</li>
             <li>5M-10M records/mo: {formatCurrency(3800)}/month</li>
             <li>10M+ records/mo: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
-            <li className="font-medium text-reactor-reactor-blue/80">All tiers include unlimited model runs for transformations</li>
+            <li className="font-medium text-[#2462AA]/80">All tiers include unlimited model runs for transformations</li>
           </>
         )}
       </ul>
