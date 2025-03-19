@@ -38,7 +38,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           <div className="mt-6 space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-[#DDDDDD] p-4 rounded-lg">
-                <p className="text-sm font-medium text-reactor-fivetran">Fivetran Monthly Cost</p>
+                <p className="text-sm font-medium text-[#2462AA]">Fivetran Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.fivetranMonthlyCost)}</p>
               </div>
               <div className="bg-[#DDDDDD] p-4 rounded-lg">
@@ -55,7 +55,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
                     {formatCurrency(results.monthlySavings)}
                   </p>
                 </div>
-                <ArrowRight className="h-8 w-8 text-reactor-soundcommerce-yellow" />
+                <ArrowRight className="h-8 w-8 text-[#2462AA]" />
                 <div>
                   <p className="text-sm font-medium text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">Annual Savings</p>
                   <p className="text-2xl font-bold text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">
