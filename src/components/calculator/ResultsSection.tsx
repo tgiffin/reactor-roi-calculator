@@ -93,7 +93,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
             </Button>
             <Button 
               onClick={handleScheduleCall}
-              className="flex-1 bg-reactor-reactor-blue hover:bg-reactor-dark-blue text-white"
+              className="flex-1 bg-[#FFCC00] hover:bg-[#FFD633] text-reactor-brand-black"
             >
               <PhoneCall className="mr-2 h-4 w-4" />
               Schedule a Call
