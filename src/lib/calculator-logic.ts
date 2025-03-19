@@ -1,3 +1,4 @@
+
 import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -35,7 +36,10 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
 
   // Calculate transformation cost (MMR pricing)
   let transformationCost = 0;
-  if (inputs.modelRuns > 5000) {
+  if (inputs.fivetranTier === 'free') {
+    // Free tier always has 0 transformation cost (limited to 5000 in UI)
+    transformationCost = 0;
+  } else if (inputs.modelRuns > 5000) {
     if (inputs.modelRuns <= 30000) {
       // $0.01 per run for 5,000-30,000
       transformationCost = (inputs.modelRuns - 5000) * 0.01;

@@ -37,12 +37,14 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   };
 
   const setFivetranTier = (tier: FivetranTier) => {
-    // If switching to free tier but MAR is over 500k, cap at 500k
-    if (tier === 'free' && inputs.monthlyActiveRows > 500000) {
+    // If switching to free tier, check both MAR and model runs limits
+    if (tier === 'free') {
+      // Cap values to free tier limits
       setInputs((prev) => ({ 
         ...prev, 
         fivetranTier: tier,
-        monthlyActiveRows: 500000
+        monthlyActiveRows: prev.monthlyActiveRows > 500000 ? 500000 : prev.monthlyActiveRows,
+        modelRuns: prev.modelRuns > 5000 ? 5000 : prev.modelRuns
       }));
     } else {
       setInputs((prev) => ({ ...prev, fivetranTier: tier }));
@@ -73,7 +75,8 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
         <FivetranModelRunsSection 
           inputs={inputs} 
           handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
+          handleInputChange={handleInputChange}
+          setFivetranTier={setFivetranTier}
         />
 
         {/* Reactor Section */}
