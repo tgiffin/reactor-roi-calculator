@@ -10,14 +10,14 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   if (marMillion <= 5) {
     marCost = marMillion * 550; // $550 per million MAR
   } else if (marMillion <= 15) {
-    marCost = 5 * 550 + (marMillion - 5) * 450; // $450 per million MAR after first 5 million
+    marCost = (5 * 550) + ((marMillion - 5) * 450); // $450 per million MAR after first 5 million
   } else if (marMillion <= 20) {
-    marCost = 5 * 550 + 10 * 450 + (marMillion - 15) * 350; // $350 per million MAR after 15 million
+    marCost = (5 * 550) + (10 * 450) + ((marMillion - 15) * 350); // $350 per million MAR after 15 million
   } else if (marMillion <= 30) {
-    marCost = 5 * 550 + 10 * 450 + 5 * 350 + (marMillion - 20) * 325; // $325 per million MAR after 20 million
+    marCost = (5 * 550) + (10 * 450) + (5 * 350) + ((marMillion - 20) * 325); // $325 per million MAR after 20 million
   } else {
     // For volumes over 30M, use the same rate as the previous tier
-    marCost = 5 * 550 + 10 * 450 + 5 * 350 + 10 * 325 + (marMillion - 30) * 325;
+    marCost = (5 * 550) + (10 * 450) + (5 * 350) + (10 * 325) + ((marMillion - 30) * 325);
   }
 
   // Calculate transformation cost
@@ -29,12 +29,12 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
     } else if (inputs.modelRuns <= 100000) {
       // $0.01 per run for 5,000-30,000
       // $0.007 per run for 30,000-100,000
-      transformationCost = 25000 * 0.01 + (inputs.modelRuns - 30000) * 0.007;
+      transformationCost = (25000 * 0.01) + ((inputs.modelRuns - 30000) * 0.007);
     } else {
       // $0.01 per run for 5,000-30,000
       // $0.007 per run for 30,000-100,000
       // $0.002 per run for 100,000+
-      transformationCost = 25000 * 0.01 + 70000 * 0.007 + (inputs.modelRuns - 100000) * 0.002;
+      transformationCost = (25000 * 0.01) + (70000 * 0.007) + ((inputs.modelRuns - 100000) * 0.002);
     }
   }
 
