@@ -57,6 +57,13 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Reactor Section - Now moved to the top */}
+        <ReactorSection 
+          inputs={inputs} 
+          handleSliderChange={handleSliderChange} 
+          handleInputChange={handleInputChange} 
+        />
+
         {/* Fivetran Tier Selection */}
         <FivetranTierSection 
           inputs={inputs} 
@@ -77,13 +84,6 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           handleSliderChange={handleSliderChange} 
           handleInputChange={handleInputChange}
           setFivetranTier={setFivetranTier}
-        />
-
-        {/* Reactor Section */}
-        <ReactorSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
         />
 
         {/* Growth Rate Section */}
