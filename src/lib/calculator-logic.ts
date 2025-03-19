@@ -54,8 +54,8 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
     }
   }
 
-  // Add base connector costs
-  const connectorCost = inputs.connectors * 150; // $150 per connector
+  // Fix connector cost - $150 per connector (based on PricingTierInfo.tsx)
+  const connectorCost = inputs.connectors * 150;
 
   return marCost + transformationCost + connectorCost;
 };

@@ -41,7 +41,7 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
           <ListIcon className="h-3 w-3 mr-1" /> Connector Pricing (Simplified):
         </div>
         <ul className="list-disc pl-5 space-y-0.5">
-          <li>Fivetran: ~$100 per connector per month (simplified)</li>
+          <li>Fivetran: $150 per connector per month</li>
           <li>Reactor: All standard connectors included in flat fee</li>
         </ul>
       </div>
