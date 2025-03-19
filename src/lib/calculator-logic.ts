@@ -7,17 +7,33 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
+  // Recalculate the tier costs properly
   if (marMillion <= 5) {
-    marCost = marMillion * 550; // $550 per million MAR
+    // Tier 1: $550 per million MAR up to 5M
+    marCost = marMillion * 550;
   } else if (marMillion <= 15) {
-    marCost = (5 * 550) + ((marMillion - 5) * 450); // $450 per million MAR after first 5 million
+    // Tier 1: First 5M at $550/M
+    // Tier 2: Next 10M at $450/M
+    marCost = (5 * 550) + ((marMillion - 5) * 450);
   } else if (marMillion <= 20) {
-    marCost = (5 * 550) + (10 * 450) + ((marMillion - 15) * 350); // $350 per million MAR after 15 million
+    // Tier 1: First 5M at $550/M = $2,750
+    // Tier 2: Next 10M at $450/M = $4,500
+    // Tier 3: Next 5M at $350/M
+    marCost = 2750 + 4500 + ((marMillion - 15) * 350);
   } else if (marMillion <= 30) {
-    marCost = (5 * 550) + (10 * 450) + (5 * 350) + ((marMillion - 20) * 325); // $325 per million MAR after 20 million
+    // Tier 1: First 5M at $550/M = $2,750
+    // Tier 2: Next 10M at $450/M = $4,500
+    // Tier 3: Next 5M at $350/M = $1,750
+    // Tier 4: Next 10M at $325/M
+    marCost = 2750 + 4500 + 1750 + ((marMillion - 20) * 325);
   } else {
-    // For volumes over 30M, use the same rate as the previous tier
-    marCost = (5 * 550) + (10 * 450) + (5 * 350) + (10 * 325) + ((marMillion - 30) * 325);
+    // For volumes over 30M
+    // Tier 1: First 5M at $550/M = $2,750
+    // Tier 2: Next 10M at $450/M = $4,500
+    // Tier 3: Next 5M at $350/M = $1,750
+    // Tier 4: Next 10M at $325/M = $3,250
+    // Beyond 30M: $325/M
+    marCost = 2750 + 4500 + 1750 + 3250 + ((marMillion - 30) * 325);
   }
 
   // Calculate transformation cost
@@ -27,13 +43,13 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
       // $0.01 per run for 5,000-30,000
       transformationCost = (inputs.modelRuns - 5000) * 0.01;
     } else if (inputs.modelRuns <= 100000) {
-      // $0.01 per run for 5,000-30,000
-      // $0.007 per run for 30,000-100,000
+      // First 25,000 runs after free tier at $0.01 each
+      // Runs between 30,000-100,000 at $0.007 each
       transformationCost = (25000 * 0.01) + ((inputs.modelRuns - 30000) * 0.007);
     } else {
-      // $0.01 per run for 5,000-30,000
-      // $0.007 per run for 30,000-100,000
-      // $0.002 per run for 100,000+
+      // First 25,000 runs after free tier at $0.01 each
+      // Next 70,000 runs at $0.007 each
+      // Remaining runs at $0.002 each
       transformationCost = (25000 * 0.01) + (70000 * 0.007) + ((inputs.modelRuns - 100000) * 0.002);
     }
   }
