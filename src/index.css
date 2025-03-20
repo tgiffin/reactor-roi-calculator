@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 @tailwind base;
@@ -89,6 +90,7 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Inter', sans-serif;
   }
 
   body {
@@ -96,27 +98,27 @@
   }
 
   h1 {
-    @apply text-3xl font-bold text-reactor-brand-black leading-[120%];
+    @apply text-3xl font-bold text-reactor-brand-black leading-[120%] font-inter;
   }
 
   h2 {
-    @apply text-2xl font-medium text-reactor-brand-black leading-[120%];
+    @apply text-2xl font-medium text-reactor-brand-black leading-[120%] font-inter;
   }
 
   h3 {
-    @apply text-xl font-bold text-reactor-brand-black leading-[120%];
+    @apply text-xl font-bold text-reactor-brand-black leading-[120%] font-inter;
   }
 
   p {
-    @apply font-normal text-reactor-text-grey leading-[140%];
+    @apply font-normal text-reactor-text-grey leading-[140%] font-inter;
   }
 
   strong, b {
-    @apply font-bold;
+    @apply font-bold font-inter;
   }
 
   a {
-    @apply font-medium underline;
+    @apply font-medium underline font-inter;
   }
 }
 

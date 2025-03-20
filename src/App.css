@@ -16,7 +16,7 @@
 }
 
 .fivetran-brand {
-  color: #7A49FF; /* Fivetran Purple */
+  color: #E87B00; /* Changed from FFCC00 to E87B00 */
 }
 
 .bg-reactor {
@@ -24,7 +24,7 @@
 }
 
 .bg-fivetran {
-  background-color: #7A49FF; /* Fivetran Purple */
+  background-color: #E87B00; /* Changed from FFCC00 to E87B00 */
 }
 
 .bg-soundcommerce {
@@ -61,10 +61,12 @@
 }
 
 .emphasized {
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
 }
 
 .hyperlink {
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
   text-decoration: underline;
 }

@@ -24,6 +24,7 @@ interface SliderInputProps {
   max: number;
   step: number;
   formatValue?: (value: number) => string;
+  labelClassName?: string;
 }
 
 const SliderInput: React.FC<SliderInputProps> = ({
@@ -36,10 +37,11 @@ const SliderInput: React.FC<SliderInputProps> = ({
   max,
   step,
   formatValue = formatNumber,
+  labelClassName = "text-base",
 }) => {
   return (
     <div className="flex items-center justify-between">
-      <Label htmlFor={id} className="text-base flex items-center">
+      <Label htmlFor={id} className={`${labelClassName} flex items-center`}>
         {label}
         <TooltipProvider>
           <Tooltip>

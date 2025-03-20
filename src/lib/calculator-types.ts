@@ -1,10 +1,12 @@
 
+export type FivetranTier = 'free' | 'standard' | 'enterprise' | 'businessCritical';
+
 export interface CalculatorInputs {
   monthlyActiveRows: number;
   totalRecords: number;
   modelRuns: number;
-  connectors: number;
   growthRate: number;
+  fivetranTier: FivetranTier;
 }
 
 export interface CalculatorResults {

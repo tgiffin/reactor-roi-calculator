@@ -1,47 +1,61 @@
 
-import { CalculatorInputs, CalculatorResults } from './calculator-types';
+import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
 
-// Calculate Fivetran costs based on their MAR model and transformation pricing
+// Calculate Fivetran costs based on their tiered model and transformation pricing
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
-  // Calculate MAR cost based on pricing tiers
+  // Calculate MAR cost based on selected pricing tier
   let marCost = 0;
   const marMillion = inputs.monthlyActiveRows / 1000000;
   
-  if (marMillion <= 5) {
-    marCost = marMillion * 550; // $550 per million MAR
-  } else if (marMillion <= 15) {
-    marCost = (5 * 550) + ((marMillion - 5) * 450); // $450 per million MAR after first 5 million
-  } else if (marMillion <= 20) {
-    marCost = (5 * 550) + (10 * 450) + ((marMillion - 15) * 350); // $350 per million MAR after 15 million
-  } else if (marMillion <= 30) {
-    marCost = (5 * 550) + (10 * 450) + (5 * 350) + ((marMillion - 20) * 325); // $325 per million MAR after 20 million
-  } else {
-    // For volumes over 30M, use the same rate as the previous tier
-    marCost = (5 * 550) + (10 * 450) + (5 * 350) + (10 * 325) + ((marMillion - 30) * 325);
+  // Apply different pricing based on the selected tier
+  switch(inputs.fivetranTier) {
+    case 'free':
+      // Free tier: Always $0 regardless of MAR value (limited to 500k in UI)
+      marCost = 0;
+      break;
+    
+    case 'standard':
+      // Standard tier: $500 per million rows
+      marCost = marMillion * 500;
+      break;
+    
+    case 'enterprise':
+      // Enterprise tier: $667 per million rows
+      marCost = marMillion * 667;
+      break;
+    
+    case 'businessCritical':
+      // Business Critical tier: $1067 per million rows
+      marCost = marMillion * 1067;
+      break;
+    
+    default:
+      // Default to standard tier
+      marCost = marMillion * 500;
   }
 
-  // Calculate transformation cost
+  // Calculate transformation cost (MMR pricing)
   let transformationCost = 0;
-  if (inputs.modelRuns > 5000) {
+  if (inputs.fivetranTier === 'free') {
+    // Free tier always has 0 transformation cost (limited to 5000 in UI)
+    transformationCost = 0;
+  } else if (inputs.modelRuns > 5000) {
     if (inputs.modelRuns <= 30000) {
       // $0.01 per run for 5,000-30,000
       transformationCost = (inputs.modelRuns - 5000) * 0.01;
     } else if (inputs.modelRuns <= 100000) {
-      // $0.01 per run for 5,000-30,000
-      // $0.007 per run for 30,000-100,000
+      // First 25,000 runs after free tier at $0.01 each
+      // Runs between 30,000-100,000 at $0.007 each
       transformationCost = (25000 * 0.01) + ((inputs.modelRuns - 30000) * 0.007);
     } else {
-      // $0.01 per run for 5,000-30,000
-      // $0.007 per run for 30,000-100,000
-      // $0.002 per run for 100,000+
+      // First 25,000 runs after free tier at $0.01 each
+      // Next 70,000 runs at $0.007 each
+      // Remaining runs at $0.002 each
       transformationCost = (25000 * 0.01) + (70000 * 0.007) + ((inputs.modelRuns - 100000) * 0.002);
     }
   }
 
-  // Add base connector costs
-  const connectorCost = inputs.connectors * 150; // $150 per connector
-
-  return marCost + transformationCost + connectorCost;
+  return marCost + transformationCost;
 };
 
 // Calculate Reactor costs based on flat fee model
@@ -59,8 +73,6 @@ export const calculateReactorCost = (inputs: CalculatorInputs): number => {
   } else {
     reactorCost = 3800 + Math.ceil((recordsMillions - 10) / 5) * 1000; // $1,000 for each additional 5M records
   }
-  
-  // No additional costs for transformations or connectors in Reactor's model
   
   return reactorCost;
 };

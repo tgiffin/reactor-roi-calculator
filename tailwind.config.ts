@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -65,15 +66,15 @@ export default {
 				reactor: {
 					blue: '#0B5FFF',
 					indigo: '#6610f2',
-					purple: '#8A3FFC',
+					purple: '#E87B00', /* Changed from FFCC00 to E87B00 */
 					pink: '#FF0066',
 					red: '#da1e28',
-					orange: '#ff832b',
+					orange: '#E87B00', /* Updated to match new Fivetran color */
 					yellow: '#f1c21b',
 					green: '#24a148',
 					teal: '#009d9a',
 					cyan: '#0072c3',
-					fivetran: '#7A49FF',
+					fivetran: '#E87B00', /* Changed from FFCC00 to E87B00 */
 					'soundcommerce-yellow': '#FFCC00',
 					'reactor-blue': '#2462AA',
 					'light-yellow': '#FFE378',

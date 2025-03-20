@@ -2,11 +2,11 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { CalculatorInputs } from "@/lib/calculator-types";
+import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
 import FivetranMarSection from './FivetranMarSection';
 import FivetranModelRunsSection from './FivetranModelRunsSection';
+import FivetranTierSection from './FivetranTierSection';
 import ReactorSection from './ReactorSection';
-import ConnectorsSection from './ConnectorsSection';
 import GrowthRateSection from './GrowthRateSection';
 
 interface InputSectionProps {
@@ -36,38 +36,54 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
     setInputs((prev) => ({ ...prev, [name]: numValue }));
   };
 
+  const setFivetranTier = (tier: FivetranTier) => {
+    // If switching to free tier, check both MAR and model runs limits
+    if (tier === 'free') {
+      // Cap values to free tier limits
+      setInputs((prev) => ({ 
+        ...prev, 
+        fivetranTier: tier,
+        monthlyActiveRows: prev.monthlyActiveRows > 500000 ? 500000 : prev.monthlyActiveRows,
+        modelRuns: prev.modelRuns > 5000 ? 5000 : prev.modelRuns
+      }));
+    } else {
+      setInputs((prev) => ({ ...prev, fivetranTier: tier }));
+    }
+  };
+
   return (
-    <Card className="h-full">
+    <Card className="h-full bg-[#F3F3F3]">
       <CardHeader>
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Fivetran MAR Section */}
-        <FivetranMarSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
-        />
-
-        {/* Fivetran Model Runs Section - as a subsection under MARs */}
-        <FivetranModelRunsSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
-        />
-
-        {/* Reactor Section */}
+        {/* Reactor Section - Now moved to the top */}
         <ReactorSection 
           inputs={inputs} 
           handleSliderChange={handleSliderChange} 
           handleInputChange={handleInputChange} 
         />
 
-        {/* Connectors Section */}
-        <ConnectorsSection 
+        {/* Fivetran Tier Selection */}
+        <FivetranTierSection 
+          inputs={inputs} 
+          setFivetranTier={setFivetranTier} 
+        />
+
+        {/* Fivetran MAR Section */}
+        <FivetranMarSection 
           inputs={inputs} 
           handleSliderChange={handleSliderChange} 
           handleInputChange={handleInputChange} 
+          setFivetranTier={setFivetranTier}
+        />
+
+        {/* Fivetran Model Runs Section - as a subsection under MARs */}
+        <FivetranModelRunsSection 
+          inputs={inputs} 
+          handleSliderChange={handleSliderChange} 
+          handleInputChange={handleInputChange}
+          setFivetranTier={setFivetranTier}
         />
 
         {/* Growth Rate Section */}
