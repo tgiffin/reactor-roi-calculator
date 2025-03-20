@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactor + Google BigQuery: Scalable, Real-Time Data Integration</title>
+</head>
+<body>
+
+<div id="reactor-calculator-container"></div>
+<script src="dist/reactor-calculator.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.ReactorCalculator) {
+      new ReactorCalculator('#reactor-calculator-container');
+    } else {
+      console.error("ReactorCalculator is not defined. Check if the script loaded correctly.");
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
