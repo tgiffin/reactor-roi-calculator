@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
-import FivetranMarSection from './FivetranMarSection';
 import FivetranModelRunsSection from './FivetranModelRunsSection';
 import FivetranTierSection from './FivetranTierSection';
 import ReactorSection from './ReactorSection';

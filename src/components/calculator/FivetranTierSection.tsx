@@ -44,12 +44,6 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="free" id="free" />
           <Label htmlFor="free" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Free</div>
-            {!simplified && (
-              <>
-                <div className="text-xs text-gray-500">500k MARs & 5,000 model runs included</div>
-                <div className="text-xs text-gray-600 mt-1">An introductory offering for low volumes of data with limited access to their core platform functionality.</div>
-              </>
-            )}
           </Label>
         </div>
 
@@ -57,12 +51,6 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="standard" id="standard" />
           <Label htmlFor="standard" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Standard - $500/mo per million rows</div>
-            {!simplified && (
-              <>
-                <div className="text-xs text-gray-500">MMR pricing applies separately</div>
-                <div className="text-xs text-gray-600 mt-1">Access to their core platform functionality for teams looking to automate their data movement. With limited feature capability for destinations, security, and cloud providers.</div>
-              </>
-            )}
           </Label>
         </div>
 
@@ -70,12 +58,6 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="enterprise" id="enterprise" />
           <Label htmlFor="enterprise" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Enterprise - $667/mo per million rows</div>
-            {!simplified && (
-              <>
-                <div className="text-xs text-gray-500">MMR pricing applies separately</div>
-                <div className="text-xs text-gray-600 mt-1">This tier gives companies greater platform flexibility and more granular functionality for destinations, governance, security and cloud providers and the type of deployment.</div>
-              </>
-            )}
           </Label>
         </div>
         
@@ -83,12 +65,6 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="businessCritical" id="businessCritical" />
           <Label htmlFor="businessCritical" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Business Critical - $1,067/mo per million rows</div>
-            {!simplified && (
-              <>
-                <div className="text-xs text-gray-500">MMR pricing applies separately</div>
-                <div className="text-xs text-gray-600 mt-1">Their highest level of data protection and compliance for companies with sensitive or regulated data needs.</div>
-              </>
-            )}
           </Label>
         </div>
       </RadioGroup>
