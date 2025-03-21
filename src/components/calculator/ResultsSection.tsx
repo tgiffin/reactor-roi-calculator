@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -79,7 +78,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
       });
       
       // Get the final Y position after the table is drawn
-      const finalY = breakEvenTable.finalY || 200;
+      const finalY = breakEvenTable?.finalY || 200;
       
       // Add summary section at the end
       const totalSavings = results.annualSavings;
