@@ -2,24 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reactor ROI Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reactor ROI Calculator</title>
+  <link rel="stylesheet" href="./dist/style.css">
 </head>
-
 <body>
-
-<div id="reactor-calculator-container"></div>
-<script src="dist/reactor-calculator.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.ReactorCalculator) {
-      new ReactorCalculator('#reactor-calculator-container');
-    } else {
-      console.error("ReactorCalculator is not defined. Check if the script loaded correctly.");
-    }
-  });
-</script>
-
+  <div id="reactor-calculator-container"></div>
+  <script src="./dist/reactor-calculator.js"></script>
+  <script>
+    new ReactorCalculator({
+      elementId: 'reactor-calculator-container'
+    });
+  </script>
 </body>
 </html>
