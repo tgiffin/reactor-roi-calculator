@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
-import { CalculatorInputs, CalculatorResults } from '@/lib/calculator-types';
+import { CalculatorInputs } from '@/lib/calculator-types';
 import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
@@ -16,18 +16,7 @@ const Index = () => {
   });
 
   // Calculate results whenever inputs change
-  const calculatorResults = calculateResults(inputs);
-  
-  // Map the calculator results to the format expected by ResultsSection
-  const resultsForDisplay = {
-    fivetranCost: calculatorResults.fivetranMonthlyCost,
-    reactorCost: calculatorResults.reactorMonthlyCost,
-    annualSavings: calculatorResults.annualSavings,
-    breakEvenMonths: calculatorResults.yearlyFivetranCosts.findIndex((fivetranCost, index) => 
-      calculatorResults.yearlyFivetranCosts.slice(0, index + 1).reduce((sum, cost) => sum + cost, 0) >
-      calculatorResults.yearlyReactorCosts.slice(0, index + 1).reduce((sum, cost) => sum + cost, 0)
-    ) + 1 || 12, // Calculate break-even month, default to 12 if not found
-  };
+  const results = calculateResults(inputs);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-reactor-background-grey py-8 px-4">
@@ -48,7 +37,7 @@ const Index = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <InputSection inputs={inputs} setInputs={setInputs} />
-          <ResultsSection results={resultsForDisplay} />
+          <ResultsSection results={results} />
         </div>
 
         <div className="mt-16 px-4 py-6 bg-[#F3F3F3] rounded-lg shadow-md border border-reactor-light-grey/50">

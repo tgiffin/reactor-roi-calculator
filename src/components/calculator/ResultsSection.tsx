@@ -4,16 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CostChart } from './CostChart';
 import { formatCurrency } from '@/lib/formatter';
+import { Results } from '@/lib/calculator-types';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { BreakEvenChart } from './BreakEvenChart';
-
-interface Results {
-  fivetranCost: number;
-  reactorCost: number;
-  annualSavings: number;
-  breakEvenMonths: number;
-}
+import BreakEvenChart from './BreakEvenChart';
 
 interface ResultsSectionProps {
   results: Results;
@@ -62,14 +56,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     });
     
     // Break-even analysis
-    let breakEvenY = 120;
-    
-    // Get the final Y position after the table is drawn
-    // jsPDF-autotable adds data to the doc object
-    const lastTable = (doc as any).lastAutoTable;
-    if (lastTable) {
-      breakEvenY = lastTable.finalY || 120;
-    }
+    const breakEvenY = doc.lastAutoTable?.finalY || 120;
     
     doc.setFontSize(16);
     doc.setTextColor(36, 98, 170);
@@ -90,7 +77,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
       ]);
     }
     
-    autoTable(doc, {
+    const breakEvenTable = autoTable(doc, {
       startY: breakEvenY + 30,
       head: [['Period', 'Fivetran Cumulative Cost', 'Reactor Cumulative Cost', 'Cumulative Savings']],
       body: breakEvenTableData,
@@ -107,11 +94,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     });
     
     // Get the final Y position after the table is drawn
-    let finalY = 200;
-    const lastTable2 = (doc as any).lastAutoTable;
-    if (lastTable2) {
-      finalY = lastTable2.finalY || 200;
-    }
+    const finalY = doc.lastAutoTable?.finalY || 200;
     
     // Add summary section at the end
     const totalSavings = results.annualSavings;
@@ -164,8 +147,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           
           <div className="h-48">
             <BreakEvenChart 
-              fivetranCosts={Array(12).fill(0).map((_, i) => results.fivetranCost * (i + 1))}
-              reactorCosts={Array(12).fill(0).map((_, i) => results.reactorCost * (i + 1))}
+              fivetranCost={results.fivetranCost} 
+              reactorCost={results.reactorCost}
+              months={12} 
             />
           </div>
         </div>
