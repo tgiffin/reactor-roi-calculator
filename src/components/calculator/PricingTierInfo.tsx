@@ -19,7 +19,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
           <span className="text-[#2462AA]">Fivetran Transformation Pricing (Simplified):</span>
         )}
         {type === 'reactor' && (
-          <span className="text-[#2462AA]">Reactor Pricing Tiers (Simplified):</span>
+          <span className="text-[#2462AA] text-sm">Reactor Pricing Tiers (Simplified):</span>
         )}
       </div>
       <ul className="list-disc pl-5 space-y-1">
