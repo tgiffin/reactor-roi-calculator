@@ -69,7 +69,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         formatCurrency(results.yearlyFivetranCosts[index] - results.yearlyReactorCosts[index])
       ]);
       
-      autoTable(doc, {
+      // Add the monthly costs table and store its ending position
+      const breakEvenTable = autoTable(doc, {
         head: [['Month', 'Fivetran Cost', 'Reactor Cost', 'Monthly Savings']],
         body: tableBody,
         startY: 90,
@@ -77,21 +78,24 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         headStyles: { fillColor: [36, 98, 170] }, // #2462AA
       });
       
+      // Get the final Y position after the table is drawn
+      const finalY = breakEvenTable.finalY || 200;
+      
       // Add summary section at the end
       const totalSavings = results.annualSavings;
       doc.setFontSize(16);
-      doc.text("Summary", 14, doc.lastAutoTable.finalY + 20);
+      doc.text("Summary", 14, finalY + 20);
       doc.setFontSize(12);
-      doc.text(`Total Annual Savings: ${formatCurrency(totalSavings)}`, 14, doc.lastAutoTable.finalY + 30);
-      doc.text("Why Choose Reactor:", 14, doc.lastAutoTable.finalY + 40);
+      doc.text(`Total Annual Savings: ${formatCurrency(totalSavings)}`, 14, finalY + 30);
+      doc.text("Why Choose Reactor:", 14, finalY + 40);
       doc.setFontSize(10);
-      doc.text("• Predictable Pricing: Flat monthly fee regardless of how many records you process", 20, doc.lastAutoTable.finalY + 50);
-      doc.text("• Unlimited Transformations: Run as many transformations as you need without paying extra", 20, doc.lastAutoTable.finalY + 58);
-      doc.text("• All Connectors Included: Access to all standard connectors with your subscription", 20, doc.lastAutoTable.finalY + 66);
+      doc.text("• Predictable Pricing: Flat monthly fee regardless of how many records you process", 20, finalY + 50);
+      doc.text("• Unlimited Transformations: Run as many transformations as you need without paying extra", 20, finalY + 58);
+      doc.text("• All Connectors Included: Access to all standard connectors with your subscription", 20, finalY + 66);
       
       // Add contact information
       doc.setFontSize(10);
-      doc.text("For more information, visit reactordata.com or contact our sales team.", 14, doc.lastAutoTable.finalY + 80);
+      doc.text("For more information, visit reactordata.com or contact our sales team.", 14, finalY + 80);
       
       // Save the PDF
       doc.save('reactor-roi-calculator-report.pdf');
