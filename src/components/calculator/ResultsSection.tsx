@@ -65,8 +65,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     let breakEvenY = 120;
     
     // Get the final Y position after the table is drawn
-    if (doc.previousAutoTable) {
-      breakEvenY = doc.previousAutoTable.finalY || 120;
+    // jsPDF-autotable adds data to the doc object
+    const lastTable = (doc as any).lastAutoTable;
+    if (lastTable) {
+      breakEvenY = lastTable.finalY || 120;
     }
     
     doc.setFontSize(16);
@@ -106,8 +108,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     
     // Get the final Y position after the table is drawn
     let finalY = 200;
-    if (doc.previousAutoTable) {
-      finalY = doc.previousAutoTable.finalY || 200;
+    const lastTable2 = (doc as any).lastAutoTable;
+    if (lastTable2) {
+      finalY = lastTable2.finalY || 200;
     }
     
     // Add summary section at the end
@@ -161,9 +164,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           
           <div className="h-48">
             <BreakEvenChart 
-              fivetranCost={results.fivetranCost} 
-              reactorCost={results.reactorCost}
-              months={12} 
+              fivetranCosts={Array(12).fill(0).map((_, i) => results.fivetranCost * (i + 1))}
+              reactorCosts={Array(12).fill(0).map((_, i) => results.reactorCost * (i + 1))}
             />
           </div>
         </div>
