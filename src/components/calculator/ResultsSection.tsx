@@ -4,10 +4,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CostChart } from './CostChart';
 import { formatCurrency } from '@/lib/formatter';
-import { Results } from '@/lib/calculator-types';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import BreakEvenChart from './BreakEvenChart';
+import { BreakEvenChart } from './BreakEvenChart';
+
+interface Results {
+  fivetranCost: number;
+  reactorCost: number;
+  annualSavings: number;
+  breakEvenMonths: number;
+}
 
 interface ResultsSectionProps {
   results: Results;
@@ -56,7 +62,12 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     });
     
     // Break-even analysis
-    const breakEvenY = doc.lastAutoTable?.finalY || 120;
+    let breakEvenY = 120;
+    
+    // Get the final Y position after the table is drawn
+    if (doc.previousAutoTable) {
+      breakEvenY = doc.previousAutoTable.finalY || 120;
+    }
     
     doc.setFontSize(16);
     doc.setTextColor(36, 98, 170);
@@ -77,7 +88,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
       ]);
     }
     
-    const breakEvenTable = autoTable(doc, {
+    autoTable(doc, {
       startY: breakEvenY + 30,
       head: [['Period', 'Fivetran Cumulative Cost', 'Reactor Cumulative Cost', 'Cumulative Savings']],
       body: breakEvenTableData,
@@ -94,7 +105,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     });
     
     // Get the final Y position after the table is drawn
-    const finalY = doc.lastAutoTable?.finalY || 200;
+    let finalY = 200;
+    if (doc.previousAutoTable) {
+      finalY = doc.previousAutoTable.finalY || 200;
+    }
     
     // Add summary section at the end
     const totalSavings = results.annualSavings;
