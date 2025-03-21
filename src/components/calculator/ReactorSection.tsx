@@ -9,34 +9,41 @@ interface ReactorSectionProps {
   inputs: CalculatorInputs;
   handleSliderChange: (name: keyof CalculatorInputs, value: number[]) => void;
   handleInputChange: (name: keyof CalculatorInputs, value: string) => void;
+  hideRowsSlider?: boolean;
 }
 
 const ReactorSection: React.FC<ReactorSectionProps> = ({ 
   inputs, 
   handleSliderChange, 
-  handleInputChange 
+  handleInputChange,
+  hideRowsSlider = false
 }) => {
   return (
     <div className="space-y-4">
-      <SliderInput
-        id="totalRecords"
-        label="Reactor: Total Records Per Month"
-        tooltip="This represents the total number of records ingested per month in Reactor. Unlike Fivetran's MAR pricing, Reactor uses a flat fee structure based on total data volume, not per-row processing. Reactor includes unlimited model runs for transformations and entity output materializations at no additional cost."
-        value={inputs.totalRecords}
-        onChange={(name, value) => handleSliderChange(name, [value])}
-        onInputChange={handleInputChange}
-        max={10000000}
-        step={10000}
-        labelClassName="text-base font-bold"
-      />
-      <Slider
-        id="totalRecordsSlider"
-        value={[inputs.totalRecords]}
-        max={10000000}
-        step={10000}
-        onValueChange={(value) => handleSliderChange('totalRecords', value)}
-        className="py-2"
-      />
+      {/* Only show the Reactor-specific total records input if not hidden */}
+      {!hideRowsSlider && (
+        <>
+          <SliderInput
+            id="totalRecords"
+            label="Reactor: Total Records Per Month"
+            tooltip="This represents the total number of records ingested per month in Reactor. Unlike Fivetran's MAR pricing, Reactor uses a flat fee structure based on total data volume, not per-row processing. Reactor includes unlimited model runs for transformations and entity output materializations at no additional cost."
+            value={inputs.totalRecords}
+            onChange={(name, value) => handleSliderChange(name, [value])}
+            onInputChange={handleInputChange}
+            max={10000000}
+            step={10000}
+            labelClassName="text-base font-bold"
+          />
+          <Slider
+            id="totalRecordsSlider"
+            value={[inputs.totalRecords]}
+            max={10000000}
+            step={10000}
+            onValueChange={(value) => handleSliderChange('totalRecords', value)}
+            className="py-2"
+          />
+        </>
+      )}
       <PricingTierInfo type="reactor" />
     </div>
   );
