@@ -35,9 +35,10 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
             }}
           >
             <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="name" tick={{ fill: "#5B5B5B" }} />
             <YAxis 
               tickFormatter={(value) => `${formatCurrency(value, 0)}`}
+              tick={{ fill: "#5B5B5B" }}
             />
             <Tooltip 
               formatter={(value: number) => formatCurrency(value)}
@@ -57,7 +58,7 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
             <Bar 
               dataKey="Reactor" 
               name="Reactor" 
-              fill="#BF372A" 
+              fill="#FFCC00" 
               radius={[4, 4, 0, 0]}
             />
           </BarChart>

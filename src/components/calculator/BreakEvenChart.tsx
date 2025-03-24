@@ -43,10 +43,12 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
               label={{ 
                 value: 'Month', 
                 position: 'insideBottomRight', 
-                offset: -10 
+                offset: -10,
+                fill: "#5B5B5B"
               }} 
               padding={{ left: 0, right: 0 }}
               tickMargin={10}
+              tick={{ fill: "#5B5B5B" }}
             />
             <YAxis 
               tickFormatter={(value) => `${formatCurrency(value, 0)}`}
@@ -54,11 +56,12 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
                 value: 'Cumulative Cost', 
                 angle: -90, 
                 position: 'insideLeft',
-                style: { textAnchor: 'middle' },
+                style: { textAnchor: 'middle', fill: "#5B5B5B" },
                 offset: -5
               }} 
               tickMargin={10}
               width={80}
+              tick={{ fill: "#5B5B5B" }}
             />
             <Tooltip 
               formatter={(value: number) => formatCurrency(value)}
@@ -91,10 +94,10 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
             <Line 
               type="monotone" 
               dataKey="Reactor" 
-              stroke="#BF372A" 
+              stroke="#FFCC00" 
               strokeWidth={3} 
-              dot={{ r: 4, fill: "#BF372A", strokeWidth: 1 }} 
-              activeDot={{ r: 6, fill: "#BF372A" }} 
+              dot={{ r: 4, fill: "#FFCC00", strokeWidth: 1 }} 
+              activeDot={{ r: 6, fill: "#FFCC00" }} 
               name="Reactor"
             />
           </LineChart>
