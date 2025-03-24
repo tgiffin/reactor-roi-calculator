@@ -69,8 +69,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         formatCurrency(results.yearlyFivetranCosts[index] - results.yearlyReactorCosts[index])
       ]);
       
-      // Add the monthly costs table and get its final Y position
-      const finalTablePosition = autoTable(doc, {
+      // Add the monthly costs table - fixed to get position correctly
+      const tablePosition = autoTable(doc, {
         head: [['Month', 'Fivetran Cost', 'Reactor Cost', 'Monthly Savings']],
         body: tableBody,
         startY: 90,
@@ -79,7 +79,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
       });
       
       // Get the final Y position after the table is drawn
-      const finalY = finalTablePosition.finalY || 200;
+      const finalY = tablePosition?.finalY || 200;
       
       // Add summary section at the end
       const totalSavings = results.annualSavings;
