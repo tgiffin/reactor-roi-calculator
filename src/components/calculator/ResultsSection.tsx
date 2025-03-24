@@ -46,7 +46,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
 
   return (
     <div className="space-y-4 h-full flex flex-col">
-      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#DDDDDD]">
+      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
         <CardHeader className="rounded-t-lg">
           <CardTitle className="text-xl font-bold text-reactor-navy">Cost Comparison</CardTitle>
         </CardHeader>
@@ -67,7 +67,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#DDDDDD]">
+      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
         <CardHeader className="rounded-t-lg">
           <CardTitle className="text-xl font-bold text-reactor-navy">Break-Even Analysis</CardTitle>
         </CardHeader>
