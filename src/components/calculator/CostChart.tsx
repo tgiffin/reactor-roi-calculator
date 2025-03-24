@@ -58,9 +58,11 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
               fill="#4D83C1" 
               radius={[4, 4, 0, 0]}
               isAnimationActive={false}
-              // Disable hover effect by making active color the same as normal color
-              onMouseOver={(data, index, e) => {
-                e.target.style.cursor = 'default';
+              // Properly type the event parameter to access style property
+              onMouseOver={(_, __, e: React.MouseEvent<SVGElement>) => {
+                if (e.currentTarget) {
+                  e.currentTarget.style.cursor = 'default';
+                }
               }}
               activeBar={{ fill: "#4D83C1" }}
             />
@@ -70,9 +72,11 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
               fill="#FFCC00" 
               radius={[4, 4, 0, 0]}
               isAnimationActive={false}
-              // Disable hover effect by making active color the same as normal color
-              onMouseOver={(data, index, e) => {
-                e.target.style.cursor = 'default';
+              // Properly type the event parameter to access style property
+              onMouseOver={(_, __, e: React.MouseEvent<SVGElement>) => {
+                if (e.currentTarget) {
+                  e.currentTarget.style.cursor = 'default';
+                }
               }}
               activeBar={{ fill: "#FFCC00" }}
             />
