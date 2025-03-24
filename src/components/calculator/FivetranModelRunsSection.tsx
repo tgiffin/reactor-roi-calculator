@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
@@ -50,7 +49,7 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
         className="py-2"
       />
       
-      <div className="text-xs bg-[#DDDDDD] p-3 rounded-md border border-reactor-light-grey/50 shadow-sm mt-2">
+      <div className="text-xs bg-[#DDDDDD] p-3 rounded-md border border-[#5B5B5B] shadow-sm mt-2">
         <div className="font-semibold text-[#2462AA] mb-2">MMR Pricing Tiers:</div>
         <ul className="list-disc pl-5 space-y-1">
           <li>0-5,000 model runs/mo: Free</li>
