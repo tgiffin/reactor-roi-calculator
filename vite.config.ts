@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => ({
       }
     }
   },
-  // ✅ Fix: Ensure `process.env.NODE_ENV` is defined during build
+  // Fix: Ensure `process.env.NODE_ENV` is defined during build
   define: {
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
