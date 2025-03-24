@@ -60,6 +60,11 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
 
 // Calculate Reactor costs based on flat fee model
 export const calculateReactorCost = (inputs: CalculatorInputs): number => {
+  // If total records is 0, return 0 cost
+  if (inputs.totalRecords === 0) {
+    return 0;
+  }
+  
   // Simplified flat fee pricing model based on total records
   let reactorCost = 0;
   const recordsMillions = inputs.totalRecords / 1000000;
