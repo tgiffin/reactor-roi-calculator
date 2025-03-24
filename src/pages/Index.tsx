@@ -6,13 +6,13 @@ import { CalculatorInputs } from '@/lib/calculator-types';
 import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
-  // Updated default initial values to match real customer scenarios
+  // Updated initial values to start at 0
   const [inputs, setInputs] = useState<CalculatorInputs>({
-    monthlyActiveRows: 18000000, // 18 million rows - based on client data
-    totalRecords: 18000000, // 18 million records
-    modelRuns: 15000, // 15,000 model runs
-    growthRate: 15, // 15% annual growth
-    fivetranTier: 'standard', // Default to standard tier
+    monthlyActiveRows: 0, // Changed from 18 million to 0
+    totalRecords: 0, // Changed from 18 million to 0
+    modelRuns: 0, // Changed from 15,000 to 0
+    growthRate: 0, // Changed from 15% to 0%
+    fivetranTier: 'standard', // Kept standard tier as default
   });
 
   // Calculate results whenever inputs change
