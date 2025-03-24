@@ -93,7 +93,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   const maxRowsValue = inputs.fivetranTier === 'free' ? 500000 : 30000000;
 
   return (
-    <Card className="h-full bg-[#F3F3F3]">
+    <Card className="h-full bg-[#DDDDDD]">
       <CardHeader>
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>

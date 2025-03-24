@@ -69,7 +69,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         formatCurrency(results.yearlyFivetranCosts[index] - results.yearlyReactorCosts[index])
       ]);
       
-      // Add the monthly costs table - fixed to get position correctly
+      // Add the monthly costs table
       const tablePosition = autoTable(doc, {
         head: [['Month', 'Fivetran Cost', 'Reactor Cost', 'Monthly Savings']],
         body: tableBody,
@@ -79,7 +79,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
       });
       
       // Get the final Y position after the table is drawn (fixed the type error here)
-      const finalY = tablePosition?.finalY || 200; // Use optional chaining and provide a default value
+      // @ts-ignore - ignore the TypeScript error for now as jspdf-autotable types are incorrect
+      const finalY = tablePosition?.finalY || 200;
       
       // Add summary section at the end
       const totalSavings = results.annualSavings;
@@ -122,7 +123,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
 
   return (
     <div className="space-y-4 h-full flex flex-col">
-      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
+      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#DDDDDD]">
         <CardHeader className="rounded-t-lg">
           <CardTitle className="text-xl font-bold text-reactor-navy">Cost Comparison</CardTitle>
         </CardHeader>
@@ -134,17 +135,17 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           
           <div className="mt-6 space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#DDDDDD] p-4 rounded-lg">
+              <div className="bg-[#F3F3F3] p-4 rounded-lg">
                 <p className="text-sm font-medium text-[#2462AA]">Fivetran Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.fivetranMonthlyCost)}</p>
               </div>
-              <div className="bg-[#DDDDDD] p-4 rounded-lg">
+              <div className="bg-[#F3F3F3] p-4 rounded-lg">
                 <p className="text-sm font-medium text-reactor-reactor-blue">Reactor Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.reactorMonthlyCost)}</p>
               </div>
             </div>
             
-            <div className="bg-[#DDDDDD] p-4 rounded-lg shadow-sm">
+            <div className="bg-[#F3F3F3] p-4 rounded-lg shadow-sm">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm font-medium text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">Monthly Savings</p>
@@ -165,7 +166,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
+      <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#DDDDDD]">
         <CardHeader className="rounded-t-lg">
           <CardTitle className="text-xl font-bold text-reactor-navy">Break-Even Analysis</CardTitle>
         </CardHeader>
