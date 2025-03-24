@@ -82,19 +82,19 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
             <Line 
               type="monotone" 
               dataKey="Fivetran" 
-              stroke="#E87B00" 
+              stroke="#4D83C1" 
               strokeWidth={3} 
-              dot={{ r: 4, fill: "#E87B00", strokeWidth: 1 }} 
-              activeDot={{ r: 6, fill: "#E87B00" }} 
+              dot={{ r: 4, fill: "#4D83C1", strokeWidth: 1 }} 
+              activeDot={{ r: 6, fill: "#4D83C1" }} 
               name="Fivetran"
             />
             <Line 
               type="monotone" 
               dataKey="Reactor" 
-              stroke="#2462AA" 
+              stroke="#FFCC00" 
               strokeWidth={3} 
-              dot={{ r: 4, fill: "#2462AA", strokeWidth: 1 }} 
-              activeDot={{ r: 6, fill: "#2462AA" }} 
+              dot={{ r: 4, fill: "#FFCC00", strokeWidth: 1 }} 
+              activeDot={{ r: 6, fill: "#FFCC00" }} 
               name="Reactor"
             />
           </LineChart>
