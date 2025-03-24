@@ -78,8 +78,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
         headStyles: { fillColor: [36, 98, 170] }, // #2462AA
       });
       
-      // Get the final Y position after the table is drawn
-      const finalY = tablePosition?.finalY || 200;
+      // Get the final Y position after the table is drawn (fixed the type error here)
+      const finalY = tablePosition?.finalY || 200; // Use optional chaining and provide a default value
       
       // Add summary section at the end
       const totalSavings = results.annualSavings;
