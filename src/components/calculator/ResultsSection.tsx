@@ -135,17 +135,17 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           
           <div className="mt-6 space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#F3F3F3] p-4 rounded-lg">
+              <div className="bg-[#BEBCBA] p-4 rounded-lg">
                 <p className="text-sm font-medium text-[#2462AA]">Fivetran Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.fivetranMonthlyCost)}</p>
               </div>
-              <div className="bg-[#F3F3F3] p-4 rounded-lg">
+              <div className="bg-[#BEBCBA] p-4 rounded-lg">
                 <p className="text-sm font-medium text-reactor-reactor-blue">Reactor Monthly Cost</p>
                 <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(results.reactorMonthlyCost)}</p>
               </div>
             </div>
             
-            <div className="bg-[#F3F3F3] p-4 rounded-lg shadow-sm">
+            <div className="bg-[#BEBCBA] p-4 rounded-lg shadow-sm">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="text-sm font-medium text-reactor-brand-black dark:text-reactor-soundcommerce-yellow">Monthly Savings</p>
@@ -204,3 +204,4 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
 };
 
 export default ResultsSection;
+
