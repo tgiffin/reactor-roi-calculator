@@ -9,7 +9,7 @@ interface PricingTierInfoProps {
 
 const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
   return (
-    <div className="text-xs bg-[#BEBCBA] p-3 rounded-md shadow-sm">
+    <div className="text-xs bg-[#DDDDDD] p-3 rounded-md shadow-sm border border-[#5B5B5B]">
       <div className="font-semibold flex items-center mb-2">
         <ListIcon className="h-3 w-3 mr-1" /> 
         {type === 'fivetran-mar' && (
