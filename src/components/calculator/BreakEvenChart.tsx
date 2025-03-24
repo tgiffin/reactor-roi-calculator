@@ -91,10 +91,10 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
             <Line 
               type="monotone" 
               dataKey="Reactor" 
-              stroke="#FFCC00" 
+              stroke="#BF372A" 
               strokeWidth={3} 
-              dot={{ r: 4, fill: "#FFCC00", strokeWidth: 1 }} 
-              activeDot={{ r: 6, fill: "#FFCC00" }} 
+              dot={{ r: 4, fill: "#BF372A", strokeWidth: 1 }} 
+              activeDot={{ r: 6, fill: "#BF372A" }} 
               name="Reactor"
             />
           </LineChart>
@@ -102,7 +102,7 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
       </div>
 
       {breakEvenMonth > 0 && (
-        <div className="text-center px-4 py-2 bg-[#E87B00]/15 border border-[#E87B00]/30 rounded-md text-reactor-brand-black font-medium shadow-sm">
+        <div className="text-center px-4 py-2 bg-[#BF372A]/15 border border-[#BF372A]/30 rounded-md text-reactor-brand-black font-medium shadow-sm">
           Reactor becomes more cost-effective in month {breakEvenMonth + 1}
         </div>
       )}
