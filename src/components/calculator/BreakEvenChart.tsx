@@ -79,8 +79,10 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({ fivetranCosts, r
               height={36}
               wrapperStyle={{
                 paddingTop: '10px',
-                fontSize: '12px'
+                fontSize: '12px',
+                color: "#5B5B5B"
               }}
+              formatter={(value) => <span style={{ color: "#5B5B5B" }}>{value}</span>}
             />
             <Line 
               type="monotone" 

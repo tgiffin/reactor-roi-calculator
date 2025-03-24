@@ -48,7 +48,10 @@ export const CostChart: React.FC<CostChartProps> = ({ fivetranCost, reactorCost 
                 border: '1px solid #e2e8f0' 
               }}
             />
-            <Legend />
+            <Legend 
+              wrapperStyle={{ color: "#5B5B5B" }}  
+              formatter={(value) => <span style={{ color: "#5B5B5B" }}>{value}</span>}
+            />
             <Bar 
               dataKey="Fivetran" 
               name="Fivetran" 
