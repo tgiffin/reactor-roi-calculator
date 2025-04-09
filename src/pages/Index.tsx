@@ -8,11 +8,12 @@ import { calculateResults } from '@/lib/calculator-logic';
 const Index = () => {
   // Updated initial values to start at 0
   const [inputs, setInputs] = useState<CalculatorInputs>({
-    monthlyActiveRows: 0, // Changed from 18 million to 0
-    totalRecords: 0, // Changed from 18 million to 0
-    modelRuns: 0, // Changed from 15,000 to 0
-    growthRate: 0, // Changed from 15% to 0%
-    fivetranTier: 'standard', // Kept standard tier as default
+    monthlyActiveRows: 0,
+    totalRecords: 0,
+    modelRuns: 0,
+    growthRate: 0,
+    fivetranTier: 'standard',
+    connectors: 0, // Added initial value for connectors
   });
 
   // Calculate results whenever inputs change

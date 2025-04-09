@@ -7,6 +7,7 @@ export interface CalculatorInputs {
   modelRuns: number;
   growthRate: number;
   fivetranTier: FivetranTier;
+  connectors: number; // Added the missing connectors property
 }
 
 export interface CalculatorResults {

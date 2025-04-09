@@ -1,3 +1,4 @@
+
 import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -54,7 +55,10 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
     }
   }
 
-  return marCost + transformationCost;
+  // Calculate connector costs (approx $100 per connector per month)
+  const connectorCost = inputs.fivetranTier === 'free' ? 0 : inputs.connectors * 100;
+
+  return marCost + transformationCost + connectorCost;
 };
 
 // Calculate Reactor costs based on the new tiered flat-band pricing structure
