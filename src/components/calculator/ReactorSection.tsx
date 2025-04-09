@@ -26,19 +26,19 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
           <SliderInput
             id="totalRecords"
             label="Reactor: Total Records Per Month"
-            tooltip="This represents the total number of records ingested per month in Reactor. Unlike Fivetran's MAR pricing, Reactor uses a flat fee structure based on total data volume, not per-row processing. Reactor includes unlimited model runs for transformations and entity output materializations at no additional cost."
+            tooltip="This represents the total number of records ingested per month in Reactor. Reactor uses a tiered pricing model with Core, Fusion, and SuperNova tiers. Each tier includes unlimited model runs for transformations and entity output materializations at no additional cost."
             value={inputs.totalRecords}
             onChange={(name, value) => handleSliderChange(name, [value])}
             onInputChange={handleInputChange}
-            max={10000000}
-            step={10000}
+            max={30000000}
+            step={500000}
             labelClassName="text-base font-bold"
           />
           <Slider
             id="totalRecordsSlider"
             value={[inputs.totalRecords]}
-            max={10000000}
-            step={10000}
+            max={30000000}
+            step={500000}
             onValueChange={(value) => handleSliderChange('totalRecords', value)}
             className="py-2"
           />

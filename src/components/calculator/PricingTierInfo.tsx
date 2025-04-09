@@ -19,7 +19,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
           <span className="text-[#2462AA]">Fivetran Transformation Pricing (Simplified):</span>
         )}
         {type === 'reactor' && (
-          <span className="text-black text-base">Reactor Pricing Tiers (Simplified):</span>
+          <span className="text-black text-base">Reactor Pricing Tiers:</span>
         )}
       </div>
       <ul className="list-disc pl-5 space-y-1">
@@ -42,11 +42,16 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
         )}
         {type === 'reactor' && (
           <>
-            <li>Up to 1M records/mo: {formatCurrency(950)}/month</li>
-            <li>1M-5M records/mo: {formatCurrency(1900)}/month</li>
-            <li>5M-10M records/mo: {formatCurrency(3800)}/month</li>
-            <li>10M+ records/mo: {formatCurrency(3800)} + {formatCurrency(1000)} per 5M additional records</li>
-            <li className="font-medium text-[#2462AA]/80">All tiers include unlimited model runs for transformations</li>
+            <li className="font-medium">Core Tier: {formatCurrency(2500)}/month</li>
+            <li className="pl-2 text-xs">Covers 0-5M records/month</li>
+            <li className="font-medium mt-1">Fusion Tier:</li>
+            <li className="pl-2 text-xs">5M-10M records: +{formatCurrency(2400)}/month</li>
+            <li className="pl-2 text-xs">10M-15M records: +{formatCurrency(2300)}/month</li>
+            <li className="pl-2 text-xs">15M-20M records: +{formatCurrency(2200)}/month</li>
+            <li className="pl-2 text-xs">20M-25M records: +{formatCurrency(2100)}/month</li>
+            <li className="font-medium mt-1">SuperNova Tier:</li>
+            <li className="pl-2 text-xs">Over 25M records: Contact Sales</li>
+            <li className="font-medium text-[#2462AA]/80 mt-1">All tiers include unlimited model runs</li>
           </>
         )}
       </ul>

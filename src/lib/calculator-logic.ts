@@ -1,4 +1,3 @@
-
 import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -58,25 +57,43 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   return marCost + transformationCost;
 };
 
-// Calculate Reactor costs based on flat fee model
+// Calculate Reactor costs based on the new tiered flat-band pricing structure
 export const calculateReactorCost = (inputs: CalculatorInputs): number => {
   // If total records is 0, return 0 cost
   if (inputs.totalRecords === 0) {
     return 0;
   }
   
-  // Simplified flat fee pricing model based on total records
+  // New flat-band pricing model based on total records
   let reactorCost = 0;
-  const recordsMillions = inputs.totalRecords / 1000000;
   
-  if (recordsMillions <= 1) {
-    reactorCost = 950; // $950 flat fee up to 1M records
-  } else if (recordsMillions <= 5) {
-    reactorCost = 1900; // $1,900 flat fee up to 5M records
-  } else if (recordsMillions <= 10) {
-    reactorCost = 3800; // $3,800 flat fee up to 10M records
-  } else {
-    reactorCost = 3800 + Math.ceil((recordsMillions - 10) / 5) * 1000; // $1,000 for each additional 5M records
+  // Core Tier - Always included for all customers
+  reactorCost += 2500; // $2,500 flat fee for Core tier (0-5M records)
+  
+  // Fusion Tier - Applied in cumulative bands
+  if (inputs.totalRecords > 5000000) {
+    // Band 5M-10M
+    reactorCost += 2400;
+    
+    if (inputs.totalRecords > 10000000) {
+      // Band 10M-15M
+      reactorCost += 2300;
+      
+      if (inputs.totalRecords > 15000000) {
+        // Band 15M-20M
+        reactorCost += 2200;
+        
+        if (inputs.totalRecords > 20000000) {
+          // Band 20M-25M
+          reactorCost += 2100;
+        }
+      }
+    }
+  }
+  
+  // For SuperNova tier (over 25M), we'll return -1 as a signal to display "Contact Sales"
+  if (inputs.totalRecords > 25000000) {
+    return -1;
   }
   
   return reactorCost;

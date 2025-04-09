@@ -90,6 +90,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   };
 
   // Determine max value based on selected tier for global slider
+  // Updated to 30M to match our max calculation limit
   const maxRowsValue = inputs.fivetranTier === 'free' ? 500000 : 30000000;
 
   return (
