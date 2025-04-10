@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
 import { CalculatorInputs } from '@/lib/calculator-types';
-import { calculateResults, findAppropriateReactorTier } from '@/lib/calculator-logic';
+import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
   // Updated initial values to start at 0
@@ -17,16 +17,16 @@ const Index = () => {
     reactorTier: '5M', // Default to the 5M tier
   });
 
-  // Auto-select appropriate Reactor tier when totalRecords changes
+  // Auto-adjust for Free tier Fivetran limits only
   useEffect(() => {
-    // Only auto-select if the user hasn't explicitly chosen a tier manually
-    if (inputs.totalRecords > 0) {
+    if (inputs.fivetranTier === 'free') {
       setInputs(prev => ({
         ...prev,
-        reactorTier: findAppropriateReactorTier(prev.totalRecords)
+        monthlyActiveRows: Math.min(prev.monthlyActiveRows, 500000),
+        modelRuns: Math.min(prev.modelRuns, 5000),
       }));
     }
-  }, [inputs.totalRecords]);
+  }, [inputs.fivetranTier]);
 
   // Calculate results whenever inputs change
   const results = calculateResults(inputs);
