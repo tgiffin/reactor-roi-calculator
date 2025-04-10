@@ -1,75 +1,58 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
-import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
-import { Info } from "lucide-react";
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from "@/components/ui/tooltip";
+import PricingTierInfo from './PricingTierInfo';
+import { InfoIcon } from "lucide-react";
+import { CalculatorInputs } from "@/lib/calculator-types";
 
 interface FivetranMarSectionProps {
   inputs: CalculatorInputs;
   handleSliderChange: (name: keyof CalculatorInputs, value: number[]) => void;
   handleInputChange: (name: keyof CalculatorInputs, value: string) => void;
-  setFivetranTier: (tier: FivetranTier) => void;
 }
 
 const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({ 
   inputs, 
   handleSliderChange, 
-  handleInputChange,
-  setFivetranTier
+  handleInputChange 
 }) => {
-  // This effect watches for when the MAR value exceeds 500k while the free tier is selected
-  useEffect(() => {
-    if (inputs.fivetranTier === 'free' && inputs.monthlyActiveRows > 500000) {
-      setFivetranTier('standard');
+  // Set the maximum value based on the selected tier
+  const getMaxValue = () => {
+    switch(inputs.fivetranTier) {
+      case 'free': return 500000; // Free tier max 500K
+      default: return 30000000;   // Other tiers go up to 30M for visualization
     }
-  }, [inputs.monthlyActiveRows, inputs.fivetranTier, setFivetranTier]);
+  };
 
-  // Determine max value based on selected tier
-  const maxValue = inputs.fivetranTier === 'free' ? 500000 : 30000000;
+  // Get step size based on tier
+  const getStepSize = () => {
+    return inputs.fivetranTier === 'free' ? 10000 : 500000;
+  };
 
   return (
     <div className="space-y-4">
+      {/* MAR Slider */}
       <SliderInput
         id="monthlyActiveRows"
-        label={
-          <div className="flex items-center">
-            <span>Monthly Active Rows (MARs) - Fivetran</span>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="ml-1 h-4 w-4 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  <p>Monthly Active Rows (MARs) are the primary pricing metric for Fivetran. Each unique row processed in your source that is added, updated, or deleted counts as a MAR and affects your billing.</p>
-                  <p className="mt-2 font-medium">Pricing is per million rows, rounded up to the nearest million. For example, 5,000,001 rows would be charged as 6 million rows.</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-        }
-        tooltip="Monthly Active Rows (MARs) are the primary pricing metric for Fivetran. Each unique row processed in your source that is added, updated, or deleted counts as a MAR and affects your billing."
+        label="Fivetran: Monthly Active Rows (MAR)"
+        tooltip={<span>This represents the number of rows processed by Fivetran each month. Fivetran pricing is based on Monthly Active Rows (MARs).</span>}
         value={inputs.monthlyActiveRows}
         onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
-        max={maxValue}
-        step={inputs.fivetranTier === 'free' ? 10000 : 500000}
-        labelClassName="text-sm font-bold text-gray-900"
+        max={getMaxValue()}
+        step={getStepSize()}
+        labelClassName="text-base font-bold"
       />
       <Slider
         id="monthlyActiveRowsSlider"
         value={[inputs.monthlyActiveRows]}
-        max={maxValue}
-        step={inputs.fivetranTier === 'free' ? 10000 : 500000}
+        max={getMaxValue()}
+        step={getStepSize()}
         onValueChange={(value) => handleSliderChange('monthlyActiveRows', value)}
         className="py-2"
       />
+      <PricingTierInfo type="fivetran-mar" />
     </div>
   );
 };

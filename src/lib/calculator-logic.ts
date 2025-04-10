@@ -74,26 +74,12 @@ interface ReactorTierInfo {
   monthlyCommitment: number;
 }
 
-// New Reactor tier pricing information
+// New Reactor tier pricing information - simplified to flat rate only
 const REACTOR_TIER_PRICING: Record<ReactorTier, ReactorTierInfo> = {
-  '5M': { maxRows: 5000000, costPerMillion: 500, monthlyCommitment: 2500 },
-  '10M': { maxRows: 10000000, costPerMillion: 480, monthlyCommitment: 4800 },
-  '15M': { maxRows: 15000000, costPerMillion: 460, monthlyCommitment: 6900 },
-  '20M': { maxRows: 20000000, costPerMillion: 440, monthlyCommitment: 8800 },
-  '25M': { maxRows: 25000000, costPerMillion: 420, monthlyCommitment: 10500 }
+  'flatRate': { maxRows: 30000000, costPerMillion: 400, monthlyCommitment: 2500 }
 };
 
-// Helper function to find the appropriate tier based on row count
-export const findAppropriateReactorTier = (rowCount: number): ReactorTier => {
-  if (rowCount <= 0) return '5M';
-  if (rowCount <= 5000000) return '5M';
-  if (rowCount <= 10000000) return '10M';
-  if (rowCount <= 15000000) return '15M';
-  if (rowCount <= 20000000) return '20M';
-  return '25M';
-};
-
-// Calculate Reactor costs based on the new tiered commitment model with overages
+// Calculate Reactor costs based on the new flat rate pricing
 export const calculateReactorCost = (
   inputs: CalculatorInputs
 ): { totalCost: number; committedCost: number; overageCost: number } => {

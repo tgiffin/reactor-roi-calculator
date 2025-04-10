@@ -2,7 +2,6 @@
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
-import PricingTierInfo from './PricingTierInfo';
 import { CalculatorInputs } from "@/lib/calculator-types";
 
 interface ReactorSectionProps {
@@ -44,7 +43,6 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
           />
         </>
       )}
-      <PricingTierInfo type="reactor" />
     </div>
   );
 };
