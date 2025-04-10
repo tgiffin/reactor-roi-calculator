@@ -1,11 +1,14 @@
 
-import React from 'react';
-import { ArrowRight } from "lucide-react";
+import React, { useState } from 'react';
+import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { formatCurrency } from "@/lib/formatter";
+import { Button } from "@/components/ui/button";
 
 interface CostBoxesProps {
   fivetranMonthlyCost: number;
   reactorMonthlyCost: number;
+  reactorCommittedCost: number;
+  reactorOverageCost: number;
   monthlySavings: number;
   annualSavings: number;
 }
@@ -13,9 +16,13 @@ interface CostBoxesProps {
 const CostBoxes: React.FC<CostBoxesProps> = ({
   fivetranMonthlyCost,
   reactorMonthlyCost,
+  reactorCommittedCost,
+  reactorOverageCost,
   monthlySavings,
   annualSavings
 }) => {
+  const [showOverageDetails, setShowOverageDetails] = useState(false);
+
   // Handle the special "Contact Sales" case for SuperNova tier
   const renderReactorCost = () => {
     if (reactorMonthlyCost === -1) {
@@ -65,6 +72,45 @@ const CostBoxes: React.FC<CostBoxesProps> = ({
     );
   };
 
+  // Render reactor cost breakdown with toggle option
+  const renderReactorCostBreakdown = () => {
+    if (reactorMonthlyCost === -1) {
+      return <p className="text-2xl font-bold">Contact Sales</p>;
+    }
+
+    return (
+      <div>
+        <div className="flex justify-between items-center">
+          <p className="text-2xl font-bold text-reactor-brand-black">{formatCurrency(reactorMonthlyCost)}</p>
+          {reactorOverageCost > 0 && (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="flex items-center text-xs text-reactor-reactor-blue"
+              onClick={() => setShowOverageDetails(!showOverageDetails)}
+            >
+              {showOverageDetails ? 'Hide Details' : 'Show Details'}
+              {showOverageDetails ? <ChevronUp className="ml-1 h-3 w-3" /> : <ChevronDown className="ml-1 h-3 w-3" />}
+            </Button>
+          )}
+        </div>
+        
+        {showOverageDetails && reactorOverageCost > 0 && (
+          <div className="mt-2 text-sm border-t border-gray-200 pt-2">
+            <div className="flex justify-between">
+              <span>Base Tier:</span>
+              <span>{formatCurrency(reactorCommittedCost)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Overage:</span>
+              <span>{formatCurrency(reactorOverageCost)}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
@@ -74,7 +120,7 @@ const CostBoxes: React.FC<CostBoxesProps> = ({
         </div>
         <div className="bg-[#DDDDDD] p-4 rounded-lg border border-[#5B5B5B]">
           <p className="text-sm font-medium text-reactor-reactor-blue">Reactor Monthly Cost</p>
-          {renderReactorCost()}
+          {renderReactorCostBreakdown()}
         </div>
       </div>
       

@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
 import { CalculatorInputs } from '@/lib/calculator-types';
-import { calculateResults } from '@/lib/calculator-logic';
+import { calculateResults, findAppropriateReactorTier } from '@/lib/calculator-logic';
 
 const Index = () => {
   // Updated initial values to start at 0
@@ -13,8 +13,20 @@ const Index = () => {
     modelRuns: 0,
     growthRate: 0,
     fivetranTier: 'standard',
-    connectors: 0, // Added initial value for connectors
+    connectors: 0,
+    reactorTier: '5M', // Default to the 5M tier
   });
+
+  // Auto-select appropriate Reactor tier when totalRecords changes
+  useEffect(() => {
+    // Only auto-select if the user hasn't explicitly chosen a tier manually
+    if (inputs.totalRecords > 0) {
+      setInputs(prev => ({
+        ...prev,
+        reactorTier: findAppropriateReactorTier(prev.totalRecords)
+      }));
+    }
+  }, [inputs.totalRecords]);
 
   // Calculate results whenever inputs change
   const results = calculateResults(inputs);

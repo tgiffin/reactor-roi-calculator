@@ -2,11 +2,12 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
+import { CalculatorInputs, FivetranTier, ReactorTier } from "@/lib/calculator-types";
 import FivetranModelRunsSection from './FivetranModelRunsSection';
 import FivetranTierSection from './FivetranTierSection';
 import ReactorSection from './ReactorSection';
 import GrowthRateSection from './GrowthRateSection';
+import ReactorTierSelector from './ReactorTierSelector';
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -89,6 +90,10 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
     }
   };
 
+  const setReactorTier = (tier: ReactorTier) => {
+    setInputs((prev) => ({ ...prev, reactorTier: tier }));
+  };
+
   // Determine max value based on selected tier for global slider
   // Updated to 30M to match our max calculation limit
   const maxRowsValue = inputs.fivetranTier === 'free' ? 500000 : 30000000;
@@ -132,13 +137,23 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           />
         </div>
 
-        {/* Reactor Section - with reduced functionality */}
-        <ReactorSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
-          hideRowsSlider={true}
-        />
+        {/* Reactor Section - with tier selection */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Reactor Settings</h3>
+          
+          {/* Add the new Reactor Tier Selector */}
+          <ReactorTierSelector 
+            inputs={inputs} 
+            setReactorTier={setReactorTier}
+          />
+          
+          <ReactorSection 
+            inputs={inputs} 
+            handleSliderChange={handleSliderChange} 
+            handleInputChange={handleInputChange} 
+            hideRowsSlider={true}
+          />
+        </div>
 
         {/* Fivetran Tier Selection */}
         <FivetranTierSection 

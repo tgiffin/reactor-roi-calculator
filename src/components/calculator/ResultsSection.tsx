@@ -60,6 +60,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
             <CostBoxes 
               fivetranMonthlyCost={results.fivetranMonthlyCost}
               reactorMonthlyCost={results.reactorMonthlyCost}
+              reactorCommittedCost={results.reactorCommittedCost}
+              reactorOverageCost={results.reactorOverageCost}
               monthlySavings={results.monthlySavings}
               annualSavings={results.annualSavings}
             />

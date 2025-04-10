@@ -1,5 +1,5 @@
 
-import { CalculatorInputs, CalculatorResults, FivetranTier } from './calculator-types';
+import { CalculatorInputs, CalculatorResults, FivetranTier, ReactorTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
@@ -61,46 +61,74 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   return marCost + transformationCost + connectorCost;
 };
 
-// Calculate Reactor costs based on the new tiered flat-band pricing structure
-export const calculateReactorCost = (inputs: CalculatorInputs): number => {
+// Structure to hold Reactor tier information
+interface ReactorTierInfo {
+  maxRows: number;
+  costPerMillion: number;
+  monthlyCommitment: number;
+}
+
+// New Reactor tier pricing information
+const REACTOR_TIER_PRICING: Record<ReactorTier, ReactorTierInfo> = {
+  '5M': { maxRows: 5000000, costPerMillion: 500, monthlyCommitment: 2500 },
+  '10M': { maxRows: 10000000, costPerMillion: 480, monthlyCommitment: 4800 },
+  '15M': { maxRows: 15000000, costPerMillion: 460, monthlyCommitment: 6900 },
+  '20M': { maxRows: 20000000, costPerMillion: 440, monthlyCommitment: 8800 },
+  '25M': { maxRows: 25000000, costPerMillion: 420, monthlyCommitment: 10500 }
+};
+
+// Helper function to find the appropriate tier based on row count
+export const findAppropriateReactorTier = (rowCount: number): ReactorTier => {
+  if (rowCount <= 0) return '5M';
+  if (rowCount <= 5000000) return '5M';
+  if (rowCount <= 10000000) return '10M';
+  if (rowCount <= 15000000) return '15M';
+  if (rowCount <= 20000000) return '20M';
+  return '25M';
+};
+
+// Calculate Reactor costs based on the new tiered commitment model with overages
+export const calculateReactorCost = (
+  inputs: CalculatorInputs
+): { totalCost: number; committedCost: number; overageCost: number } => {
   // If total records is 0, return 0 cost
   if (inputs.totalRecords === 0) {
-    return 0;
+    return { 
+      totalCost: 0, 
+      committedCost: 0, 
+      overageCost: 0 
+    };
   }
   
-  // New flat-band pricing model based on total records
-  let reactorCost = 0;
+  // Get pricing info for the selected tier
+  const tierInfo = REACTOR_TIER_PRICING[inputs.reactorTier];
+  const committedCost = tierInfo.monthlyCommitment;
   
-  // Core Tier - Always included for all customers
-  reactorCost += 2500; // $2,500 flat fee for Core tier (0-5M records)
-  
-  // Fusion Tier - Applied in cumulative bands
-  if (inputs.totalRecords > 5000000) {
-    // Band 5M-10M
-    reactorCost += 2400;
+  // Calculate overage if actual usage exceeds the committed tier
+  let overageCost = 0;
+  if (inputs.totalRecords > tierInfo.maxRows) {
+    // Calculate how many million rows over the tier limit
+    const extraRows = inputs.totalRecords - tierInfo.maxRows;
+    const extraMillions = Math.ceil(extraRows / 1000000); // Round up to nearest million
     
-    if (inputs.totalRecords > 10000000) {
-      // Band 10M-15M
-      reactorCost += 2300;
-      
-      if (inputs.totalRecords > 15000000) {
-        // Band 15M-20M
-        reactorCost += 2200;
-        
-        if (inputs.totalRecords > 20000000) {
-          // Band 20M-25M
-          reactorCost += 2100;
-        }
-      }
-    }
+    // Apply the tier's per-million rate to the overage
+    overageCost = extraMillions * tierInfo.costPerMillion;
   }
   
-  // For SuperNova tier (over 25M), we'll return -1 as a signal to display "Contact Sales"
+  // For rows over 25M, return a signal for "Contact Sales"
   if (inputs.totalRecords > 25000000) {
-    return -1;
+    return { 
+      totalCost: -1, 
+      committedCost, 
+      overageCost 
+    };
   }
   
-  return reactorCost;
+  return {
+    totalCost: committedCost + overageCost,
+    committedCost,
+    overageCost
+  };
 };
 
 // Calculate projected costs over time with growth rate
@@ -124,12 +152,17 @@ export const calculateYearlyCosts = (
     
     // Apply growth for next month
     currentFivetranCost = currentFivetranCost * (1 + monthlyGrowthRate);
-    currentReactorCost = calculateReactorCost({
+    
+    // Calculate new reactor cost with projected growth
+    const projectedRecords = inputs.totalRecords * Math.pow(1 + monthlyGrowthRate, i + 1);
+    const projectedReactorCost = calculateReactorCost({
       ...inputs,
-      totalRecords: inputs.totalRecords * Math.pow(1 + monthlyGrowthRate, i + 1),
+      totalRecords: projectedRecords,
       monthlyActiveRows: inputs.monthlyActiveRows * Math.pow(1 + monthlyGrowthRate, i + 1),
       modelRuns: inputs.modelRuns * Math.pow(1 + monthlyGrowthRate, i + 1),
     });
+    
+    currentReactorCost = projectedReactorCost.totalCost;
   }
   
   return { fivetranCosts, reactorCosts };
@@ -138,7 +171,8 @@ export const calculateYearlyCosts = (
 // Calculate full results
 export const calculateResults = (inputs: CalculatorInputs): CalculatorResults => {
   const fivetranMonthlyCost = calculateFivetranCost(inputs);
-  const reactorMonthlyCost = calculateReactorCost(inputs);
+  const reactorCostDetails = calculateReactorCost(inputs);
+  const reactorMonthlyCost = reactorCostDetails.totalCost;
   const monthlySavings = Math.max(0, fivetranMonthlyCost - reactorMonthlyCost);
   
   // Calculate projected costs over 12 months
@@ -155,6 +189,8 @@ export const calculateResults = (inputs: CalculatorInputs): CalculatorResults =>
   return {
     fivetranMonthlyCost,
     reactorMonthlyCost,
+    reactorCommittedCost: reactorCostDetails.committedCost,
+    reactorOverageCost: reactorCostDetails.overageCost,
     monthlySavings,
     annualSavings,
     yearlyFivetranCosts: fivetranCosts,
