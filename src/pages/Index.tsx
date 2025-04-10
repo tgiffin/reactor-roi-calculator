@@ -14,7 +14,7 @@ const Index = () => {
     growthRate: 0,
     fivetranTier: 'standard',
     connectors: 0,
-    reactorTier: '5M', // Default to the 5M tier
+    reactorTier: 'flatRate', // Updated to use flat rate tier
   });
 
   // Auto-adjust for Free tier Fivetran limits only

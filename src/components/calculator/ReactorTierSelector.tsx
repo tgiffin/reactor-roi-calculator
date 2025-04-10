@@ -20,70 +20,28 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <h3 className="text-base font-bold text-gray-900">Select Your Reactor Tier Commitment</h3>
+          <h3 className="text-base font-bold text-gray-900">Reactor Pricing</h3>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Info className="h-4 w-4 ml-1 text-gray-400" />
               </TooltipTrigger>
               <TooltipContent className="max-w-sm">
-                <p>Select your monthly tier commitment. If your usage exceeds this tier, overage charges will apply.</p>
+                <p>Flat rate pricing of $400 per million rows per month with a $2,500 monthly minimum.</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
       </div>
 
-      <RadioGroup
-        value={inputs.reactorTier}
-        onValueChange={(value) => setReactorTier(value as ReactorTier)}
-        className="grid grid-cols-1 gap-2"
-      >
-        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
-          <RadioGroupItem value="5M" id="tier5M" />
-          <Label htmlFor="tier5M" className="cursor-pointer flex-1">
-            <div className="font-medium text-[#2462AA]">5M Tier - {formatCurrency(2500)}</div>
-            <div className="text-xs text-gray-500">Up to {formatNumber(5000000)} rows/month</div>
-            <div className="text-xs text-gray-500">Overage: $500 per million</div>
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
-          <RadioGroupItem value="10M" id="tier10M" />
-          <Label htmlFor="tier10M" className="cursor-pointer flex-1">
-            <div className="font-medium text-[#2462AA]">10M Tier - {formatCurrency(4800)}</div>
-            <div className="text-xs text-gray-500">Up to {formatNumber(10000000)} rows/month</div>
-            <div className="text-xs text-gray-500">Overage: $480 per million</div>
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
-          <RadioGroupItem value="15M" id="tier15M" />
-          <Label htmlFor="tier15M" className="cursor-pointer flex-1">
-            <div className="font-medium text-[#2462AA]">15M Tier - {formatCurrency(6900)}</div>
-            <div className="text-xs text-gray-500">Up to {formatNumber(15000000)} rows/month</div>
-            <div className="text-xs text-gray-500">Overage: $460 per million</div>
-          </Label>
-        </div>
-        
-        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
-          <RadioGroupItem value="20M" id="tier20M" />
-          <Label htmlFor="tier20M" className="cursor-pointer flex-1">
-            <div className="font-medium text-[#2462AA]">20M Tier - {formatCurrency(8800)}</div>
-            <div className="text-xs text-gray-500">Up to {formatNumber(20000000)} rows/month</div>
-            <div className="text-xs text-gray-500">Overage: $440 per million</div>
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
-          <RadioGroupItem value="25M" id="tier25M" />
-          <Label htmlFor="tier25M" className="cursor-pointer flex-1">
-            <div className="font-medium text-[#2462AA]">25M Tier - {formatCurrency(10500)}</div>
-            <div className="text-xs text-gray-500">Up to {formatNumber(25000000)} rows/month</div>
-            <div className="text-xs text-gray-500">Overage: $420 per million</div>
-          </Label>
-        </div>
-      </RadioGroup>
+      <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 bg-[#DDDDDD]">
+        <RadioGroupItem value="flatRate" id="flatRate" checked readOnly />
+        <Label htmlFor="flatRate" className="cursor-pointer flex-1">
+          <div className="font-medium text-[#2462AA]">Flat Rate - {formatCurrency(2500)} minimum</div>
+          <div className="text-xs text-gray-500">{formatCurrency(400)} per million rows (rounded up)</div>
+          <div className="text-xs text-gray-500">No additional tiers or volume discounts</div>
+        </Label>
+      </div>
     </div>
   );
 };

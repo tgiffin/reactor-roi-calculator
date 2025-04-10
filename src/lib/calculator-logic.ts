@@ -1,4 +1,3 @@
-
 import { CalculatorInputs, CalculatorResults, FivetranTier, ReactorTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -107,32 +106,32 @@ export const calculateReactorCost = (
     };
   }
   
-  // Get pricing info for the selected tier
-  const tierInfo = REACTOR_TIER_PRICING[inputs.reactorTier];
-  const committedCost = tierInfo.monthlyCommitment;
+  // Flat rate pricing: $400 per million with $2500 minimum
+  const MINIMUM_MONTHLY_COST = 2500;
+  const COST_PER_MILLION = 400;
   
-  // Calculate overage if actual usage exceeds the committed tier
-  let overageCost = 0;
-  if (inputs.totalRecords > tierInfo.maxRows) {
-    // Calculate how many million rows over the tier limit
-    const extraRows = inputs.totalRecords - tierInfo.maxRows;
-    const extraMillions = Math.ceil(extraRows / 1000000); // Round up to nearest million
-    
-    // Apply the tier's per-million rate to the overage
-    overageCost = extraMillions * tierInfo.costPerMillion;
-  }
+  // Calculate cost based on actual usage at $400 per million
+  const millionsRoundedUp = Math.ceil(inputs.totalRecords / 1000000);
+  const calculatedCost = millionsRoundedUp * COST_PER_MILLION;
   
-  // For rows over 25M, return a signal for "Contact Sales"
-  if (inputs.totalRecords > 25000000) {
+  // Apply minimum monthly cost of $2500
+  let totalCost = Math.max(calculatedCost, MINIMUM_MONTHLY_COST);
+  
+  // For rows over 30M, return a signal for "Contact Sales"
+  if (inputs.totalRecords > 30000000) {
     return { 
       totalCost: -1, 
-      committedCost, 
-      overageCost 
+      committedCost: MINIMUM_MONTHLY_COST, 
+      overageCost: 0 
     };
   }
   
+  // Calculate committed cost and overage cost
+  const committedCost = MINIMUM_MONTHLY_COST;
+  const overageCost = Math.max(0, totalCost - committedCost);
+  
   return {
-    totalCost: committedCost + overageCost,
+    totalCost,
     committedCost,
     overageCost
   };

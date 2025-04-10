@@ -1,6 +1,6 @@
 
 export type FivetranTier = 'free' | 'standard' | 'enterprise' | 'businessCritical';
-export type ReactorTier = '5M' | '10M' | '15M' | '20M' | '25M';
+export type ReactorTier = 'flatRate'; // Changed to a single tier with flat rate pricing
 
 export interface CalculatorInputs {
   monthlyActiveRows: number;
@@ -9,7 +9,7 @@ export interface CalculatorInputs {
   growthRate: number;
   fivetranTier: FivetranTier;
   connectors: number;
-  reactorTier: ReactorTier; // Added reactor tier selection
+  reactorTier: ReactorTier; // Now just uses the single flat rate tier
 }
 
 export interface CalculatorResults {
