@@ -29,6 +29,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
               </TooltipTrigger>
               <TooltipContent className="max-w-sm">
                 <p>Select the Fivetran pricing tier that applies to your organization.</p>
+                <p className="mt-2 font-medium">Note: Fivetran charges per million rows, rounded up. Even one row over a million threshold will incur the full charge for the next million.</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -44,6 +45,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="free" id="free" />
           <Label htmlFor="free" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Free</div>
+            <div className="text-xs text-gray-500">Up to 500,000 rows/month</div>
           </Label>
         </div>
 
@@ -51,6 +53,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="standard" id="standard" />
           <Label htmlFor="standard" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Standard - $500/mo per million rows</div>
+            <div className="text-xs text-gray-500">Charged per full million (rounded up)</div>
           </Label>
         </div>
 
@@ -58,6 +61,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="enterprise" id="enterprise" />
           <Label htmlFor="enterprise" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Enterprise - $667/mo per million rows</div>
+            <div className="text-xs text-gray-500">Charged per full million (rounded up)</div>
           </Label>
         </div>
         
@@ -65,6 +69,7 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
           <RadioGroupItem value="businessCritical" id="businessCritical" />
           <Label htmlFor="businessCritical" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Business Critical - $1,067/mo per million rows</div>
+            <div className="text-xs text-gray-500">Charged per full million (rounded up)</div>
           </Label>
         </div>
       </RadioGroup>

@@ -3,6 +3,13 @@ import React, { useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
 import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
+import { InfoCircle } from "lucide-react";
+import { 
+  Tooltip, 
+  TooltipContent, 
+  TooltipProvider, 
+  TooltipTrigger 
+} from "@/components/ui/tooltip";
 
 interface FivetranMarSectionProps {
   inputs: CalculatorInputs;
@@ -31,7 +38,22 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
     <div className="space-y-4">
       <SliderInput
         id="monthlyActiveRows"
-        label="Monthly Active Rows (MARs) - Fivetran"
+        label={
+          <div className="flex items-center">
+            <span>Monthly Active Rows (MARs) - Fivetran</span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <InfoCircle className="ml-1 h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p>Monthly Active Rows (MARs) are the primary pricing metric for Fivetran. Each unique row processed in your source that is added, updated, or deleted counts as a MAR and affects your billing.</p>
+                  <p className="mt-2 font-medium">Pricing is per million rows, rounded up to the nearest million. For example, 5,000,001 rows would be charged as 6 million rows.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        }
         tooltip="Monthly Active Rows (MARs) are the primary pricing metric for Fivetran. Each unique row processed in your source that is added, updated, or deleted counts as a MAR and affects your billing."
         value={inputs.monthlyActiveRows}
         onChange={(name, value) => handleSliderChange(name, [value])}

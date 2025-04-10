@@ -5,7 +5,6 @@ import { CalculatorInputs, CalculatorResults, FivetranTier, ReactorTier } from '
 export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   // Calculate MAR cost based on selected pricing tier
   let marCost = 0;
-  const marMillion = inputs.monthlyActiveRows / 1000000;
   
   // Apply different pricing based on the selected tier
   switch(inputs.fivetranTier) {
@@ -14,24 +13,32 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
       marCost = 0;
       break;
     
-    case 'standard':
-      // Standard tier: $500 per million rows
-      marCost = marMillion * 500;
+    case 'standard': {
+      // Standard tier: $500 per million rows (rounded up to nearest million)
+      const millionsRoundedUp = Math.ceil(inputs.monthlyActiveRows / 1000000);
+      marCost = millionsRoundedUp * 500;
       break;
+    }
     
-    case 'enterprise':
-      // Enterprise tier: $667 per million rows
-      marCost = marMillion * 667;
+    case 'enterprise': {
+      // Enterprise tier: $667 per million rows (rounded up to nearest million)
+      const millionsRoundedUp = Math.ceil(inputs.monthlyActiveRows / 1000000);
+      marCost = millionsRoundedUp * 667;
       break;
+    }
     
-    case 'businessCritical':
-      // Business Critical tier: $1067 per million rows
-      marCost = marMillion * 1067;
+    case 'businessCritical': {
+      // Business Critical tier: $1067 per million rows (rounded up to nearest million)
+      const millionsRoundedUp = Math.ceil(inputs.monthlyActiveRows / 1000000);
+      marCost = millionsRoundedUp * 1067;
       break;
+    }
     
-    default:
-      // Default to standard tier
-      marCost = marMillion * 500;
+    default: {
+      // Default to standard tier with correct rounding
+      const millionsRoundedUp = Math.ceil(inputs.monthlyActiveRows / 1000000);
+      marCost = millionsRoundedUp * 500;
+    }
   }
 
   // Calculate transformation cost (MMR pricing)
