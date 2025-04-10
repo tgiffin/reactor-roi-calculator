@@ -7,11 +7,6 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   
   // Apply different pricing based on the selected tier
   switch(inputs.fivetranTier) {
-    case 'free':
-      // Free tier: Always $0 regardless of MAR value (limited to 500k in UI)
-      marCost = 0;
-      break;
-    
     case 'standard': {
       // Standard tier: $500 per million rows (rounded up to nearest million)
       const millionsRoundedUp = Math.ceil(inputs.monthlyActiveRows / 1000000);
@@ -42,10 +37,7 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
 
   // Calculate transformation cost (MMR pricing)
   let transformationCost = 0;
-  if (inputs.fivetranTier === 'free') {
-    // Free tier always has 0 transformation cost (limited to 5000 in UI)
-    transformationCost = 0;
-  } else if (inputs.modelRuns > 5000) {
+  if (inputs.modelRuns > 5000) {
     if (inputs.modelRuns <= 30000) {
       // $0.01 per run for 5,000-30,000
       transformationCost = (inputs.modelRuns - 5000) * 0.01;
@@ -62,7 +54,7 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
   }
 
   // Calculate connector costs (approx $100 per connector per month)
-  const connectorCost = inputs.fivetranTier === 'free' ? 0 : inputs.connectors * 100;
+  const connectorCost = inputs.connectors * 100;
 
   return marCost + transformationCost + connectorCost;
 };

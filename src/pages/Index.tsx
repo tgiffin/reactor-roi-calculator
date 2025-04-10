@@ -6,29 +6,18 @@ import { CalculatorInputs } from '@/lib/calculator-types';
 import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
-  // Updated initial values to start at 0
   const [inputs, setInputs] = useState<CalculatorInputs>({
     monthlyActiveRows: 0,
     totalRecords: 0,
     modelRuns: 0,
     growthRate: 0,
-    fivetranTier: 'standard',
+    fivetranTier: 'standard', // Default to standard tier now
     connectors: 0,
-    reactorTier: 'flatRate', // Updated to use flat rate tier
+    reactorTier: 'flatRate',
   });
 
-  // Auto-adjust for Free tier Fivetran limits only
-  useEffect(() => {
-    if (inputs.fivetranTier === 'free') {
-      setInputs(prev => ({
-        ...prev,
-        monthlyActiveRows: Math.min(prev.monthlyActiveRows, 500000),
-        modelRuns: Math.min(prev.modelRuns, 5000),
-      }));
-    }
-  }, [inputs.fivetranTier]);
+  // Removing the free tier specific useEffect
 
-  // Calculate results whenever inputs change
   const results = calculateResults(inputs);
 
   return (

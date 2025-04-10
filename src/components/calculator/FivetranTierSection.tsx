@@ -42,14 +42,6 @@ const FivetranTierSection: React.FC<FivetranTierSectionProps> = ({
         className="grid grid-cols-1 gap-2"
       >
         <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
-          <RadioGroupItem value="free" id="free" />
-          <Label htmlFor="free" className="cursor-pointer flex-1">
-            <div className="font-medium text-[#2462AA]">Free</div>
-            <div className="text-xs text-gray-500">Up to 500,000 rows/month</div>
-          </Label>
-        </div>
-
-        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 cursor-pointer hover:bg-gray-50 bg-[#DDDDDD]">
           <RadioGroupItem value="standard" id="standard" />
           <Label htmlFor="standard" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">Standard - $500/mo per million rows</div>
