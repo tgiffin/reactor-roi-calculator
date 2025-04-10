@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ListIcon } from "lucide-react";
 import { formatCurrency } from "@/lib/formatter";
