@@ -26,7 +26,7 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
           <SliderInput
             id="totalRecords"
             label="Reactor: Total Records Per Month"
-            tooltip="This represents the total number of records ingested per month in Reactor. Reactor uses a tiered pricing model with Core, Fusion, and SuperNova tiers. Each tier includes unlimited model runs for transformations and entity output materializations at no additional cost."
+            tooltip="This represents the total number of records ingested per month in Reactor. Reactor uses a flat rate pricing model of $400 per million rows with a $2,500 monthly minimum."
             value={inputs.totalRecords}
             onChange={(name, value) => handleSliderChange(name, [value])}
             onInputChange={handleInputChange}

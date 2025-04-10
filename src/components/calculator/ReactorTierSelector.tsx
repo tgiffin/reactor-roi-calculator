@@ -34,14 +34,19 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
         </div>
       </div>
 
-      <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 bg-[#DDDDDD]">
-        <RadioGroupItem value="flatRate" id="flatRate" checked readOnly />
-        <Label htmlFor="flatRate" className="cursor-pointer flex-1">
-          <div className="font-medium text-[#2462AA]">Flat Rate - {formatCurrency(2500)} minimum</div>
-          <div className="text-xs text-gray-500">{formatCurrency(400)} per million rows (rounded up)</div>
-          <div className="text-xs text-gray-500">No additional tiers or volume discounts</div>
-        </Label>
-      </div>
+      <RadioGroup 
+        value={inputs.reactorTier}
+        onValueChange={(value) => setReactorTier(value as ReactorTier)}
+      >
+        <div className="flex items-center space-x-2 rounded-md border border-[#5B5B5B] p-3 bg-[#DDDDDD]">
+          <RadioGroupItem value="flatRate" id="flatRate" checked />
+          <Label htmlFor="flatRate" className="cursor-pointer flex-1">
+            <div className="font-medium text-[#2462AA]">Flat Rate - {formatCurrency(2500)} minimum</div>
+            <div className="text-xs text-gray-500">{formatCurrency(400)} per million rows (rounded up)</div>
+            <div className="text-xs text-gray-500">No additional tiers or volume discounts</div>
+          </Label>
+        </div>
+      </RadioGroup>
     </div>
   );
 };
