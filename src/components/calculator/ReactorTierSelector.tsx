@@ -44,6 +44,7 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
           <Label htmlFor="tier5M" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">5M Tier - {formatCurrency(2500)}</div>
             <div className="text-xs text-gray-500">Up to {formatNumber(5000000)} rows/month</div>
+            <div className="text-xs text-gray-500">Overage: $500 per million</div>
           </Label>
         </div>
 
@@ -52,6 +53,7 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
           <Label htmlFor="tier10M" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">10M Tier - {formatCurrency(4800)}</div>
             <div className="text-xs text-gray-500">Up to {formatNumber(10000000)} rows/month</div>
+            <div className="text-xs text-gray-500">Overage: $480 per million</div>
           </Label>
         </div>
 
@@ -60,6 +62,7 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
           <Label htmlFor="tier15M" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">15M Tier - {formatCurrency(6900)}</div>
             <div className="text-xs text-gray-500">Up to {formatNumber(15000000)} rows/month</div>
+            <div className="text-xs text-gray-500">Overage: $460 per million</div>
           </Label>
         </div>
         
@@ -68,6 +71,7 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
           <Label htmlFor="tier20M" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">20M Tier - {formatCurrency(8800)}</div>
             <div className="text-xs text-gray-500">Up to {formatNumber(20000000)} rows/month</div>
+            <div className="text-xs text-gray-500">Overage: $440 per million</div>
           </Label>
         </div>
 
@@ -76,6 +80,7 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
           <Label htmlFor="tier25M" className="cursor-pointer flex-1">
             <div className="font-medium text-[#2462AA]">25M Tier - {formatCurrency(10500)}</div>
             <div className="text-xs text-gray-500">Up to {formatNumber(25000000)} rows/month</div>
+            <div className="text-xs text-gray-500">Overage: $420 per million</div>
           </Label>
         </div>
       </RadioGroup>
