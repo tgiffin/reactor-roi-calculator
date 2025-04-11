@@ -7,8 +7,8 @@ import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
   const [inputs, setInputs] = useState<CalculatorInputs>({
-    monthlyActiveRows: 0,
-    totalRecords: 0,
+    monthlyActiveRows: 5000000,
+    totalRecords: 5000000,
     modelRuns: 0,
     fivetranTier: 'standard', // Default to standard tier
     reactorTier: 'flatRate',
