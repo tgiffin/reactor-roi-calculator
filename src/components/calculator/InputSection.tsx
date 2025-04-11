@@ -46,10 +46,13 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
       return;
     }
     
+    // Ensure the input value is at least 4M
+    const validValue = Math.max(numValue, 4000000);
+    
     setInputs((prev) => ({
       ...prev,
-      monthlyActiveRows: numValue,
-      totalRecords: numValue // Set both values to the same
+      monthlyActiveRows: validValue,
+      totalRecords: validValue // Set both values to the same
     }));
   };
 
@@ -83,6 +86,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   // Determine max value based on selected tier for global slider
   // Updated to 30M to match our max calculation limit
   const maxRowsValue = 30000000;
+  const minRowsValue = 4000000;
 
   return (
     <Card className="h-full bg-[#F3F3F3]">
@@ -114,6 +118,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           <Slider
             id="globalRowsSlider"
             value={[inputs.totalRecords]}
+            min={minRowsValue}
             max={maxRowsValue}
             step={500000}
             onValueChange={handleGlobalRowsChange}

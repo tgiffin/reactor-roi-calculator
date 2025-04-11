@@ -21,6 +21,7 @@ interface SliderInputProps {
   onChange: (name: keyof CalculatorInputs, value: number) => void;
   onInputChange: (name: keyof CalculatorInputs, value: string) => void;
   max: number;
+  min?: number;
   step: number;
   formatValue?: (value: number) => string;
   labelClassName?: string;
@@ -34,6 +35,7 @@ const SliderInput: React.FC<SliderInputProps> = ({
   onChange,
   onInputChange,
   max,
+  min = 0,
   step,
   formatValue = formatNumber,
   labelClassName = "text-base",
