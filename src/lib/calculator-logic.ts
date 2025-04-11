@@ -92,8 +92,8 @@ export const calculateReactorCost = (
   // Apply minimum monthly cost of $2000
   let totalCost = Math.max(calculatedCost, MINIMUM_MONTHLY_COST);
   
-  // For rows over 100M, return a signal for "Contact Sales"
-  if (inputs.totalRecords > 100000000) {
+  // For rows over 75M, return a signal for "Contact Sales"
+  if (inputs.totalRecords > 75000000) {
     return { 
       totalCost: -1, 
       committedCost: MINIMUM_MONTHLY_COST, 

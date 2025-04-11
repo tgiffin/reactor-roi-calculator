@@ -27,7 +27,7 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
             value={inputs.totalRecords}
             onChange={(name, value) => handleSliderChange(name, [value])}
             onInputChange={handleInputChange}
-            max={100000000}
+            max={75000000}
             min={4000000}
             step={500000}
             labelClassName="text-base font-bold"
@@ -36,7 +36,7 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
             id="totalRecordsSlider"
             value={[inputs.totalRecords]}
             min={4000000}
-            max={100000000}
+            max={75000000}
             step={500000}
             onValueChange={(value) => handleSliderChange('totalRecords', value)}
             className="py-2"
