@@ -1,3 +1,4 @@
+
 import { CalculatorInputs, CalculatorResults, FivetranTier, ReactorTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -68,7 +69,7 @@ interface ReactorTierInfo {
 
 // New Reactor tier pricing information - simplified to flat rate only
 const REACTOR_TIER_PRICING: Record<ReactorTier, ReactorTierInfo> = {
-  'flatRate': { maxRows: 30000000, costPerMillion: 400, monthlyCommitment: 2500 }
+  'flatRate': { maxRows: 30000000, costPerMillion: 400, monthlyCommitment: 2000 }
 };
 
 // Calculate Reactor costs based on the new flat rate pricing
@@ -84,15 +85,15 @@ export const calculateReactorCost = (
     };
   }
   
-  // Flat rate pricing: $400 per million with $2500 minimum
-  const MINIMUM_MONTHLY_COST = 2500;
+  // Flat rate pricing: $400 per million with $2000 minimum
+  const MINIMUM_MONTHLY_COST = 2000;
   const COST_PER_MILLION = 400;
   
   // Calculate cost based on actual usage at $400 per million
   const millionsRoundedUp = Math.ceil(inputs.totalRecords / 1000000);
   const calculatedCost = millionsRoundedUp * COST_PER_MILLION;
   
-  // Apply minimum monthly cost of $2500
+  // Apply minimum monthly cost of $2000
   let totalCost = Math.max(calculatedCost, MINIMUM_MONTHLY_COST);
   
   // For rows over 30M, return a signal for "Contact Sales"

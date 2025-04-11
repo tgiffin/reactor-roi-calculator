@@ -18,7 +18,7 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
           </div>
           <ul className="list-disc pl-5 space-y-1">
             <li>$400 per million rows (rounded up)</li>
-            <li>$2,500 monthly minimum</li>
+            <li>$2,000 monthly minimum</li>
           </ul>
           <div className="font-medium text-[#2462AA]/80 mt-1">
             <ListIcon className="h-3 w-3 mr-1 inline-block" />

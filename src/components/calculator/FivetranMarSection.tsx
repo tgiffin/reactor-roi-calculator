@@ -19,15 +19,12 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
 }) => {
   // Set the maximum value based on the selected tier
   const getMaxValue = () => {
-    switch(inputs.fivetranTier) {
-      case 'free': return 500000; // Free tier max 500K
-      default: return 30000000;   // Other tiers go up to 30M for visualization
-    }
+    return 30000000;   // Go up to 30M for visualization
   };
 
   // Get step size based on tier
   const getStepSize = () => {
-    return inputs.fivetranTier === 'free' ? 10000 : 500000;
+    return 500000;
   };
 
   return (
@@ -36,7 +33,7 @@ const FivetranMarSection: React.FC<FivetranMarSectionProps> = ({
       <SliderInput
         id="monthlyActiveRows"
         label="Fivetran: Monthly Active Rows (MAR)"
-        tooltip={<span>This represents the number of rows processed by Fivetran each month. Fivetran pricing is based on Monthly Active Rows (MARs).</span>}
+        tooltip="This represents the number of rows processed by Fivetran each month. Fivetran pricing is based on Monthly Active Rows (MARs)."
         value={inputs.monthlyActiveRows}
         onChange={(name, value) => handleSliderChange(name, [value])}
         onInputChange={handleInputChange}
