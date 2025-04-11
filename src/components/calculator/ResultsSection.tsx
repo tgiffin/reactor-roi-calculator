@@ -65,15 +65,13 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
               annualSavings={results.annualSavings}
             />
           </div>
-        </CardContent>
-      </Card>
-
-      <Card className="shadow-md border-reactor-light-grey bg-[#F3F3F3]">
-        <CardContent className="pt-6">
-          <ActionButtons 
-            onDownload={handleDownloadReport}
-            onScheduleCall={handleScheduleCall}
-          />
+          
+          <div className="mt-6 pt-4 border-t border-reactor-light-grey">
+            <ActionButtons 
+              onDownload={handleDownloadReport}
+              onScheduleCall={handleScheduleCall}
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
