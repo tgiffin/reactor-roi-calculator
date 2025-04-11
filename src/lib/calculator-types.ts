@@ -17,4 +17,5 @@ export interface CalculatorResults {
   reactorOverageCost: number;   // Additional cost for usage above tier
   monthlySavings: number;
   annualSavings: number;
+  monthlyRows: number;          // Added this field to track the total monthly rows
 }

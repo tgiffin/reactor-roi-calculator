@@ -2,7 +2,7 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CalculatorResults } from "@/lib/calculator-types";
-import { formatCurrency, formatDate } from "@/lib/formatter";
+import { formatCurrency, formatDate, formatNumber } from "@/lib/formatter";
 
 export const generateROIReport = (results: CalculatorResults): jsPDF => {
   // Create new PDF document
@@ -14,6 +14,12 @@ export const generateROIReport = (results: CalculatorResults): jsPDF => {
   doc.text("ROI Calculator Report", 14, 22);
   doc.setFontSize(10);
   doc.text(`Generated on ${currentDate}`, 14, 30);
+  
+  // Add total monthly rows prominently near the top
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'bold');
+  doc.text(`Total Monthly Rows: ${formatNumber(results.monthlyRows)}`, 14, 38);
+  doc.setFont(undefined, 'normal');
   
   // Add Fivetran vs Reactor comparison table
   autoTable(doc, {
@@ -32,7 +38,7 @@ export const generateROIReport = (results: CalculatorResults): jsPDF => {
         formatCurrency(results.annualSavings)
       ],
     ],
-    startY: 40,
+    startY: 46, // Increased starting position to accommodate the new total rows line
     theme: 'grid',
     headStyles: { fillColor: [36, 98, 170] }, // #2462AA
   });
