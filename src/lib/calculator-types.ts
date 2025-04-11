@@ -6,7 +6,6 @@ export interface CalculatorInputs {
   monthlyActiveRows: number;
   totalRecords: number;
   modelRuns: number;
-  growthRate: number;
   fivetranTier: FivetranTier;
   reactorTier: ReactorTier;
 }
@@ -18,6 +17,4 @@ export interface CalculatorResults {
   reactorOverageCost: number;   // Additional cost for usage above tier
   monthlySavings: number;
   annualSavings: number;
-  yearlyFivetranCosts: number[];
-  yearlyReactorCosts: number[];
 }

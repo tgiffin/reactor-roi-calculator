@@ -113,60 +113,13 @@ export const calculateReactorCost = (
   };
 };
 
-// Calculate projected costs over time with growth rate
-export const calculateYearlyCosts = (
-  inputs: CalculatorInputs,
-  initialFivetranCost: number,
-  initialReactorCost: number
-): { fivetranCosts: number[], reactorCosts: number[] } => {
-  const monthlyGrowthRate = Math.pow(1 + inputs.growthRate / 100, 1/12) - 1;
-  const months = 12;
-  
-  let fivetranCosts: number[] = [];
-  let reactorCosts: number[] = [];
-  
-  let currentFivetranCost = initialFivetranCost;
-  let currentReactorCost = initialReactorCost;
-  
-  for (let i = 0; i < months; i++) {
-    fivetranCosts.push(currentFivetranCost);
-    reactorCosts.push(currentReactorCost);
-    
-    // Apply growth for next month
-    currentFivetranCost = currentFivetranCost * (1 + monthlyGrowthRate);
-    
-    // Calculate new reactor cost with projected growth
-    const projectedRecords = inputs.totalRecords * Math.pow(1 + monthlyGrowthRate, i + 1);
-    const projectedReactorCost = calculateReactorCost({
-      ...inputs,
-      totalRecords: projectedRecords,
-      monthlyActiveRows: inputs.monthlyActiveRows * Math.pow(1 + monthlyGrowthRate, i + 1),
-      modelRuns: inputs.modelRuns * Math.pow(1 + monthlyGrowthRate, i + 1),
-    });
-    
-    currentReactorCost = projectedReactorCost.totalCost;
-  }
-  
-  return { fivetranCosts, reactorCosts };
-};
-
 // Calculate full results
 export const calculateResults = (inputs: CalculatorInputs): CalculatorResults => {
   const fivetranMonthlyCost = calculateFivetranCost(inputs);
   const reactorCostDetails = calculateReactorCost(inputs);
   const reactorMonthlyCost = reactorCostDetails.totalCost;
   const monthlySavings = Math.max(0, fivetranMonthlyCost - reactorMonthlyCost);
-  
-  // Calculate projected costs over 12 months
-  const { fivetranCosts, reactorCosts } = calculateYearlyCosts(
-    inputs,
-    fivetranMonthlyCost,
-    reactorMonthlyCost
-  );
-  
-  // Calculate annual savings
-  const annualSavings = fivetranCosts.reduce((sum, cost) => sum + cost, 0) - 
-                        reactorCosts.reduce((sum, cost) => sum + cost, 0);
+  const annualSavings = monthlySavings * 12;
   
   return {
     fivetranMonthlyCost,
@@ -174,8 +127,6 @@ export const calculateResults = (inputs: CalculatorInputs): CalculatorResults =>
     reactorCommittedCost: reactorCostDetails.committedCost,
     reactorOverageCost: reactorCostDetails.overageCost,
     monthlySavings,
-    annualSavings,
-    yearlyFivetranCosts: fivetranCosts,
-    yearlyReactorCosts: reactorCosts,
+    annualSavings
   };
 };

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import InputSection from '@/components/calculator/InputSection';
 import ResultsSection from '@/components/calculator/ResultsSection';
 import { CalculatorInputs } from '@/lib/calculator-types';
@@ -10,7 +10,6 @@ const Index = () => {
     monthlyActiveRows: 0,
     totalRecords: 0,
     modelRuns: 0,
-    growthRate: 0,
     fivetranTier: 'standard', // Default to standard tier
     reactorTier: 'flatRate',
   });

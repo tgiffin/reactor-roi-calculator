@@ -6,7 +6,6 @@ import { CalculatorInputs, FivetranTier, ReactorTier } from "@/lib/calculator-ty
 import FivetranModelRunsSection from './FivetranModelRunsSection';
 import FivetranTierSection from './FivetranTierSection';
 import ReactorSection from './ReactorSection';
-import GrowthRateSection from './GrowthRateSection';
 import ReactorTierSelector from './ReactorTierSelector';
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
@@ -153,13 +152,6 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
           handleSliderChange={handleSliderChange} 
           handleInputChange={handleInputChange}
           setFivetranTier={setFivetranTier}
-        />
-
-        {/* Growth Rate Section */}
-        <GrowthRateSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange} 
         />
       </CardContent>
     </Card>
