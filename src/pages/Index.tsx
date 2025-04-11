@@ -12,7 +12,6 @@ const Index = () => {
     modelRuns: 0,
     growthRate: 0,
     fivetranTier: 'standard', // Default to standard tier
-    connectors: 0,
     reactorTier: 'flatRate',
   });
 

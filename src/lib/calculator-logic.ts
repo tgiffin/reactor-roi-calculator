@@ -54,10 +54,7 @@ export const calculateFivetranCost = (inputs: CalculatorInputs): number => {
     }
   }
 
-  // Calculate connector costs (approx $100 per connector per month)
-  const connectorCost = inputs.connectors * 100;
-
-  return marCost + transformationCost + connectorCost;
+  return marCost + transformationCost;
 };
 
 // Structure to hold Reactor tier information

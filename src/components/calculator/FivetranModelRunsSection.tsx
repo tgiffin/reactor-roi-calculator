@@ -4,8 +4,6 @@ import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
 import PricingTierInfo from './PricingTierInfo';
 import { CalculatorInputs, FivetranTier } from "@/lib/calculator-types";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { InfoIcon } from "lucide-react";
 
 interface FivetranModelRunsSectionProps {
   inputs: CalculatorInputs;
@@ -20,8 +18,6 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
   handleInputChange,
   setFivetranTier
 }) => {
-  const showConnectors = true;
-  
   // Set maximum model runs based on tier
   const maxModelRuns = 200000;
   
@@ -51,31 +47,6 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
         
         <PricingTierInfo type="fivetran-transformation" />
       </div>
-
-      {/* Connectors */}
-      {showConnectors && (
-        <div className="space-y-4">
-          <SliderInput
-            id="connectors"
-            label="Fivetran: Number of Connectors"
-            tooltip="Each connector costs approximately $100 per month."
-            value={inputs.connectors}
-            onChange={(name, value) => handleSliderChange(name, [value])}
-            onInputChange={handleInputChange}
-            max={50}
-            step={1}
-            labelClassName="text-base font-semibold"
-          />
-          <Slider
-            id="connectorsSlider"
-            value={[inputs.connectors]}
-            max={50}
-            step={1}
-            onValueChange={(value) => handleSliderChange('connectors', value)}
-            className="py-2"
-          />
-        </div>
-      )}
     </div>
   );
 };

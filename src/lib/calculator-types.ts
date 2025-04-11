@@ -1,3 +1,4 @@
+
 export type FivetranTier = 'standard' | 'enterprise' | 'businessCritical';
 export type ReactorTier = 'flatRate';
 
@@ -7,7 +8,6 @@ export interface CalculatorInputs {
   modelRuns: number;
   growthRate: number;
   fivetranTier: FivetranTier;
-  connectors: number;
   reactorTier: ReactorTier;
 }
 
