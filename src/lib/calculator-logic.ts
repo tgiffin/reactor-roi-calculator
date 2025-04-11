@@ -127,6 +127,7 @@ export const calculateResults = (inputs: CalculatorInputs): CalculatorResults =>
     reactorCommittedCost: reactorCostDetails.committedCost,
     reactorOverageCost: reactorCostDetails.overageCost,
     monthlySavings,
-    annualSavings
+    annualSavings,
+    monthlyRows: inputs.totalRecords // Adding the missing monthlyRows property
   };
 };
