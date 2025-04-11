@@ -45,7 +45,7 @@ const FivetranModelRunsSection: React.FC<FivetranModelRunsSectionProps> = ({
           className="py-2"
         />
         
-        <PricingTierInfo type="fivetran-transformation" />
+        <PricingTierInfo type="fivetran-transformation" modelRuns={inputs.modelRuns} />
       </div>
     </div>
   );
