@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import { CalculatorInputs, ReactorTier } from "@/lib/calculator-types";
 import { Info } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatNumber, formatCurrency } from "@/lib/formatter";
 
 interface ReactorTierSelectorProps {
@@ -20,16 +20,14 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <h3 className="text-base font-bold text-gray-900">Reactor Pricing</h3>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="h-4 w-4 ml-1 text-gray-400" />
-              </TooltipTrigger>
-              <TooltipContent className="max-w-sm">
-                <p>Flat rate pricing of $400 per million rows per month with a $2,500 monthly minimum.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="h-4 w-4 ml-1 text-gray-400" />
+            </TooltipTrigger>
+            <TooltipContent className="max-w-sm">
+              <p>Flat rate pricing of $400 per million rows per month with a $2,500 monthly minimum.</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
 

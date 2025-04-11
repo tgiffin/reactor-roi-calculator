@@ -7,7 +7,6 @@ import { InfoIcon } from "lucide-react";
 import { 
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { formatNumber } from "@/lib/formatter";
@@ -43,16 +42,14 @@ const SliderInput: React.FC<SliderInputProps> = ({
     <div className="flex items-center justify-between">
       <Label htmlFor={id} className={`${labelClassName} flex items-center`}>
         {label}
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <InfoIcon className="ml-2 h-4 w-4 text-muted-foreground" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              <p>{tooltip}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <InfoIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+          </TooltipTrigger>
+          <TooltipContent className="max-w-xs">
+            <p>{tooltip}</p>
+          </TooltipContent>
+        </Tooltip>
       </Label>
       <Input
         id={id}

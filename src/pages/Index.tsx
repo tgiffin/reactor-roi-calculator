@@ -11,12 +11,10 @@ const Index = () => {
     totalRecords: 0,
     modelRuns: 0,
     growthRate: 0,
-    fivetranTier: 'standard', // Default to standard tier now
+    fivetranTier: 'standard', // Default to standard tier
     connectors: 0,
     reactorTier: 'flatRate',
   });
-
-  // Removing the free tier specific useEffect
 
   const results = calculateResults(inputs);
 
