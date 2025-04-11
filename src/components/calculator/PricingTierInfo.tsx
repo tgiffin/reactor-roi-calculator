@@ -47,14 +47,8 @@ const PricingTierInfo: React.FC<PricingTierInfoProps> = ({ type }) => {
         <>
           <div className="font-semibold flex items-center mb-2">
             <ListIcon className="h-3 w-3 mr-1" /> 
-            <span className="text-[#2462AA]">Fivetran Transformation Pricing (Simplified):</span>
+            <span className="text-[#2462AA]">Fivetran Transformation Pricing</span>
           </div>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>0-5,000 model runs/mo: Free</li>
-            <li>5,000-30,000 runs/mo: $0.01 per run</li>
-            <li>30,000-100,000 runs/mo: $0.007 per run</li>
-            <li>100,000+ runs/mo: $0.002 per run</li>
-          </ul>
         </>
       )}
     </div>
