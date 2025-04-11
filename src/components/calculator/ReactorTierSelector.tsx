@@ -35,7 +35,7 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
         <div className="cursor-pointer flex-1">
           <div className="font-medium text-[#2462AA]">Single Tier: {formatCurrency(400)} per million rows</div>
           <div className="text-xs text-gray-500">{formatCurrency(2000)} minimum monthly commitment</div>
-          <div className="text-xs text-gray-500">All features outlined above, unlimited transformations, and model runs</div>
+          <div className="text-xs text-gray-500">All features outlined at the top of the page plus unlimited transformations and model runs are included</div>
         </div>
       </div>
     </div>
