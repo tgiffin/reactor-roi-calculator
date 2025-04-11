@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -34,8 +33,8 @@ const SliderInput: React.FC<SliderInputProps> = ({
   value,
   onChange,
   onInputChange,
-  max,
-  min = 0,
+  max = 100000000,
+  min = 4000000,
   step,
   formatValue = formatNumber,
   labelClassName = "text-base",

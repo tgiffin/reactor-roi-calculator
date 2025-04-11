@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { CalculatorInputs, FivetranTier, ReactorTier } from "@/lib/calculator-types";
@@ -84,8 +83,8 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   };
 
   // Determine max value based on selected tier for global slider
-  // Updated to 30M to match our max calculation limit
-  const maxRowsValue = 30000000;
+  // Updated to 100M to match our max calculation limit
+  const maxRowsValue = 100000000;
   const minRowsValue = 4000000;
 
   return (

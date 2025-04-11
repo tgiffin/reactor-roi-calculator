@@ -1,4 +1,3 @@
-
 import { CalculatorInputs, CalculatorResults, FivetranTier, ReactorTier } from './calculator-types';
 
 // Calculate Fivetran costs based on their tiered model and transformation pricing
@@ -93,8 +92,8 @@ export const calculateReactorCost = (
   // Apply minimum monthly cost of $2000
   let totalCost = Math.max(calculatedCost, MINIMUM_MONTHLY_COST);
   
-  // For rows over 30M, return a signal for "Contact Sales"
-  if (inputs.totalRecords > 30000000) {
+  // For rows over 100M, return a signal for "Contact Sales"
+  if (inputs.totalRecords > 100000000) {
     return { 
       totalCost: -1, 
       committedCost: MINIMUM_MONTHLY_COST, 

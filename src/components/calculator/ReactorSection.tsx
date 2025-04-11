@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import SliderInput from './SliderInput';
@@ -19,7 +18,6 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
 }) => {
   return (
     <div className="space-y-4">
-      {/* Only show the Reactor-specific total records input if not hidden */}
       {!hideRowsSlider && (
         <>
           <SliderInput
@@ -29,7 +27,7 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
             value={inputs.totalRecords}
             onChange={(name, value) => handleSliderChange(name, [value])}
             onInputChange={handleInputChange}
-            max={30000000}
+            max={100000000}
             min={4000000}
             step={500000}
             labelClassName="text-base font-bold"
@@ -38,7 +36,7 @@ const ReactorSection: React.FC<ReactorSectionProps> = ({
             id="totalRecordsSlider"
             value={[inputs.totalRecords]}
             min={4000000}
-            max={30000000}
+            max={100000000}
             step={500000}
             onValueChange={(value) => handleSliderChange('totalRecords', value)}
             className="py-2"
