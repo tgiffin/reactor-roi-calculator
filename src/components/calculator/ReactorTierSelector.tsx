@@ -33,9 +33,9 @@ const ReactorTierSelector: React.FC<ReactorTierSelectorProps> = ({
 
       <div className="rounded-md border border-[#5B5B5B] p-3 bg-[#DDDDDD]">
         <div className="cursor-pointer flex-1">
-          <div className="font-medium text-[#2462AA]">Flat Rate - {formatCurrency(2000)} minimum</div>
-          <div className="text-xs text-gray-500">{formatCurrency(400)} per million rows (rounded up)</div>
-          <div className="text-xs text-gray-500">No additional tiers or volume discounts</div>
+          <div className="font-medium text-[#2462AA]">Single Tier: {formatCurrency(400)} per million rows</div>
+          <div className="text-xs text-gray-500">{formatCurrency(2000)} minimum monthly commitment</div>
+          <div className="text-xs text-gray-500">All features outlined above, unlimited transformations, and model runs</div>
         </div>
       </div>
     </div>
