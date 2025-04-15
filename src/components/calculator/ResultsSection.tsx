@@ -19,15 +19,22 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
   // Preload the logo to ensure it's available for PDF generation
   useEffect(() => {
     const img = new Image();
+    img.crossOrigin = "Anonymous"; // Try to avoid CORS issues
+    
     img.onload = () => {
       console.log("Logo successfully preloaded");
       setLogoLoaded(true);
     };
+    
     img.onerror = (error) => {
       console.error("Error preloading logo:", error);
       setLogoLoaded(false);
     };
-    img.src = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
+    
+    // Try to use the full URL
+    const fullUrl = window.location.origin + '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
+    console.log("Preloading logo from:", fullUrl);
+    img.src = fullUrl;
   }, []);
 
   const handleDownloadReport = async () => {
@@ -94,11 +101,12 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
             />
           </div>
           
-          {/* Hidden preloaded image */}
+          {/* Hidden preloaded image - helps ensure the logo is in browser cache */}
           <img 
-            src="/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png" 
+            src={window.location.origin + '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png'} 
             alt="Reactor Logo" 
             style={{ display: 'none' }} 
+            crossOrigin="anonymous"
             onLoad={() => console.log("Hidden logo loaded")}
             onError={(e) => console.error("Hidden logo failed to load:", e)}
           />

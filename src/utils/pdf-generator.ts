@@ -9,60 +9,70 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   const doc = new jsPDF();
   const currentDate = formatDate(new Date());
   
-  // Get the logo path - the uploaded image is in the public folder
+  // Get the logo path
   const logoPath = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
   
   try {
-    // Create an image element to load the image
+    // Create a new image element
     const img = new Image();
     
-    // Return a promise that resolves when the image loads
+    // Create a promise to handle image loading
     await new Promise<void>((resolve, reject) => {
+      img.crossOrigin = "Anonymous"; // Try to avoid CORS issues
+      
       img.onload = () => {
-        // Once loaded, add to PDF using the image DOM element
         try {
-          // Create canvas to convert image to data URL
+          // Create a canvas to draw the image
           const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
           const ctx = canvas.getContext('2d');
           
+          // Set dimensions
+          canvas.width = img.width;
+          canvas.height = img.height;
+          
+          // Draw image on canvas
           if (ctx) {
             ctx.drawImage(img, 0, 0);
-            // Get as data URL
-            const dataUrl = canvas.toDataURL('image/png');
             
-            // Add to PDF (with proper dimensions)
-            doc.addImage(dataUrl, 'PNG', 14, 10, 60, 25);
+            // Convert to data URL
+            const imgData = canvas.toDataURL('image/png');
+            
+            // Add to PDF
+            doc.addImage(imgData, 'PNG', 14, 10, 60, 25);
             console.log("Logo successfully added to PDF");
           }
           resolve();
-        } catch (e) {
-          console.error("Error adding image to PDF:", e);
-          reject(e);
+        } catch (err) {
+          console.error("Canvas error:", err);
+          reject(err);
         }
       };
       
-      img.onerror = (e) => {
-        console.error("Error loading image:", e);
-        reject(e);
+      img.onerror = (err) => {
+        console.error("Image loading error:", err);
+        reject(err);
       };
       
-      // Set source (use absolute URL)
-      img.src = logoPath;
-    }).catch(error => {
-      // Fallback if image loading fails
-      throw error;
+      // Set full absolute URL to the image
+      const fullUrl = window.location.origin + logoPath;
+      console.log("Loading logo from:", fullUrl);
+      img.src = fullUrl;
+      
+      // Set a fallback in case of timeout
+      setTimeout(() => {
+        if (!img.complete) {
+          reject(new Error("Image load timed out"));
+        }
+      }, 5000);
     });
   } catch (error) {
-    console.error("Error processing logo:", error);
+    console.error("Logo loading failed:", error);
     
     // Fallback to text header
     doc.setFontSize(24);
     doc.setTextColor(36, 98, 170); // Reactor blue color (#2462AA)
     doc.text("REACTOR", 14, 22);
     doc.setTextColor(0, 0, 0); // Reset to black
-    console.log("Using text fallback for logo");
   }
   
   // Set title and header
