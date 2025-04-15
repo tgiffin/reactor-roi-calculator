@@ -155,7 +155,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
               value={inputValue}
               onChange={handleGlobalRowsInputChange}
               onBlur={handleGlobalRowsBlur}
-              onFocus={(e) => e.select()}
+              onFocus={(e) => e.currentTarget.select()}
               className="w-32 text-right"
             />
           </div>

@@ -57,7 +57,7 @@ const SliderInput: React.FC<SliderInputProps> = ({
         id={id}
         value={formatValue(value)}
         onChange={(e) => onInputChange(id, e.target.value)}
-        onFocus={(e) => e.target.select()}
+        onFocus={(e) => e.currentTarget.select()}
         className="w-32 text-right"
       />
     </div>
