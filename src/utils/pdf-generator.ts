@@ -4,21 +4,58 @@ import autoTable from 'jspdf-autotable';
 import { CalculatorResults } from "@/lib/calculator-types";
 import { formatCurrency, formatDate, formatNumber } from "@/lib/formatter";
 
-export const generateROIReport = (results: CalculatorResults): jsPDF => {
+export const generateROIReport = async (results: CalculatorResults): Promise<jsPDF> => {
   // Create new PDF document
   const doc = new jsPDF();
   const currentDate = formatDate(new Date());
   
-  // Use the uploaded image directly from the public URL
-  const logoUrl = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
+  // Get the logo path - the uploaded image is in the public folder
+  const logoPath = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
   
-  // Add logo with error handling
   try {
-    // First try to load the image directly
-    doc.addImage(logoUrl, 'PNG', 14, 10, 60, 25);
-    console.log("Logo successfully added from URL:", logoUrl);
+    // Create an image element to load the image
+    const img = new Image();
+    
+    // Return a promise that resolves when the image loads
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => {
+        // Once loaded, add to PDF using the image DOM element
+        try {
+          // Create canvas to convert image to data URL
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          
+          if (ctx) {
+            ctx.drawImage(img, 0, 0);
+            // Get as data URL
+            const dataUrl = canvas.toDataURL('image/png');
+            
+            // Add to PDF (with proper dimensions)
+            doc.addImage(dataUrl, 'PNG', 14, 10, 60, 25);
+            console.log("Logo successfully added to PDF");
+          }
+          resolve();
+        } catch (e) {
+          console.error("Error adding image to PDF:", e);
+          reject(e);
+        }
+      };
+      
+      img.onerror = (e) => {
+        console.error("Error loading image:", e);
+        reject(e);
+      };
+      
+      // Set source (use absolute URL)
+      img.src = logoPath;
+    }).catch(error => {
+      // Fallback if image loading fails
+      throw error;
+    });
   } catch (error) {
-    console.error("Error adding logo to PDF from URL:", error);
+    console.error("Error processing logo:", error);
     
     // Fallback to text header
     doc.setFontSize(24);

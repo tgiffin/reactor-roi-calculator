@@ -30,10 +30,16 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     img.src = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
   }, []);
 
-  const handleDownloadReport = () => {
+  const handleDownloadReport = async () => {
     try {
-      // Generate PDF using our utility
-      const doc = generateROIReport(results);
+      // Show loading toast
+      toast({
+        title: "Generating Report",
+        description: "Please wait while we create your report...",
+      });
+      
+      // Generate PDF using our utility (now async)
+      const doc = await generateROIReport(results);
       
       // Save the PDF
       doc.save('reactor-roi-calculator-report.pdf');
