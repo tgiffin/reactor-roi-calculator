@@ -22,7 +22,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     img.crossOrigin = "Anonymous"; // Try to avoid CORS issues
     
     img.onload = () => {
-      console.log("Logo successfully preloaded");
+      console.log("New Reactor logo successfully preloaded");
       setLogoLoaded(true);
     };
     
@@ -31,10 +31,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
       setLogoLoaded(false);
     };
     
-    // Try to use the full URL
-    const fullUrl = window.location.origin + '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
-    console.log("Preloading logo from:", fullUrl);
-    img.src = fullUrl;
+    // Use the new logo URL
+    const logoUrl = window.location.origin + '/lovable-uploads/c74dbea7-48e8-45bf-b746-744f25f4e1a6.png';
+    console.log("Preloading logo from:", logoUrl);
+    img.src = logoUrl;
   }, []);
 
   const handleDownloadReport = async () => {
@@ -103,7 +103,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           
           {/* Hidden preloaded image - helps ensure the logo is in browser cache */}
           <img 
-            src={window.location.origin + '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png'} 
+            src={window.location.origin + '/lovable-uploads/c74dbea7-48e8-45bf-b746-744f25f4e1a6.png'} 
             alt="Reactor Logo" 
             style={{ display: 'none' }} 
             crossOrigin="anonymous"

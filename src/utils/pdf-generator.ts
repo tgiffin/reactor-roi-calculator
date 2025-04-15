@@ -9,8 +9,8 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   const doc = new jsPDF();
   const currentDate = formatDate(new Date());
   
-  // Get the logo path
-  const logoPath = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
+  // Get the logo path with the new logo
+  const logoPath = '/lovable-uploads/c74dbea7-48e8-45bf-b746-744f25f4e1a6.png';
   
   try {
     // Create a new image element
@@ -37,8 +37,9 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
             // Convert to data URL
             const imgData = canvas.toDataURL('image/png');
             
-            // Add to PDF
-            doc.addImage(imgData, 'PNG', 14, 10, 60, 25);
+            // Add to PDF - adjust dimensions to maintain aspect ratio
+            // The Reactor logo is more horizontal, so adjust width accordingly
+            doc.addImage(imgData, 'PNG', 10, 10, 70, 25);
             console.log("Logo successfully added to PDF");
           }
           resolve();
