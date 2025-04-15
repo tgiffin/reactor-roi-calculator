@@ -10,9 +10,10 @@ import { generateROIReport } from "@/utils/pdf-generator";
 
 interface ResultsSectionProps {
   results: CalculatorResults;
+  onScheduleCall: () => void;
 }
 
-const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
+const ResultsSection: React.FC<ResultsSectionProps> = ({ results, onScheduleCall }) => {
   const { toast } = useToast();
   const [logoLoaded, setLogoLoaded] = useState(false);
 
@@ -66,11 +67,6 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
     }
   };
 
-  const handleScheduleCall = () => {
-    // This would normally open a calendar booking widget
-    window.open("https://reactordata.com/contact", "_blank");
-  };
-
   return (
     <div className="space-y-4 h-full flex flex-col">
       <Card className="flex-1 shadow-md border-reactor-light-grey bg-[#F3F3F3]">
@@ -97,7 +93,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
           <div className="mt-6 pt-4 border-t border-reactor-light-grey">
             <ActionButtons 
               onDownload={handleDownloadReport}
-              onScheduleCall={handleScheduleCall}
+              onScheduleCall={onScheduleCall}
             />
           </div>
           

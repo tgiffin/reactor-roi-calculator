@@ -16,12 +16,19 @@ const Index = () => {
 
   const results = calculateResults(inputs);
 
+  const handleScheduleCall = () => {
+    window.open("https://reactordata.com/get-reactor/", "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-reactor-background-grey py-8 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <InputSection inputs={inputs} setInputs={setInputs} />
-          <ResultsSection results={results} />
+          <ResultsSection 
+            results={results} 
+            onScheduleCall={handleScheduleCall} 
+          />
         </div>
       </div>
     </div>
