@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalculatorResults } from "@/lib/calculator-types";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +14,21 @@ interface ResultsSectionProps {
 
 const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
   const { toast } = useToast();
+  const [logoLoaded, setLogoLoaded] = useState(false);
+
+  // Preload the logo to ensure it's available for PDF generation
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      console.log("Logo successfully preloaded");
+      setLogoLoaded(true);
+    };
+    img.onerror = (error) => {
+      console.error("Error preloading logo:", error);
+      setLogoLoaded(false);
+    };
+    img.src = '/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png';
+  }, []);
 
   const handleDownloadReport = () => {
     try {
@@ -72,6 +87,15 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results }) => {
               onScheduleCall={handleScheduleCall}
             />
           </div>
+          
+          {/* Hidden preloaded image */}
+          <img 
+            src="/lovable-uploads/957df611-49ea-4ecd-9c0a-b77b2383af35.png" 
+            alt="Reactor Logo" 
+            style={{ display: 'none' }} 
+            onLoad={() => console.log("Hidden logo loaded")}
+            onError={(e) => console.error("Hidden logo failed to load:", e)}
+          />
         </CardContent>
       </Card>
     </div>
