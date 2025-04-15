@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -56,6 +57,7 @@ const SliderInput: React.FC<SliderInputProps> = ({
         id={id}
         value={formatValue(value)}
         onChange={(e) => onInputChange(id, e.target.value)}
+        onFocus={(e) => e.target.select()}
         className="w-32 text-right"
       />
     </div>

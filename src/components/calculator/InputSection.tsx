@@ -35,19 +35,28 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   };
 
   const handleGlobalRowsInputChange = (value: string) => {
-    const numValue = Number(value.replace(/,/g, ''));
+    // Remove commas and spaces to get a clean number
+    const cleanValue = value.replace(/[,\s]/g, '');
     
-    if (isNaN(numValue) || numValue < 0) {
+    // If the input is empty or not a valid number, don't update
+    if (!cleanValue || isNaN(Number(cleanValue))) {
+      return;
+    }
+    
+    const numValue = Number(cleanValue);
+    
+    // Validate the range
+    if (numValue < 0) {
       toast({
         title: "Invalid input",
-        description: "Please enter a valid number",
+        description: "Please enter a positive number",
         variant: "destructive"
       });
       return;
     }
     
-    // Ensure the input value is at least 4M
-    const validValue = Math.max(numValue, 4000000);
+    // Ensure the input value is at least the minimum value
+    const validValue = Math.max(numValue, minRowsValue);
     
     setInputs((prev) => ({
       ...prev,
@@ -112,6 +121,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
               id="globalRows"
               value={formatNumber(inputs.totalRecords)}
               onChange={(e) => handleGlobalRowsInputChange(e.target.value)}
+              onFocus={(e) => e.target.select()}
               className="w-32 text-right"
             />
           </div>
