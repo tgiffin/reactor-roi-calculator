@@ -25,6 +25,7 @@ interface InputSectionProps {
 
 const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   const { toast } = useToast();
+  const [inputValue, setInputValue] = useState<string>(formatNumber(inputs.monthlyActiveRows));
 
   const handleGlobalRowsChange = (value: number[]) => {
     setInputs((prev) => ({
@@ -32,37 +33,69 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
       monthlyActiveRows: value[0],
       totalRecords: value[0] // Set both values to the same
     }));
+    setInputValue(formatNumber(value[0]));
   };
 
-  const handleGlobalRowsInputChange = (value: string) => {
-    // Remove commas and spaces to get a clean number
-    const cleanValue = value.replace(/[,\s]/g, '');
-    
-    // If the input is empty or not a valid number, don't update
-    if (!cleanValue || isNaN(Number(cleanValue))) {
-      return;
-    }
-    
-    const numValue = Number(cleanValue);
-    
-    // Validate the range
-    if (numValue < 0) {
+  const handleGlobalRowsInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Always update the displayed value as the user types
+    const rawValue = e.target.value;
+    setInputValue(rawValue);
+  };
+
+  const handleGlobalRowsBlur = () => {
+    try {
+      // Remove commas and spaces to get a clean number
+      const cleanValue = inputValue.replace(/[,\s]/g, '');
+      
+      // If the input is empty, revert to the current value
+      if (!cleanValue) {
+        setInputValue(formatNumber(inputs.monthlyActiveRows));
+        return;
+      }
+      
+      const numValue = Number(cleanValue);
+      
+      // If not a valid number, revert to the current value
+      if (isNaN(numValue)) {
+        setInputValue(formatNumber(inputs.monthlyActiveRows));
+        toast({
+          title: "Invalid input",
+          description: "Please enter a valid number",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      // Validate the range
+      if (numValue < 0) {
+        setInputValue(formatNumber(inputs.monthlyActiveRows));
+        toast({
+          title: "Invalid input",
+          description: "Please enter a positive number",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      // Ensure the input value is at least the minimum value
+      const validValue = Math.max(numValue, minRowsValue);
+      
+      // Update the actual state and formatted display value
+      setInputs((prev) => ({
+        ...prev,
+        monthlyActiveRows: validValue,
+        totalRecords: validValue // Set both values to the same
+      }));
+      setInputValue(formatNumber(validValue));
+    } catch (error) {
+      // If any error occurs, revert to the current value
+      setInputValue(formatNumber(inputs.monthlyActiveRows));
       toast({
-        title: "Invalid input",
-        description: "Please enter a positive number",
+        title: "Error processing input",
+        description: "Please try again",
         variant: "destructive"
       });
-      return;
     }
-    
-    // Ensure the input value is at least the minimum value
-    const validValue = Math.max(numValue, minRowsValue);
-    
-    setInputs((prev) => ({
-      ...prev,
-      monthlyActiveRows: validValue,
-      totalRecords: validValue // Set both values to the same
-    }));
   };
 
   const handleSliderChange = (name: keyof CalculatorInputs, value: number[]) => {
@@ -119,9 +152,10 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
             </Label>
             <Input
               id="globalRows"
-              value={formatNumber(inputs.totalRecords)}
-              onChange={(e) => handleGlobalRowsInputChange(e.target.value)}
-              onFocus={(e) => e.target.select()}
+              value={inputValue}
+              onChange={handleGlobalRowsInputChange}
+              onBlur={handleGlobalRowsBlur}
+              onFocus={(e) => e.select()}
               className="w-32 text-right"
             />
           </div>
