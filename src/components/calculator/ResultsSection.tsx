@@ -33,7 +33,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results, onScheduleCall
     };
     
     // Use the new logo URL
-    const logoUrl = window.location.origin + '/lovable-uploads/c74dbea7-48e8-45bf-b746-744f25f4e1a6.png';
+    const logoUrl = window.location.origin + '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png';
     console.log("Preloading logo from:", logoUrl);
     img.src = logoUrl;
   }, []);
@@ -99,7 +99,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results, onScheduleCall
           
           {/* Hidden preloaded image - helps ensure the logo is in browser cache */}
           <img 
-            src={window.location.origin + '/lovable-uploads/c74dbea7-48e8-45bf-b746-744f25f4e1a6.png'} 
+            src={window.location.origin + '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png'} 
             alt="Reactor Logo" 
             style={{ display: 'none' }} 
             crossOrigin="anonymous"

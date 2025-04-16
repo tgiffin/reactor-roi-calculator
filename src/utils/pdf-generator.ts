@@ -1,3 +1,4 @@
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CalculatorResults } from "@/lib/calculator-types";
@@ -9,7 +10,7 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   const currentDate = formatDate(new Date());
   
   // Get the logo path with the new logo
-  const logoPath = '/lovable-uploads/c74dbea7-48e8-45bf-b746-744f25f4e1a6.png';
+  const logoPath = '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png';
   
   try {
     // Create a new image element
