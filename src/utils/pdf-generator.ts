@@ -1,4 +1,3 @@
-
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CalculatorResults } from "@/lib/calculator-types";
@@ -79,13 +78,27 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   // Set title and header
   doc.setFontSize(20);
   doc.text("ROI Calculator Report", 14, 50);
-  doc.setFontSize(10);
-  doc.text(`Generated on ${currentDate}`, 14, 58);
   
-  // Add total monthly rows prominently near the top
+  // Add disclaimer text
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100); // Set to a softer grey for disclaimer
+  const disclaimerText = "The calculations below reflect ETL cost savings only vs. Fivetran. Customers should expect " +
+    "additional data warehouse and engineering cost savings and more valuable data that is available faster with Reactor.";
+  
+  // Wrap the disclaimer text to fit within the page width
+  const maxWidth = 180; // maximum width in mm
+  const splitText = doc.splitTextToSize(disclaimerText, maxWidth);
+  doc.text(splitText, 14, 58);
+  
+  // Reset text color and continue with existing code
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(10);
+  doc.text(`Generated on ${currentDate}`, 14, 70);
+  
+  // Adjust subsequent Y positions to account for the new disclaimer text
   doc.setFontSize(12);
   doc.setFont(undefined, 'bold');
-  doc.text(`Total Monthly Rows: ${formatNumber(results.monthlyRows)}`, 14, 66);
+  doc.text(`Total Monthly Rows: ${formatNumber(results.monthlyRows)}`, 14, 78);
   doc.setFont(undefined, 'normal');
   
   // Add Fivetran vs Reactor comparison table
@@ -105,7 +118,7 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
         formatCurrency(results.annualSavings)
       ],
     ],
-    startY: 74,
+    startY: 84, // Adjusted to make room for the disclaimer
     theme: 'grid',
     headStyles: { fillColor: [36, 98, 170] }, // #2462AA
   });
