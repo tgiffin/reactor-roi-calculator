@@ -1,4 +1,3 @@
-
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CalculatorResults } from "@/lib/calculator-types";
@@ -98,7 +97,7 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   
   // Add contact information
   doc.setFontSize(10);
-  doc.text("For more information, visit reactordata.com or contact our sales team.", 14, 180);
+  doc.text("For more information, visit https://reactordata.com/contact/ or contact our sales team at: sales@reactordata.com", 14, 180);
   
   return doc;
 };
