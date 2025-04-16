@@ -9,63 +9,23 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   const doc = new jsPDF();
   const currentDate = formatDate(new Date());
   
-  // Get the logo path with the new logo
-  const logoPath = '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png';
-  
   try {
-    // Create a new image element
-    const img = new Image();
+    // Use a more reliable way to add the logo to the PDF
+    const logoUrl = window.location.origin + '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png';
+    console.log("Adding logo from:", logoUrl);
     
-    // Create a promise to handle image loading
-    await new Promise<void>((resolve, reject) => {
-      img.crossOrigin = "Anonymous"; // Try to avoid CORS issues
-      
-      img.onload = () => {
-        try {
-          // Create a canvas to draw the image
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          
-          // Set dimensions
-          canvas.width = img.width;
-          canvas.height = img.height;
-          
-          // Draw image on canvas
-          if (ctx) {
-            ctx.drawImage(img, 0, 0);
-            
-            // Convert to data URL
-            const imgData = canvas.toDataURL('image/png');
-            
-            // Add to PDF - adjust dimensions to maintain aspect ratio
-            // The Reactor logo is more horizontal, so adjust width accordingly
-            doc.addImage(imgData, 'PNG', 10, 10, 70, 25);
-            console.log("Logo successfully added to PDF");
-          }
-          resolve();
-        } catch (err) {
-          console.error("Canvas error:", err);
-          reject(err);
-        }
-      };
-      
-      img.onerror = (err) => {
-        console.error("Image loading error:", err);
-        reject(err);
-      };
-      
-      // Set full absolute URL to the image
-      const fullUrl = window.location.origin + logoPath;
-      console.log("Loading logo from:", fullUrl);
-      img.src = fullUrl;
-      
-      // Set a fallback in case of timeout
-      setTimeout(() => {
-        if (!img.complete) {
-          reject(new Error("Image load timed out"));
-        }
-      }, 5000);
-    });
+    // Convert the image URL to base64 first
+    const base64Image = await urlToBase64(logoUrl);
+    
+    // If we got a valid base64 string, add it to the PDF
+    if (base64Image) {
+      doc.addImage(base64Image, 'PNG', 10, 10, 70, 25);
+      console.log("Logo successfully added to PDF via base64");
+    } else {
+      // Fallback to text header if base64 conversion fails
+      console.warn("Could not convert logo to base64, using text fallback");
+      throw new Error("Base64 conversion failed");
+    }
   } catch (error) {
     console.error("Logo loading failed:", error);
     
@@ -142,3 +102,39 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
   
   return doc;
 };
+
+// Helper function to convert URL to base64 string
+async function urlToBase64(url: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          resolve(reader.result as string);
+        };
+        reader.onerror = () => {
+          console.error("FileReader error when converting to base64");
+          resolve(null);
+        };
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.onloadend = function() {
+        if (xhr.status !== 200) {
+          console.error("XHR request failed with status:", xhr.status);
+          resolve(null);
+        }
+      };
+      xhr.onerror = function(error) {
+        console.error("XHR error when fetching image:", error);
+        resolve(null);
+      };
+      xhr.send();
+    } catch (error) {
+      console.error("Error in urlToBase64:", error);
+      resolve(null);
+    }
+  });
+}

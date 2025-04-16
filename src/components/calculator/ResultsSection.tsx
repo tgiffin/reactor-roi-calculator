@@ -15,28 +15,6 @@ interface ResultsSectionProps {
 
 const ResultsSection: React.FC<ResultsSectionProps> = ({ results, onScheduleCall }) => {
   const { toast } = useToast();
-  const [logoLoaded, setLogoLoaded] = useState(false);
-
-  // Preload the logo to ensure it's available for PDF generation
-  useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "Anonymous"; // Try to avoid CORS issues
-    
-    img.onload = () => {
-      console.log("New Reactor logo successfully preloaded");
-      setLogoLoaded(true);
-    };
-    
-    img.onerror = (error) => {
-      console.error("Error preloading logo:", error);
-      setLogoLoaded(false);
-    };
-    
-    // Use the new logo URL
-    const logoUrl = window.location.origin + '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png';
-    console.log("Preloading logo from:", logoUrl);
-    img.src = logoUrl;
-  }, []);
 
   const handleDownloadReport = async () => {
     try {
@@ -96,16 +74,6 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ results, onScheduleCall
               onScheduleCall={onScheduleCall}
             />
           </div>
-          
-          {/* Hidden preloaded image - helps ensure the logo is in browser cache */}
-          <img 
-            src={window.location.origin + '/lovable-uploads/3823fd6e-72fa-400d-a590-760d6f904513.png'} 
-            alt="Reactor Logo" 
-            style={{ display: 'none' }} 
-            crossOrigin="anonymous"
-            onLoad={() => console.log("Hidden logo loaded")}
-            onError={(e) => console.error("Hidden logo failed to load:", e)}
-          />
         </CardContent>
       </Card>
     </div>
