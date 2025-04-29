@@ -1,3 +1,4 @@
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CalculatorResults } from "@/lib/calculator-types";
@@ -78,7 +79,7 @@ export const generateROIReport = async (results: CalculatorResults): Promise<jsP
         formatCurrency(results.annualSavings)
       ],
     ],
-    startY: 84, // Adjusted to make room for the disclaimer
+    startY: 84,
     theme: 'grid',
     headStyles: { fillColor: [36, 98, 170] }, // #2462AA
   });

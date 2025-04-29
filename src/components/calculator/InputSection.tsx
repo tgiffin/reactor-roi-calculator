@@ -1,10 +1,7 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { CalculatorInputs, FivetranTier, ReactorTier } from "@/lib/calculator-types";
-import FivetranModelRunsSection from './FivetranModelRunsSection';
-import FivetranTierSection from './FivetranTierSection';
+import { CalculatorInputs, ReactorTier } from "@/lib/calculator-types";
 import ReactorSection from './ReactorSection';
 import ReactorTierSelector from './ReactorTierSelector';
 import { Slider } from "@/components/ui/slider";
@@ -17,6 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { formatNumber } from "@/lib/formatter";
+import DirectFivetranCostInput from './DirectFivetranCostInput';
 
 interface InputSectionProps {
   inputs: CalculatorInputs;
@@ -25,31 +23,30 @@ interface InputSectionProps {
 
 const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
   const { toast } = useToast();
-  const [inputValue, setInputValue] = useState<string>(formatNumber(inputs.monthlyActiveRows));
+  const [inputValue, setInputValue] = useState<string>(formatNumber(inputs.totalRecords));
 
-  const handleGlobalRowsChange = (value: number[]) => {
+  const handleRowsChange = (value: number[]) => {
     setInputs((prev) => ({
       ...prev, 
-      monthlyActiveRows: value[0],
-      totalRecords: value[0] // Set both values to the same
+      totalRecords: value[0]
     }));
     setInputValue(formatNumber(value[0]));
   };
 
-  const handleGlobalRowsInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRowsInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Always update the displayed value as the user types
     const rawValue = e.target.value;
     setInputValue(rawValue);
   };
 
-  const handleGlobalRowsBlur = () => {
+  const handleRowsBlur = () => {
     try {
       // Remove commas and spaces to get a clean number
       const cleanValue = inputValue.replace(/[,\s]/g, '');
       
       // If the input is empty, revert to the current value
       if (!cleanValue) {
-        setInputValue(formatNumber(inputs.monthlyActiveRows));
+        setInputValue(formatNumber(inputs.totalRecords));
         return;
       }
       
@@ -57,7 +54,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
       
       // If not a valid number, revert to the current value
       if (isNaN(numValue)) {
-        setInputValue(formatNumber(inputs.monthlyActiveRows));
+        setInputValue(formatNumber(inputs.totalRecords));
         toast({
           title: "Invalid input",
           description: "Please enter a valid number",
@@ -68,7 +65,7 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
       
       // Validate the range
       if (numValue < 0) {
-        setInputValue(formatNumber(inputs.monthlyActiveRows));
+        setInputValue(formatNumber(inputs.totalRecords));
         toast({
           title: "Invalid input",
           description: "Please enter a positive number",
@@ -83,13 +80,12 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
       // Update the actual state and formatted display value
       setInputs((prev) => ({
         ...prev,
-        monthlyActiveRows: validValue,
-        totalRecords: validValue // Set both values to the same
+        totalRecords: validValue
       }));
       setInputValue(formatNumber(validValue));
     } catch (error) {
       // If any error occurs, revert to the current value
-      setInputValue(formatNumber(inputs.monthlyActiveRows));
+      setInputValue(formatNumber(inputs.totalRecords));
       toast({
         title: "Error processing input",
         description: "Please try again",
@@ -98,27 +94,8 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
     }
   };
 
-  const handleSliderChange = (name: keyof CalculatorInputs, value: number[]) => {
-    setInputs((prev) => ({ ...prev, [name]: value[0] }));
-  };
-
-  const handleInputChange = (name: keyof CalculatorInputs, value: string) => {
-    const numValue = Number(value.replace(/,/g, ''));
-    
-    if (isNaN(numValue) || numValue < 0) {
-      toast({
-        title: "Invalid input",
-        description: "Please enter a valid number",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    setInputs((prev) => ({ ...prev, [name]: numValue }));
-  };
-
-  const setFivetranTier = (tier: FivetranTier) => {
-    setInputs((prev) => ({ ...prev, fivetranTier: tier }));
+  const handleFivetranCostChange = (newCost: number) => {
+    setInputs((prev) => ({ ...prev, fivetranMonthlyCost: newCost }));
   };
 
   const setReactorTier = (tier: ReactorTier) => {
@@ -136,72 +113,70 @@ const InputSection: React.FC<InputSectionProps> = ({ inputs, setInputs }) => {
         <CardTitle className="text-xl font-bold">Calculator Inputs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Global Rows Slider */}
+        {/* Direct Fivetran Cost Input */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="globalRows" className="text-base font-bold flex items-center">
-              Total Monthly Rows
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <InfoIcon className="ml-2 h-4 w-4 text-muted-foreground" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  <p>This sets the number of rows for both Reactor and Fivetran. For Reactor, this represents total records ingested, and for Fivetran, this sets the Monthly Active Rows (MARs).</p>
-                </TooltipContent>
-              </Tooltip>
-            </Label>
-            <Input
-              id="globalRows"
-              value={inputValue}
-              onChange={handleGlobalRowsInputChange}
-              onBlur={handleGlobalRowsBlur}
-              onFocus={(e) => e.currentTarget.select()}
-              className="w-32 text-right"
-            />
-          </div>
-          <Slider
-            id="globalRowsSlider"
-            value={[inputs.totalRecords]}
-            min={minRowsValue}
-            max={maxRowsValue}
-            step={500000}
-            onValueChange={handleGlobalRowsChange}
-            className="py-2"
+          <h3 className="text-lg font-semibold">Fivetran</h3>
+          <DirectFivetranCostInput 
+            value={inputs.fivetranMonthlyCost} 
+            onChange={handleFivetranCostChange} 
           />
         </div>
 
-        {/* Reactor Section - with tier selection */}
+        {/* Horizontal divider */}
+        <div className="border-t border-gray-300 my-4"></div>
+
+        {/* Reactor Section - with tier selection and rows slider */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Reactor Settings</h3>
           
-          {/* Add the new Reactor Tier Selector */}
+          {/* Add the Reactor Tier Selector */}
           <ReactorTierSelector 
             inputs={inputs} 
             setReactorTier={setReactorTier}
           />
           
+          {/* Total Monthly Rows Slider for Reactor */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="totalRecords" className="text-base font-bold flex items-center">
+                Reactor: Total Monthly Rows
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <InfoIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p>This represents the total number of records ingested per month in Reactor. Reactor uses a flat rate pricing model of $400 per million rows with a $2,000 monthly minimum.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
+              <Input
+                id="totalRecords"
+                value={inputValue}
+                onChange={handleRowsInputChange}
+                onBlur={handleRowsBlur}
+                onFocus={(e) => e.currentTarget.select()}
+                className="w-32 text-right"
+              />
+            </div>
+            <Slider
+              id="totalRecordsSlider"
+              value={[inputs.totalRecords]}
+              min={minRowsValue}
+              max={maxRowsValue}
+              step={500000}
+              onValueChange={handleRowsChange}
+              className="py-2"
+            />
+          </div>
+          
+          {/* Keep existing Reactor Section for additional settings if needed */}
           <ReactorSection 
             inputs={inputs} 
-            handleSliderChange={handleSliderChange} 
-            handleInputChange={handleInputChange} 
+            handleSliderChange={() => {}} 
+            handleInputChange={() => {}} 
             hideRowsSlider={true}
           />
         </div>
-
-        {/* Fivetran Tier Selection */}
-        <FivetranTierSection 
-          inputs={inputs} 
-          setFivetranTier={setFivetranTier} 
-          simplified={true}
-        />
-
-        {/* Fivetran Model Runs Section */}
-        <FivetranModelRunsSection 
-          inputs={inputs} 
-          handleSliderChange={handleSliderChange} 
-          handleInputChange={handleInputChange}
-          setFivetranTier={setFivetranTier}
-        />
       </CardContent>
     </Card>
   );

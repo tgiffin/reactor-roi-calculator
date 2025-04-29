@@ -1,13 +1,10 @@
 
-export type FivetranTier = 'standard' | 'enterprise' | 'businessCritical';
 export type ReactorTier = 'flatRate';
 
 export interface CalculatorInputs {
-  monthlyActiveRows: number;
-  totalRecords: number;
-  modelRuns: number;
-  fivetranTier: FivetranTier;
-  reactorTier: ReactorTier;
+  fivetranMonthlyCost: number;  // New direct input field for Fivetran cost
+  totalRecords: number;         // Keep this for Reactor calculations
+  reactorTier: ReactorTier;     // Keep the Reactor tier selection
 }
 
 export interface CalculatorResults {

@@ -7,11 +7,9 @@ import { calculateResults } from '@/lib/calculator-logic';
 
 const Index = () => {
   const [inputs, setInputs] = useState<CalculatorInputs>({
-    monthlyActiveRows: 5000000,
-    totalRecords: 5000000,
-    modelRuns: 0,
-    fivetranTier: 'standard', // Default to standard tier
-    reactorTier: 'flatRate',
+    fivetranMonthlyCost: 2500, // Default monthly Fivetran cost
+    totalRecords: 5000000,     // Default total records for Reactor
+    reactorTier: 'flatRate',   // Default to flat rate tier
   });
 
   const results = calculateResults(inputs);
